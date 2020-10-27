@@ -1,5 +1,3 @@
 # bet-it-front
-front
-test
 
-test
+ ```npm install```
