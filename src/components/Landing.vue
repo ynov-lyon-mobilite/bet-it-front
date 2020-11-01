@@ -1,13 +1,9 @@
 <template>
   <div>
-    <video
-      class="vw-100 vh-100"
-      src="../assets/video.webm"
-      autoplay
-      loop
-      playsinline
-      muted
-    ></video>
+    <video class="vw-100 vh-100" autoplay loop playsinline muted>
+      <source src="../assets/video.webm" type="video/webm" />
+      <source src="../assets/video.mp4" type="video/mp4" />
+    </video>
     <div
       class="logo-wrapper text-center vh-100 d-flex align-center justify-center"
     >
