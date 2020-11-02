@@ -2,7 +2,9 @@
   <v-app>
     <v-main>
       <div v-if="isLoading">
-        <Landing />
+        <v-fade-transition>
+          <Landing />
+        </v-fade-transition>
       </div>
       <div v-else>
         <v-row class="vh-100">
