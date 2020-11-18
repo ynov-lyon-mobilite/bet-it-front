@@ -31,17 +31,17 @@ export default {
   components: {
     MatchList,
     Navbar,
-    Landing,
+    Landing
   },
 
   data: () => ({
-    isLoading: true,
+    isLoading: true
   }),
   mounted() {
     setTimeout(() => {
       this.isLoading = false;
     }, 3000);
-  },
+  }
 };
 </script>
 
