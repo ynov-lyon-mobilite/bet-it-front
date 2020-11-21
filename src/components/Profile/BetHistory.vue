@@ -55,16 +55,7 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-    games: [
-      {
-        name: "Frozen Yogurt",
-        calories: 159
-      }
-    ]
-  })
-};
+export default {};
 </script>
 
 <style></style>
