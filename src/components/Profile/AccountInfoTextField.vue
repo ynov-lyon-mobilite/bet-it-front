@@ -15,7 +15,10 @@
 
 <script>
 export default {
-  props: ["fieldName", "fieldValue"],
+  props: {
+    fieldName: String,
+    fieldValue: String
+  },
   data: () => ({
     value: "",
     editMode: false,

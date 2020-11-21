@@ -31,7 +31,7 @@ export default {
     #0ce1c4,
     #5fb1e0,
     #7634c0
-  ) !important;
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
