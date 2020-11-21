@@ -1,15 +1,39 @@
 <template>
-  <v-container class="vh-100 py-10">
-    <AccountInfos />
+  <v-container class="vh-100 pa-10">
+    <v-row justify="space-between">
+      <v-col>
+        <BetHistory />
+      </v-col>
+      <v-col>
+        <BettiesAmount />
+      </v-col>
+    </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <AccountInfos />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="6">
+        <AccountDeletion />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import AccountInfos from "@/components/Profile/AccountInfos";
+import AccountDeletion from "@/components/Profile/AccountDeletion";
+import BetHistory from "@/components/Profile/BetHistory";
+import BettiesAmount from "@/components/Profile/BettiesAmount";
+
 export default {
   name: "Profile",
   components: {
-    AccountInfos
+    AccountInfos,
+    AccountDeletion,
+    BetHistory,
+    BettiesAmount
   }
 };
 </script>

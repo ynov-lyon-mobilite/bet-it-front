@@ -1,7 +1,7 @@
 <template>
-  <v-card class="profile-card mx-5">
+  <v-card class="profile-card">
     <v-card-title class="card-title">Compte</v-card-title>
-    <v-row class="my-5 pa-16" justify="space-around">
+    <v-row class="my-5 pa-10" justify="space-around">
       <div
         class="my-6 text-center d-flex flex-column align-center justify-space-between"
       >
