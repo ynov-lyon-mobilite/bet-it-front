@@ -1,7 +1,7 @@
 <template>
-  <v-card class="profile-card my-5">
+  <v-card class="profile-card">
     <v-card-title class="card-title">Historique des paris</v-card-title>
-    <v-simple-table>
+    <v-simple-table fixed-header height="240px">
       <thead>
         <tr>
           <th class="text-left">
@@ -25,6 +25,30 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
         <tr>
           <td></td>
           <td></td>

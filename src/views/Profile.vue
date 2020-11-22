@@ -1,20 +1,20 @@
 <template>
   <v-container class="vh-100 pa-10">
     <v-row justify="space-between">
-      <v-col>
+      <v-col cols="12" md="6">
         <BetHistory />
       </v-col>
-      <v-col>
+      <v-col cols="12" md="6">
         <BettiesAmount />
       </v-col>
     </v-row>
-    <v-row no-gutters>
+    <v-row class="my-5" no-gutters>
       <v-col>
         <AccountInfos />
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="6">
+      <v-col cols="12" md="6">
         <AccountDeletion />
       </v-col>
     </v-row>
