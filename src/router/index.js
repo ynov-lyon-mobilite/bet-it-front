@@ -13,6 +13,11 @@ const routes = [
     name: "Home",
     component: () => import(/* webpackChunkName: "about" */ "../views/Home.vue")
   },
+  {
+    path: "/success",
+    name: "Success",
+    component: () => import("../views/Success.vue")
+  }
 ];
 
 const router = new VueRouter({
