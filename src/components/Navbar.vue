@@ -1,28 +1,35 @@
-<template>
-  <v-navigation-drawer>
-    <v-toolbar flat
-               extended
-               extension-height="100"
-               class="pa-3"
-    >
-      <v-avatar>
-        <img
-            src="https://cdn.vuetifyjs.com/images/john.jpg"
-            alt="John"
-        >
-      </v-avatar>
-      <v-list-item-content>
+ <template>
+            <v-navigation-drawer>
+              <v-toolbar flat
+                        extended
+                        height="250"
+                        class="pa-3"
+              >
 
-        <v-list-item-title class="title">
-          UserName
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          @subtext
-        </v-list-item-subtitle>
-      </v-list-item-content>
-    </v-toolbar>
-
-    <v-divider></v-divider>
+              <v-container fluid>
+                <v-row justify="space-around">
+                    <v-row style="margin: 0 0 2vw 1px;">
+                      <v-avatar>
+                        <img
+                            src="https://cdn.vuetifyjs.com/images/john.jpg"
+                            alt="John"
+                        >
+                      </v-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title class="title">
+                          UserName
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                          @subtext
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-row> 
+                    <v-img  width="100" style="flex: none;"
+                    src="../assets/logo-couleur.png"
+                    ></v-img>
+                </v-row>
+              </v-container>
+              </v-toolbar>
 
     <v-list class="pa-3">
       <v-subheader>Menu</v-subheader>
@@ -53,11 +60,11 @@ export default {
   data: () => ({
     selectedItem: 1,
     pages: [
-      { text: 'Accueil', icon: 'fas fa-heart', route:'/home' },
-      { text: 'Calandrier', icon: 'fas fa-heart', route:'/calandare'  },
-      { text: 'Compte', icon: 'fas fa-heart', route:'/profil' },
-      { text: 'Succès', icon: 'fas fa-heart', route:'/succes'  },
-      { text: 'Jeux', icon: 'fas fa-heart', route:'/games'  },
+      { text: 'Accueil', icon: 'fas fa-home', route:'/home' },
+      { text: 'Calandrier', icon: 'fas fa-calendar-alt', route:'/calandare'  },
+      { text: 'Compte', icon: 'fas fa-users', route:'/profil' },
+      { text: 'Succès', icon: 'fas fa-trophy', route:'/succes'  },
+      { text: 'Jeux', icon: 'fas fa-gamepad', route:'/games'  },
     ],
     right: null,
   }),
@@ -65,5 +72,12 @@ export default {
 </script>
 
 <style scoped>
-
+.v-item--active:link {
+    background: linear-gradient(865deg, #0CE1C4 0%, #571E68 50%);
+    transition: .4s ease-in-out;
+    color: white;
+  }
+.v-list-item__title{
+    color: white;
+  }
 </style>
