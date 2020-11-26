@@ -1,5 +1,5 @@
 <template>
-  <v-card class="profile-card">
+  <v-card>
     <v-card-title class="card-title">Betties</v-card-title>
     <div class="pa-2 d-flex justify-center align-center">
       <span class="amount mx-3">{{ amount }}</span>

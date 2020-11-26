@@ -1,5 +1,5 @@
 <template>
-  <v-card class="profile-card">
+  <v-card>
     <v-card-title class="card-title">Historique des paris</v-card-title>
     <v-simple-table fixed-header height="240px">
       <thead>

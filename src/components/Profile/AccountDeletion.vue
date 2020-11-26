@@ -1,5 +1,5 @@
 <template>
-  <v-card class="profile-card">
+  <v-card>
     <v-card-title class="card-title">
       Suppression du compte
     </v-card-title>

@@ -39,10 +39,6 @@ export default {
 </script>
 
 <style lang="scss">
-.profile-card {
-  background: #303030;
-}
-
 .card-title,
 .btn {
   background: linear-gradient(0.25turn, #7634c0, #5fb1e0, #0ce1c4);

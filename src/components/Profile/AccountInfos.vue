@@ -1,5 +1,5 @@
 <template>
-  <v-card class="profile-card">
+  <v-card>
     <v-card-title class="card-title">Compte</v-card-title>
     <v-row class="my-5 pa-10" justify="space-around">
       <div
