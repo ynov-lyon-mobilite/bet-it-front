@@ -92,15 +92,7 @@ export default {
         }
       ]
     }
-  }),
-  methods: {
-    expandBetCategory() {
-      this.isBetCategoryExpanded = !this.isBetCategoryExpanded;
-    },
-    expandBirthdayCategory() {
-      this.isBirthdayCategoryExpanded = !this.isBirthdayCategoryExpanded;
-    }
-  }
+  })
 };
 </script>
 
