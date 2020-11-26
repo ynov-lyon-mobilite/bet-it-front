@@ -45,16 +45,16 @@ export default {
 
 .card-title,
 .btn {
-  background: linear-gradient(0.25turn, #0ce1c4, #5fb1e0, #7634c0);
+  background: linear-gradient(0.25turn, #7634c0, #5fb1e0, #0ce1c4);
   text-transform: none;
 }
 
 .icon {
   background-image: -webkit-linear-gradient(
     0.25turn,
-    #0ce1c4,
+    #7634c0,
     #5fb1e0,
-    #7634c0
+    #0ce1c4
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
