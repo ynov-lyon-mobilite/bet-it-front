@@ -7,7 +7,7 @@
     <div
       class="logo-wrapper text-center vh-100 d-flex align-center justify-center"
     >
-      <div class="">
+      <div class="col-6">
         <v-img class="" src="../assets/logo.svg"></v-img>
       </div>
     </div>
