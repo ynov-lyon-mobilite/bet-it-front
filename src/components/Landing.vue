@@ -7,9 +7,8 @@
     <div
       class="logo-wrapper text-center vh-100 d-flex align-center justify-center"
     >
-      <div class="text-h3 text-sm-h1">
-        Bet-It
-        <span class="d-block text-h5 text-sm-h3">e-sport</span>
+      <div class="">
+        <v-img class="" src="../assets/logo.svg"></v-img>
       </div>
     </div>
   </div>
