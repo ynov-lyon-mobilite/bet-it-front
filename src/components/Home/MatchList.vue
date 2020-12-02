@@ -11,7 +11,8 @@
       </v-row>
       
     <v-row class="flex-row justify-center" style="margin: 0 0 -3vw 21vw;">
-      
+    
+    
       <v-card
           @click="overlay = !overlay"
           color="white"
@@ -20,15 +21,21 @@
           width="200"
           height="200"
           outlined
-          
       >
         <div class="d-flex align-center div-text justify-space-between">
-          <v-img src="../../assets/DW_Logo.png" width="80" class="mr-5" ></v-img>
+          <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
           <div class="line"></div>
-          <v-img src="../../assets/100T_logo.png" width="80" class="ml-5" ></v-img>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
         </div>
-        
-      </v-card>
+      
+      </v-card> 
+
     </v-row>
     <v-row class="flex-row justify-center" style="margin-bottom: 0;">
       <v-card
@@ -44,13 +51,22 @@
 
       >
         <div class="d-flex align-center div-text justify-space-between">
-          <v-img src="../../assets/DW_Logo.png" width="80" class="mr-5" ></v-img>
+          <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
           <div class="line"></div>
-          <v-img src="../../assets/100T_logo.png" width="80" class="ml-5" ></v-img>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
         </div>
       </v-card>
+        
+      
     </v-row>
       <v-row class="flex-row justify-start " style="width: 50vw;margin-bottom: 0;margin-left: 5vw;">
+        
       <v-card
           @click="overlay = !overlay"
           v-for="n in 3"
@@ -63,14 +79,19 @@
           outlined
       >
         <div class="d-flex align-center div-text justify-space-between">
-          <v-img src="../../assets/DW_Logo.png" width="80" class="mr-5" ></v-img>
+           <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
           <div class="line"></div>
-          <v-img src="../../assets/100T_logo.png" width="80" class="ml-5" ></v-img>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
         </div>
       </v-card>
     </v-row>
     <v-row class="flex-row justify-start " style="width: 20vw; margin-left: 8vw; margin-top: -4vw;">
-      
       <v-card
           @click="overlay = !overlay"
           color="white"
@@ -81,51 +102,99 @@
           outlined
       >
         <div class="d-flex align-center div-text justify-space-between">
-          <v-img src="../../assets/DW_Logo.png" width="80" class="mr-5" ></v-img>
+           <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
           <div class="line"></div>
-          <v-img src="../../assets/100T_logo.png" width="80" class="ml-5" ></v-img>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
         </div>
-        
       </v-card>
     </v-row>
+
+     
+
     <v-overlay
       :z-index="zIndex"
       :value="overlay"
       :opacity="0.8"
     >
-    <v-row class="flex-row justify-center">
+    
+    <v-row style="top:2vw"  class="flex-row justify-center">
       
       <v-card
           color="grey"
           cols="3"
-          class="ma-1 d-flex justify-center "
-          width="300"
-          height="300"
+          class="ma-1 d-flex justify-center"
+          width="220"
+          height="220"
           outlined
-          id="test"          
+          id="overlay"   
       >
         <div class="d-flex align-center div-text justify-space-between">
-          <div>
-               <v-img src="../../assets/DW_Logo.png" width="80" class="mr-5" ></v-img>
-            <v-btn
-  elevation="10"
->test</v-btn>
-          </div>
-         
-          <div class="line"></div>
-          <v-img src="../../assets/100T_logo.png" width="80" class="ml-5" ></v-img>
+          <v-col>
+               <v-img src="../../assets/DW_Logo.png" width="80" ></v-img>
+            <v-btn class="ml-2 mt-2" style="font-size:16px ;background: linear-gradient(60deg, #0CE1C4 0%, #571E68 100%);" elevation="10">1.5</v-btn>
+          </v-col>
+          <div   style="height: 20vw;"
+ class="line"  ></div>
+          <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80"></v-img>
+          <v-btn  class="ml-2 mt-5" style="font-size:16px ;background: linear-gradient(60deg, #0CE1C4 0%, #571E68 100%);" elevation="10">1.9</v-btn>
+
+          </v-col>
+        
         </div>
         
       </v-card>
-    </v-row>
-      <v-btn
+    </v-row >
+    <v-card color="grey" id="overlay" width="50vw" style="margin-top:-6vw">
+      <h3 style="color: black;" class="text-center" >Derniers matchs</h3>
+       <div class="d-flex  div-text justify-space-between" style="transform: rotate(0deg);"> 
+          <v-col>
+               <v-img src="../../assets/DW_Logo.png" width="80"></v-img>
+               <p class="ml-6" style="color:black ;font-weight: bold; ">WIN</p>
+               <v-img src="../../assets/DW_Logo.png" width="80"></v-img>
+               <p class="ml-6" style="color:black ;font-weight: bold;">WIN</p>
+          </v-col>
+           <v-col>
+               <v-img src="../../assets/100T_logo.png" width="80" class="ml-16"></v-img>
+              <p  style="color:black;margin-left: 85px; margin-top:13px">LOSE</p>
+              <v-img src="../../assets/100T_logo.png" width="80" class="ml-16"></v-img>
+              <p  style="color:black;margin-left: 85px; margin-top:13px">LOSE</p>
+          </v-col>
+          <div   style="height: 15vw;"
+ class="line"  ></div>
+          <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" ></v-img>
+            <p class="ml-6" style="color:black ;margin-top:13px; font-weight: bold;">WIN</p>
+             <v-img src="../../assets/100T_logo.png" width="80" ></v-img>
+            <p class="ml-6" style="color:black ;margin-top:13px;font-weight: bold;">WIN</p>
+          </v-col>
+           <v-col>
+               <v-img src="../../assets/DW_Logo.png" width="80" class="ml-16"></v-img>
+               <p  style="color:black;margin-left: 84px;">LOSE</p>
+                <v-img src="../../assets/DW_Logo.png" width="80" class="ml-16"></v-img>
+               <p  style="color:black;margin-left: 84px;">LOSE</p>
 
-        class="white--text"  
+          </v-col>
+        
+        </div>
+    </v-card>
+    <div class="d-flex justify-center mt-4">
+<v-btn
+        class="white--text "  
         color="teal"
         @click="overlay = false"
+        style="background: linear-gradient(60deg, #0CE1C4 0%, #571E68 100%);"
       >
-        Hide Overlay
+        Retour
       </v-btn>
+    </div>
+      
     </v-overlay>
   
   </v-container>
@@ -142,6 +211,7 @@ export default {
     opacity: 0.7,
     hover : false,
   }),
+
 }
 </script>
 
@@ -150,7 +220,7 @@ export default {
 .matches-container{
 
 
-  #test:hover{background: unset;
+  #overlay:hover{background: unset;
   transition: none;
     color: grey;}
 
@@ -186,6 +256,17 @@ export default {
     transition: .4s ease-in-out;
     color: white;
   }
+
+  .content{
+  opacity:0;
+  font-weight: bold;
+ 
+}
+ 
+ .v-card:hover .content {
+  opacity:1;
+}
+
 }
 
 
