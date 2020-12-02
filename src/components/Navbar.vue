@@ -55,7 +55,7 @@ export default {
     pages: [
       { text: 'Accueil', icon: 'fas fa-heart', route:'/home' },
       { text: 'Calandrier', icon: 'fas fa-heart', route:'/calandare'  },
-      { text: 'Compte', icon: 'fas fa-heart', route:'/profil' },
+      { text: 'Compte', icon: 'fas fa-heart', route:'/profile' },
       { text: 'Succès', icon: 'fas fa-heart', route:'/success'  },
       { text: 'Jeux', icon: 'fas fa-heart', route:'/games'  },
     ],
