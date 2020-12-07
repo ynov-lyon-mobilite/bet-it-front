@@ -1,49 +1,36 @@
- <template>
-            <v-navigation-drawer>
-              <v-toolbar flat
-                        extended
-                        height="250"
-                        class="pa-3"
-              >
-
-              <v-container fluid>
-                <v-row justify="space-around">
-                    <v-row style="margin: 0 0 2vw 1px;">
-                      <v-avatar>
-                        <img
-                            src="https://cdn.vuetifyjs.com/images/john.jpg"
-                            alt="John"
-                        >
-                      </v-avatar>
-                      <v-list-item-content>
-                        <v-list-item-title class="title">
-                          UserName
-                        </v-list-item-title>
-                        <v-list-item-subtitle>
-                          @subtext
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-row>
-                    <v-img  width="100" style="flex: none;"
-                    src="../assets/logo-couleur.png"
-                    ></v-img>
-                </v-row>
-              </v-container>
-              </v-toolbar>
+<template>
+  <v-navigation-drawer>
+    <v-toolbar flat extended height="250" class="pa-3">
+      <v-container fluid>
+        <v-row justify="space-around">
+          <v-row style="margin: 0 0 2vw 1px;">
+            <v-avatar>
+              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+            </v-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="title">
+                UserName
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                @subtext
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-row>
+          <v-img
+            width="100"
+            style="flex: none;"
+            src="../assets/logo-couleur.svg"
+          ></v-img>
+        </v-row>
+      </v-container>
+    </v-toolbar>
 
     <v-divider></v-divider>
 
     <v-list class="pa-3">
       <v-subheader>Menu</v-subheader>
-      <v-list-item-group
-          v-model="selectedItem"
-          color="primary"
-      >
-        <v-list-item
-            v-for="(page, i) in pages"
-            :key="i"
-            :to="page.route"
-        >
+      <v-list-item-group v-model="selectedItem" color="primary">
+        <v-list-item v-for="(page, i) in pages" :key="i" :to="page.route">
           <v-list-item-icon>
             <v-icon v-text="page.icon"></v-icon>
           </v-list-item-icon>
@@ -62,24 +49,29 @@ export default {
   data: () => ({
     selectedItem: 1,
     pages: [
-      { text: 'Accueil', icon: 'fas fa-heart', route:'/home' },
-      { text: 'Calandrier', icon: 'fas fa-heart', route:'/calandare'  },
-      { text: 'Compte', icon: 'fas fa-heart', route:'/profile' },
-      { text: 'Succès', icon: 'fas fa-heart', route:'/success'  },
-      { text: 'Jeux', icon: 'fas fa-heart', route:'/games'  },
+      { text: "Accueil", icon: "fas fa-heart", route: "/home" },
+      { text: "Calandrier", icon: "fas fa-heart", route: "/calandare" },
+      { text: "Compte", icon: "fas fa-heart", route: "/profile" },
+      { text: "Succès", icon: "fas fa-heart", route: "/success" },
+      { text: "Jeux", icon: "fas fa-heart", route: "/games" }
     ],
-    right: null,
-  }),
-}
+    right: null
+  })
+};
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .v-item--active:link {
-    background: linear-gradient(865deg, #0CE1C4 0%, #571E68 50%);
-    transition: .4s ease-in-out;
-    color: white;
-  }
-.v-list-item__title{
-    color: white;
-  }
+  background: linear-gradient(
+    90deg,
+    var(--v-secondary-base),
+    var(--v-info-base),
+    var(--v-darkPurple-base)
+  );
+  transition: 0.4s ease-in-out;
+  color: white;
+}
+.v-list-item__title {
+  color: white;
+}
 </style>

@@ -12,14 +12,18 @@ export default new Vuetify({
     },
     themes: {
       dark: {
+        // logo colors
        // primary: "#7634C0",
-        primary: "#0CE1C4",
-        secondary: "#424242",
-        accent: "#20ADAA",
+        primary: "#c616ff",
+        accent: "#a141f8",
+        info: "#6c7eee",
+        success: "#43aee6",
+        secondary: "#0ceddc",
+        //for others color codes
         error: "#FF5252",
-        info: "#366C82",
-        success: "#571E68",
-        warning: "#7634C0"
+        //custom
+        warning: "#a141f8",
+        darkPurple: "#7634c0",
       },
     }
   },

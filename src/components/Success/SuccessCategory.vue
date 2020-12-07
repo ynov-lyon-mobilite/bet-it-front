@@ -55,7 +55,7 @@ export default {
     progress: Number
   },
   data: () => ({
-    isExpanded: false
+    isExpanded: true
   })
 };
 </script>

@@ -133,7 +133,7 @@ export default {
   }
 
   .v-card:hover {
-    background: linear-gradient(60deg, #0CE1C4 0%, #571E68 100%);
+    background: linear-gradient(50deg, var(--v-secondary-base)  0%, var(--v-primary-base) 100%);
     transition: .4s ease-in-out;
     color: white;
   }

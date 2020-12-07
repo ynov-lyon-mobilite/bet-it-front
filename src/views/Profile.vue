@@ -41,16 +41,16 @@ export default {
 <style lang="scss">
 .card-title,
 .btn {
-  background: linear-gradient(0.25turn, #7634c0, #5fb1e0, #0ce1c4);
+  background: linear-gradient(0.25turn, var(--v-darkPurple-base) , var(--v-info-base),  var(--v-secondary-base));
   text-transform: none;
 }
 
 .icon {
   background-image: -webkit-linear-gradient(
     0.25turn,
-    #7634c0,
-    #5fb1e0,
-    #0ce1c4
+    var(--v-darkPurple-base),
+    var(--v-info-base),
+    var(--v-secondary-base)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
