@@ -103,7 +103,12 @@ export default {
 .card-title,
 .btn,
 .reward {
-  background: linear-gradient(0.25turn, #7634c0, #5fb1e0, #0ce1c4);
+  background: linear-gradient(
+    0.25turn,
+    var(--v-darkPurple-base),
+    var(--v-info-base),
+    var(--v-secondary-base)
+  );
   text-transform: none;
 }
 
@@ -115,6 +120,6 @@ export default {
 }
 
 .success-mark {
-  color: #0ce1c4;
+  color: var(--v-secondary-base);
 }
 </style>

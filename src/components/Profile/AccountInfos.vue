@@ -75,7 +75,7 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
-    border: 1px solid #0ce1c4;
+    border: 1px solid var(--v-secondary-base);
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);

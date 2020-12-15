@@ -22,7 +22,7 @@
             <v-card-title class="card-title"></v-card-title>
             <v-progress-linear
               v-if="!success.isDone"
-              color="#0CE1C4"
+              color="secondary"
               :value="(progress / success.goal) * 100"
             ></v-progress-linear>
             <div class="text-h4 text-center py-5">
