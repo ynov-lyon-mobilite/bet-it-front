@@ -35,7 +35,7 @@ export default {
   },
 
   data: () => ({
-    isLoading: true
+    isLoading: false
   }),
   mounted() {
     setTimeout(() => {
