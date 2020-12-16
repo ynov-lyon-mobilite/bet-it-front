@@ -50,7 +50,7 @@ export default {
     selectedItem: 1,
     pages: [
      { text: 'Accueil', icon: 'fas fa-home', route:'/home' },
-      { text: 'Calandrier', icon: 'fas fa-calendar-alt', route:'/calandare'  },
+      { text: 'Calendrier', icon: 'fas fa-calendar-alt', route:'/calandare'  },
       { text: 'Compte', icon: 'fas fa-users', route:'/profil' },
       { text: 'Succès', icon: 'fas fa-trophy', route:'/succes'  },
       { text: 'Jeux', icon: 'fas fa-gamepad', route:'/games'  },
