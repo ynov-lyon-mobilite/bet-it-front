@@ -5,18 +5,22 @@
       <v-img class="mx-3" max-width="100" src="../assets/betties.png"></v-img>
     </div>
     <v-row class="mt-12 justify-center">
-      <v-col cols="12" md="6" class="justify-center">
+      <v-col cols="12" md="6" class="d-flex flex-column justify-center">
         <v-card
           color="white"
-          class="game-card mb-16 ml-12 d-flex justify-center"
+          class="game-card"
           width="200"
           height="200"
           outlined
         >
           <div class="d-flex align-center div-text w-100 justify-space-between">
-            <div class="text-card">team</div>
+            <v-img
+              class="mx-2"
+              src="../assets/100T_logo.png"
+              width="80"
+            ></v-img>
             <div class="line"></div>
-            <div class="text-card">team</div>
+            <v-img class="mx-2" src="../assets/DW_Logo.png" width="80"></v-img>
           </div>
         </v-card>
         <v-card color="white" class="d-flex justify-center">
@@ -26,26 +30,38 @@
       <v-col cols="12" md="6">
         <v-card class="bet-details" color="white">
           <v-card-title class="card-title">Paris à venir</v-card-title>
-          <v-row class="justify-space-around">
+          <div class="d-flex justify-center align-center">
+            <v-col class="d-flex justify-center"
+              ><div class="text-h4">Winner</div></v-col
+            >
+            <v-col><div class="text-h5">2000 B</div></v-col>
+            <v-col
+              ><v-img src="../assets/100T_logo.png" width="60"></v-img
+            ></v-col>
+          </div>
+          <div class="d-flex justify-center align-center">
             <v-col><div class="text-h4">Winner</div></v-col>
             <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col></v-col>
-          </v-row>
-          <v-row class="justify-space-around">
-            <v-col><div class="text-h4">Winner</div></v-col>
-            <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col></v-col>
-          </v-row>
-          <v-row class="justify-space-around">
+            <v-col
+              ><v-img src="../assets/DW_Logo.png" width="60"></v-img
+            ></v-col>
+          </div>
+          <div class="d-flex justify-center align-center">
             <v-col><div class="text-h4">First Blood</div></v-col>
             <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col></v-col>
-          </v-row>
-          <v-row class="justify-space-around">
+            <v-col
+              ><v-col
+                ><v-img src="../assets/100T_logo.png" width="60"></v-img></v-col
+            ></v-col>
+          </div>
+          <div class="d-flex justify-center align-center">
             <v-col><div class="text-h4">First Turret</div></v-col>
             <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col></v-col>
-          </v-row>
+            <v-col
+              ><v-col
+                ><v-img src="../assets/DW_Logo.png" width="60"></v-img></v-col
+            ></v-col>
+          </div>
         </v-card>
       </v-col>
     </v-row>
@@ -92,7 +108,7 @@ export default {};
   color: white;
 }
 
-.bet-details > .row {
+.bet-details > div {
   color: black;
 }
 </style>
