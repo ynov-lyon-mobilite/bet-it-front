@@ -13,9 +13,11 @@
     <v-row class="flex-row justify-center" style="margin: 0 0 -3vw 21vw;">
     
       <v-card
+          v-for="n in 2"
+          :key="n"
           color="white"
           cols="3"
-          class="ma-1 d-flex justify-center "
+          class="ma-2 d-flex justify-center "
           width="200"
           height="200"
           outlined
@@ -41,7 +43,7 @@
           color="white"
           :key="n"
           cols="3"
-          class="ma-1 d-flex justify-center"
+          class="ma-2 d-flex justify-center"
           width="200"
           height="200"
           outlined
@@ -69,7 +71,7 @@
           color="white"
           :key="n"
           cols="3"
-          class="ma-1 d-flex justify-center "
+          class="ma-2 d-flex justify-center "
           width="200"
           height="200"
           outlined
@@ -89,6 +91,7 @@
     </v-row>
     <v-row class="flex-row justify-start " style="width: 20vw; margin-left: 8vw; margin-top: -4vw;">
       <v-card
+      
           color="white"
           cols="3"
           class="ma-1 d-flex justify-center "
