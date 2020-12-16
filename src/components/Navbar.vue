@@ -49,11 +49,11 @@ export default {
   data: () => ({
     selectedItem: 1,
     pages: [
-      { text: "Accueil", icon: "fas fa-heart", route: "/home" },
-      { text: "Calandrier", icon: "fas fa-heart", route: "/calandare" },
-      { text: "Compte", icon: "fas fa-heart", route: "/profile" },
-      { text: "Succès", icon: "fas fa-heart", route: "/success" },
-      { text: "Jeux", icon: "fas fa-heart", route: "/games" }
+     { text: 'Accueil', icon: 'fas fa-home', route:'/home' },
+      { text: 'Calandrier', icon: 'fas fa-calendar-alt', route:'/calandare'  },
+      { text: 'Compte', icon: 'fas fa-users', route:'/profil' },
+      { text: 'Succès', icon: 'fas fa-trophy', route:'/succes'  },
+      { text: 'Jeux', icon: 'fas fa-gamepad', route:'/games'  },
     ],
     right: null
   })

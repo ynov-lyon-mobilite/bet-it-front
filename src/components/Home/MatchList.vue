@@ -1,98 +1,114 @@
 <template>
-  <v-container class="vh-100 matches-container">
-    <v-row class="flex-row justify-center">
+  <v-container class="vh-100 matches-container" style="margin-top: -10vw;">
+    <v-row id="title"  class="ml-5 mb-10 flex-row justify-space-between">
       <div>
-        <h2>Worlds 2020</h2>
+        <h1 style="text-shadow:0 0 10px black, 0 0 20px #454d7e, 0 0 30px #454d7e, 0 0 70px #454d7e">WORLDS 2020</h1>
       </div>
-    </v-row>
-    <v-row class="flex-row justify-center">
+      <div>
+        <img style="width: 10vw;
+    margin-top: -2vw;" src="../../assets/betties.png" alt="monnaie">
+      </div>
+      </v-row>
+      
+    <v-row class="flex-row justify-center" style="margin: 0 0 -3vw 21vw;">
+    
       <v-card
-          v-for="n in 5"
           color="white"
-          :key="n"
           cols="3"
-          class="ma-1 d-flex justify-center"
+          class="ma-1 d-flex justify-center "
           width="200"
           height="200"
           outlined
       >
-        <div class="d-flex align-center div-text w-100 justify-space-between">
-          <div class="text-card">team</div>
+        <div class="d-flex align-center div-text justify-space-between">
+          <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
           <div class="line"></div>
-          <div  class="text-card">team</div>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
         </div>
-      </v-card>
-    </v-row>
-    <v-row class="flex-row justify-center">
-      <div>
-        <h2>Compétitions 2020</h2>
-      </div>
-    </v-row>
-    <v-row class="flex-row justify-center">
-      <v-card
-          v-for="n in 5"
-          color="white"
-          :key="n"
-          cols="3"
-          class="ma-1 d-flex justify-center"
-          width="200"
-          height="200"
-          outlined
-      >
-        <div class="d-flex align-center div-text w-100 justify-space-between">
-          <div class="text-card">team</div>
-          <div class="line"></div>
-          <div  class="text-card">team</div>
-        </div>
-      </v-card>
-    </v-row>
+      
+      </v-card> 
 
-    <v-row class="flex-row justify-center">
-      <div>
-        <h2>Les matchs OSEF 2020</h2>
-      </div>
     </v-row>
-  <v-row  class="flex-row justify-center ">
-    <v-card
-        v-for="n in 15"
-        color="white"
-        :key="n"
-        cols="3"
-        class="ma-1 d-flex justify-center"
-        width="200"
-        height="200"
-        outlined
-    >
-      <div class="d-flex align-center div-text w-100 justify-space-between">
-        <div class="text-card">team</div>
-        <div class="line"></div>
-        <div  class="text-card">team</div>
-      </div>
-    </v-card>
-  </v-row>
-    <v-row class="flex-row justify-center">
-      <div>
-        <h2>Les trucs paumés 2020</h2>
-      </div>
+    <v-row class="flex-row justify-center" style="margin-bottom: 0;">
+      <v-card
+          v-for="n in 3"
+          color="white"
+          :key="n"
+          cols="3"
+          class="ma-1 d-flex justify-center"
+          width="200"
+          height="200"
+          outlined
+
+      >
+        <div class="d-flex align-center div-text justify-space-between">
+          <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
+          <div class="line"></div>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
+        </div>
+      </v-card>
+        
+      
     </v-row>
-    <v-row  class="flex-row justify-center ">
-    <v-card
-        v-for="n in 3"
-        color="white"
-        :key="n"
-        cols="3"
-        class="ma-1 d-flex justify-center"
-        width="200"
-        height="200"
-        outlined
-    >
-      <div class="d-flex align-center div-text w-100 justify-space-between">
-        <div class="text-card">team</div>
-        <div class="line"></div>
-        <div  class="text-card">team</div>
-      </div>
-    </v-card>
-  </v-row>
+      <v-row class="flex-row justify-start " style="width: 50vw;margin-bottom: 0;margin-left: 5vw;">
+        
+      <v-card
+          v-for="n in 3"
+          color="white"
+          :key="n"
+          cols="3"
+          class="ma-1 d-flex justify-center "
+          width="200"
+          height="200"
+          outlined
+      >
+        <div class="d-flex align-center div-text justify-space-between">
+           <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
+          <div class="line"></div>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
+        </div>
+      </v-card>
+    </v-row>
+    <v-row class="flex-row justify-start " style="width: 20vw; margin-left: 8vw; margin-top: -4vw;">
+      <v-card
+          color="white"
+          cols="3"
+          class="ma-1 d-flex justify-center "
+          width="200"
+          height="200"
+          outlined
+      >
+        <div class="d-flex align-center div-text justify-space-between">
+           <v-col>
+          <v-img src="../../assets/DW_Logo.png" width="80" class="ml-4 mt-6"  ></v-img>
+            <p style=" margin-left:37px; margin-top:6px; font-size:25px " class="content">1.9</p>
+          </v-col>
+          <div class="line"></div>
+         <v-col>
+          <v-img src="../../assets/100T_logo.png" width="80" class="mr-4 mt-7" ></v-img>
+          <p style=" margin-left:20px; margin-top:12px; font-size:25px " class="content">2.5</p>
+         </v-col>
+        </div>
+      </v-card>
+    </v-row>
   </v-container>
 
 </template>
@@ -101,19 +117,24 @@
 export default {
   name: "MatchList",
   data: () => ({
-    matches: [],
+    matches: [], 
   }),
+
 }
 </script>
 
 <style lang="scss" scoped>
 
 .matches-container{
+
+  #title{
+        transform: rotate(0deg);
+        font-size: 30px;
+  }
   .row{
     position: relative;
     top : 200px;
     transform: rotate(45deg);
-    //transform-origin: top left;
     transform-origin: center;
     margin-bottom: 170px;
   }
@@ -137,10 +158,19 @@ export default {
     transition: .4s ease-in-out;
     color: white;
   }
+
+  .content{
+  color:black;
+  font-weight: bold;
+ 
+}
+ 
+ .v-card:hover .content {
+  color: white;
 }
 
-.rotate{
-  transform: rotate(-45deg);
 }
+
+
 
 </style>
