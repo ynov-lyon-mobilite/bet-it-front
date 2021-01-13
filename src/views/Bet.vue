@@ -5,10 +5,10 @@
       <v-img class="mx-3" max-width="100" src="../assets/betties.png"></v-img>
     </div>
     <v-row class="mt-12 justify-center">
-      <v-col cols="12" md="6" class="d-flex flex-column justify-center">
+      <v-col cols="12" md="6" class="d-flex flex-column align-center">
         <v-card
           color="white"
-          class="game-card"
+          class="game-card mt-10"
           width="200"
           height="200"
           outlined
@@ -23,44 +23,27 @@
             <v-img class="mx-2" src="../assets/DW_Logo.png" width="80"></v-img>
           </div>
         </v-card>
-        <v-card color="white" class="d-flex justify-center">
-          <div class="games-history text-h4">Derniers matchs</div>
+        <v-card
+          color="white"
+          class="games-history d-flex flex-column align-center mt-12 mx-4"
+        >
+          <div class="text-h4 text-center my-3">Derniers matchs</div>
+          <div class="d-flex justify-center flex-wrap">
+            <GameHistory v-for="(team, idx) in teams" :key="idx" :team="team" />
+          </div>
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
-        <v-card class="bet-details" color="white">
+        <v-card class="bet-types mx-4" color="white">
           <v-card-title class="card-title">Paris à venir</v-card-title>
-          <div class="d-flex justify-center align-center">
-            <v-col class="d-flex justify-center"
-              ><div class="text-h4">Winner</div></v-col
-            >
-            <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col
-              ><v-img src="../assets/100T_logo.png" width="60"></v-img
-            ></v-col>
-          </div>
-          <div class="d-flex justify-center align-center">
-            <v-col><div class="text-h4">Winner</div></v-col>
-            <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col
-              ><v-img src="../assets/DW_Logo.png" width="60"></v-img
-            ></v-col>
-          </div>
-          <div class="d-flex justify-center align-center">
-            <v-col><div class="text-h4">First Blood</div></v-col>
-            <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col
-              ><v-col
-                ><v-img src="../assets/100T_logo.png" width="60"></v-img></v-col
-            ></v-col>
-          </div>
-          <div class="d-flex justify-center align-center">
-            <v-col><div class="text-h4">First Turret</div></v-col>
-            <v-col><div class="text-h5">2000 B</div></v-col>
-            <v-col
-              ><v-col
-                ><v-img src="../assets/DW_Logo.png" width="60"></v-img></v-col
-            ></v-col>
+          <div class="pa-4">
+            <BetType v-for="(bet, idx) in bets" :key="idx" :bet="bet" />
+            <div class="d-flex justify-space-around align-center">
+              <div>Mise totale</div>
+            </div>
+            <div class="d-flex justify-space-around align-center">
+              <div>Gains potentiels</div>
+            </div>
           </div>
         </v-card>
       </v-col>
@@ -69,10 +52,78 @@
 </template>
 
 <script>
-export default {};
+import BetType from "@/components/Bet/BetType";
+import GameHistory from "@/components/Bet/GameHistory";
+
+export default {
+  components: {
+    BetType,
+    GameHistory
+  },
+  data: () => ({
+    totalAmount: 0,
+    bets: [
+      {
+        label: "Winner",
+        team: {
+          logo: require("../assets/100T_logo.png")
+        },
+        odd: 1.03
+      },
+      {
+        label: "Winner",
+        team: {
+          logo: require("../assets/DW_Logo.png")
+        },
+        odd: 1.59
+      },
+      {
+        label: "First Blood",
+        team: {
+          logo: require("../assets/100T_logo.png")
+        },
+        odd: 1.03
+      },
+      {
+        label: "First Turret",
+        team: {
+          logo: require("../assets/DW_Logo.png")
+        },
+        odd: 1.53
+      }
+    ],
+    teams: [
+      {
+        logo: require("../assets/100T_logo.png"),
+        history: [
+          { result: "W" },
+          { result: "W" },
+          { result: "L" },
+          { result: "W" },
+          { result: "L" }
+        ]
+      },
+      {
+        logo: require("../assets/DW_Logo.png"),
+        history: [
+          { result: "W" },
+          { result: "W" },
+          { result: "L" },
+          { result: "W" },
+          { result: "L" }
+        ]
+      }
+    ]
+  })
+};
 </script>
 
 <style lang="scss" scoped>
+.bet-types,
+.games-history {
+  background: #303030 !important;
+}
+
 .card-title {
   background: linear-gradient(
     0.25turn,
@@ -98,17 +149,5 @@ export default {};
   transform-origin: center;
   transition: 0.4s ease-in-out;
   color: grey;
-}
-
-.games-history {
-  color: black;
-}
-
-.amount {
-  color: white;
-}
-
-.bet-details > div {
-  color: black;
 }
 </style>
