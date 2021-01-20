@@ -6,7 +6,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/home"
+    redirect: "/landing",
+  },
+  {
+    path: "/landing",
+    name: "Landing",
+    component: () => import(/* webpackChunkName: "about" */ "../views/Landing.vue")
   },
   {
     path: "/home",

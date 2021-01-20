@@ -1,12 +1,6 @@
 <template>
   <v-app>
     <v-main>
-      <div v-if="isLoading">
-        <v-fade-transition>
-          <Landing />
-        </v-fade-transition>
-      </div>
-      <div v-else>
         <v-row class="vh-100">
           <div class="col-2 ma-0 pa-0">
             <Navbar></Navbar>
@@ -15,7 +9,6 @@
             <router-view />
           </div>
         </v-row>
-      </div>
     </v-main>
   </v-app>
 </template>
@@ -23,7 +16,6 @@
 <script>
 import Navbar from "@/components/Navbar";
 import MatchList from "@/components/Home/MatchList";
-import Landing from "@/components/Landing";
 import axios from "axios";
 import store from "@/store/index.js";
 
@@ -33,7 +25,6 @@ export default {
   components: {
     MatchList,
     Navbar,
-    Landing
   },
 
   data: () => ({
