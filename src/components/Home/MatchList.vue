@@ -1,173 +1,205 @@
 <template>
-  <v-container class="vh-100 matches-container" style="margin-top: -12vw;">
-    <v-row id="title" class="ml-10 mb-n10 flex-row justify-space-between">
-      <div style="display:flex">
-        <h1
-          class="ml-5"
-          style="font-size: 40px;color: #fff; text-shadow: rgb(255, 255, 255) 0px 0px 5px, rgb(0 0 0) 0px 0px 10px, rgb(0, 0, 0) 0px 0px 20px, rgb(2, 2, 2) 0px 0px 40px, rgb(107, 108, 117) 0px 0px 67px, rgb(44, 51, 51) 0px 0px 90px, rgb(33, 37, 37) 0px 0px 100px, rgb(51, 56, 56) 0px 0px 150px"
-        >
+  <span>
+    <v-row id="title" class="flex-row justify-space-between pa-4">
+      <div>
+        <h1 style="font-size: 40px;color: #fff; text-shadow: rgb(255, 255, 255) 0px 0px 5px, rgb(0 0 0) 0px 0px 10px, rgb(0, 0, 0) 0px 0px 20px, rgb(2, 2, 2) 0px 0px 40px, rgb(107, 108, 117) 0px 0px 67px, rgb(44, 51, 51) 0px 0px 90px, rgb(33, 37, 37) 0px 0px 100px, rgb(51, 56, 56) 0px 0px 150px">
           LEC 2021
         </h1>
-        <p class="mt-2 ml-16">Vendredi–5 février | Samedi–6 février</p>
+        <p>22/01 | 06/02</p>
       </div>
       <div>
         <img
-          style="width: 10vw;
-    margin-top: -2vw;"
+          style="width: 10vw"
           src="../../assets/betties.png"
           alt="monnaie"
         />
       </div>
     </v-row>
-
-    <v-row class="flex-row justify-center" style="margin: 105px 0px -3vw 16vw;">
-      <v-card
-        v-for="match in bloc1"
-        v-bind:key="match"
-        color="white"
-        cols="3"
-        class="ma-3 d-flex justify-center "
-        width="150"
-        height="150"
-        outlined
-        href="#"
+    <v-container class="vh-100 matches-container">
+      <v-row
+        class="flex-row justify-center"
+        style="margin: 105px 0px -3vw 16vw;"
       >
-        <div class="d-flex align-center div-text justify-space-between">
-          <v-col>
-            <v-img :src="match.team1.logo" width="55" class="ml-4 mt-6"></v-img>
-            <p
-              style="margin-left: 31px;margin-top: 6px;font-size: 20px;margin-bottom: 10px; "
-              class="content"
-            >
-              {{ match.team1.cote }}
-            </p>
-          </v-col>
-          <div class="line"></div>
-          <v-col>
-            <v-img :src="match.team2.logo" width="55" class="mr-4 mt-7"></v-img>
-            <p
-              style=" margin-left:14px; margin-top:12px; font-size:20px "
-              class="content"
-            >
-              {{ match.team2.cote }}
-            </p>
-          </v-col>
-        </div>
-      </v-card>
-    </v-row>
-    <v-row class="flex-row justify-center mb-0">
-      <v-card
-        v-for="match in bloc2"
-        v-bind:key="match"
-        color="white"
-        cols="3"
-        class="ma-3 d-flex justify-center"
-        width="150"
-        height="150"
-        outlined
-        href="#"
+        <v-card
+          v-for="match in bloc1"
+          v-bind:key="match"
+          color="white"
+          cols="3"
+          class="ma-3 d-flex justify-center "
+          width="150"
+          height="150"
+          outlined
+          href="#"
+        >
+          <div class="d-flex align-center div-text justify-space-between">
+            <v-col>
+              <v-img
+                :src="match.team1.logo"
+                width="55"
+                class="ml-4 mt-6"
+              ></v-img>
+              <p
+                style="margin-left: 31px;margin-top: 6px;font-size: 20px;margin-bottom: 10px; "
+                class="content"
+              >
+                {{ match.team1.cote }}
+              </p>
+            </v-col>
+            <div class="line"></div>
+            <v-col>
+              <v-img
+                :src="match.team2.logo"
+                width="55"
+                class="mr-4 mt-7"
+              ></v-img>
+              <p
+                style=" margin-left:14px; margin-top:12px; font-size:20px "
+                class="content"
+              >
+                {{ match.team2.cote }}
+              </p>
+            </v-col>
+          </div>
+        </v-card>
+      </v-row>
+      <v-row class="flex-row justify-center mb-0">
+        <v-card
+          v-for="match in bloc2"
+          v-bind:key="match"
+          color="white"
+          cols="3"
+          class="ma-3 d-flex justify-center"
+          width="150"
+          height="150"
+          outlined
+          href="#"
+        >
+          <div class="d-flex align-center div-text justify-space-between">
+            <v-col>
+              <v-img
+                :src="match.team1.logo"
+                width="55"
+                class="ml-4 mt-6"
+              ></v-img>
+              <p
+                style="margin-left: 32px;margin-top: 6px;font-size: 20px;margin-bottom: 10px; "
+                class="content"
+              >
+                {{ match.team1.cote }}
+              </p>
+            </v-col>
+            <div class="line"></div>
+            <v-col>
+              <v-img
+                :src="match.team2.logo"
+                width="55"
+                class="mr-4 mt-7"
+              ></v-img>
+              <p
+                style=" margin-left:18px; margin-top:12px; font-size:20px "
+                class="content"
+              >
+                {{ match.team2.cote }}
+              </p>
+            </v-col>
+          </div>
+        </v-card>
+      </v-row>
+      <v-row
+        class="flex-row justify-start "
+        style="width: 50vw;margin-bottom: 0;margin-bottom: 0px;margin-left: 7vw;margin-top: -20px;  "
       >
-        <div class="d-flex align-center div-text justify-space-between">
-          <v-col>
-            <v-img :src="match.team1.logo" width="55" class="ml-4 mt-6"></v-img>
-            <p
-              style="margin-left: 32px;margin-top: 6px;font-size: 20px;margin-bottom: 10px; "
-              class="content"
-            >
-              {{ match.team1.cote }}
-            </p>
-          </v-col>
-          <div class="line"></div>
-          <v-col>
-            <v-img :src="match.team2.logo" width="55" class="mr-4 mt-7"></v-img>
-            <p
-              style=" margin-left:18px; margin-top:12px; font-size:20px "
-              class="content"
-            >
-              {{ match.team2.cote }}
-            </p>
-          </v-col>
-        </div>
-      </v-card>
-    </v-row>
-    <v-row
-      class="flex-row justify-start "
-      style="width: 50vw;margin-bottom: 0;margin-bottom: 0px;margin-left: 7vw;margin-top: -20px;  "
-    >
-      <v-card
-        v-for="match in bloc3"
-        v-bind:key="match"
-        color="white"
-        cols="3"
-        class="ma-3 d-flex justify-center "
-        width="150"
-        height="150"
-        outlined
-        href="#"
-      >
-        <div class="d-flex align-center div-text justify-space-between">
-          <v-col>
-            <v-img :src="match.team1.logo" width="55" class="ml-4 mt-6"></v-img>
-            <p
-              style="margin-left: 32px;margin-top: 6px;font-size: 20px;margin-bottom: 10px; "
-              class="content"
-            >
-              {{ match.team1.cote }}
-            </p>
-          </v-col>
-          <div class="line"></div>
-          <v-col>
-            <v-img :src="match.team2.logo" width="55" class="mr-4 mt-7"></v-img>
-            <p
-              style=" margin-left:15px; margin-top:12px; font-size:20px "
-              class="content"
-            >
-              {{ match.team2.cote }}
-            </p>
-          </v-col>
-        </div>
-      </v-card>
-    </v-row>
-    <v-row
-      class="flex-row justify-start "
-      style="width: 50%;margin-top: -3vw;
+        <v-card
+          v-for="match in bloc3"
+          v-bind:key="match"
+          color="white"
+          cols="3"
+          class="ma-3 d-flex justify-center "
+          width="150"
+          height="150"
+          outlined
+          href="#"
+        >
+          <div class="d-flex align-center div-text justify-space-between">
+            <v-col>
+              <v-img
+                :src="match.team1.logo"
+                width="55"
+                class="ml-4 mt-6"
+              ></v-img>
+              <p
+                style="margin-left: 32px;margin-top: 6px;font-size: 20px;margin-bottom: 10px; "
+                class="content"
+              >
+                {{ match.team1.cote }}
+              </p>
+            </v-col>
+            <div class="line"></div>
+            <v-col>
+              <v-img
+                :src="match.team2.logo"
+                width="55"
+                class="mr-4 mt-7"
+              ></v-img>
+              <p
+                style=" margin-left:15px; margin-top:12px; font-size:20px "
+                class="content"
+              >
+                {{ match.team2.cote }}
+              </p>
+            </v-col>
+          </div>
+        </v-card>
+      </v-row>
+      <v-row
+        class="flex-row justify-start "
+        style="width: 50%;margin-top: -3vw;
     margin-left: 5vw;"
-    >
-      <v-card
-        v-for="match in bloc4"
-        v-bind:key="match"
-        color="white"
-        cols="3"
-        class="ma-3 d-flex justify-center "
-        width="150"
-        height="150"
-        outlined
-        href="#"
       >
-        <div class="d-flex align-center div-text justify-space-between">
-          <v-col>
-            <v-img :src="match.team1.logo" width="55" class="ml-4 mt-6"></v-img>
-            <p
-              style=" margin-left:32px; margin-top:6px; font-size:20px "
-              class="content"
-            >
-              {{ match.team1.cote }}
-            </p>
-          </v-col>
-          <div class="line"></div>
-          <v-col>
-            <v-img :src="match.team2.logo" width="55" class="mr-4 mt-7"></v-img>
-            <p
-              style=" margin-left:18px; margin-top:12px; font-size:20px "
-              class="content"
-            >
-              {{ match.team2.cote }}
-            </p>
-          </v-col>
-        </div>
-      </v-card>
-    </v-row>
-  </v-container>
+        <v-card
+          v-for="match in bloc4"
+          v-bind:key="match"
+          color="white"
+          cols="3"
+          class="ma-3 d-flex justify-center "
+          width="150"
+          height="150"
+          outlined
+          href="#"
+        >
+          <div class="d-flex align-center div-text justify-space-between">
+            <v-col>
+              <v-img
+                :src="match.team1.logo"
+                width="55"
+                class="ml-4 mt-6"
+              ></v-img>
+              <p
+                style=" margin-left:32px; margin-top:6px; font-size:20px "
+                class="content"
+              >
+                {{ match.team1.cote }}
+              </p>
+            </v-col>
+            <div class="line"></div>
+            <v-col>
+              <v-img
+                :src="match.team2.logo"
+                width="55"
+                class="mr-4 mt-7"
+              ></v-img>
+              <p
+                style=" margin-left:18px; margin-top:12px; font-size:20px "
+                class="content"
+              >
+                {{ match.team2.cote }}
+              </p>
+            </v-col>
+          </div>
+        </v-card>
+      </v-row>
+    </v-container>
+  </span>
 </template>
 
 <script>
