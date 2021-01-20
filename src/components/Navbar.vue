@@ -48,8 +48,8 @@ export default {
     pages: [
       { text: "Accueil", icon: "fas fa-home", route: "/home" },
       { text: "Calendrier", icon: "fas fa-calendar-alt", route: "/calendar" },
-      { text: "Compte", icon: "fas fa-users", route: "/profil" },
-      { text: "Succès", icon: "fas fa-trophy", route: "/succes" },
+      { text: "Compte", icon: "fas fa-users", route: "/profile" },
+      { text: "Succès", icon: "fas fa-trophy", route: "/success" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" }
     ],
     right: null
