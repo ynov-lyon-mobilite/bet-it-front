@@ -1,8 +1,14 @@
 <template>
-  <v-navigation-drawer>
+  <v-card height="100vw">
+    <v-navigation-drawer
+    
+      absolute
+      permanent
+      left
+    >
     <v-toolbar flat extended height="250" class="pa-3">
-      <v-container fluid>
-        <v-row justify="space-around">
+         <v-container fluid>
+      <v-row justify="space-around">
           <v-row style="margin: 0 0 2vw 1px;">
             <v-avatar>
               <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
@@ -22,12 +28,11 @@
             src="../assets/logo-couleur.svg"
           ></v-img>
         </v-row>
-      </v-container>
+         </v-container>
     </v-toolbar>
+      <v-divider></v-divider>
 
-    <v-divider></v-divider>
-
-    <v-list class="pa-3">
+         <v-list class="pl-3">
       <v-subheader>Menu</v-subheader>
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item v-for="(page, i) in pages" :key="i" :to="page.route">
@@ -40,8 +45,10 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-  </v-navigation-drawer>
+    </v-navigation-drawer>
+  </v-card>
 </template>
+
 
 <script>
 export default {
@@ -60,6 +67,7 @@ export default {
 };
 </script>
 
+
 <style scoped lang="scss">
 .v-item--active:link {
   background: linear-gradient(
@@ -74,4 +82,7 @@ export default {
 .v-list-item__title {
   color: white;
 }
+
+
+
 </style>

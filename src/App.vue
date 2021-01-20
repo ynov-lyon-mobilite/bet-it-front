@@ -24,6 +24,8 @@
 import Navbar from "@/components/Navbar";
 import MatchList from "@/components/Home/MatchList";
 import Landing from "@/components/Landing";
+import axios from "axios";
+import store from "@/store/index.js";
 
 export default {
   name: "App",
