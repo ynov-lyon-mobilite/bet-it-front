@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title class="card-title">Betties</v-card-title>
     <div class="pa-2 d-flex justify-center align-center">
-      <span class="amount mx-3">{{ amount }}</span>
+      <span class="amount mx-3">{{ betties }}</span>
       <v-img
         class="mx-3"
         max-width="200"
@@ -17,9 +17,11 @@
 
 <script>
 export default {
-  data: () => ({
-    amount: 150
-  })
+  computed: {
+    betties() {
+      return this.$store.state.betties;
+    },
+  },
 };
 </script>
 

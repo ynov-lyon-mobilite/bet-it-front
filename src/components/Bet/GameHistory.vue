@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-4 d-flex flex-column align-center">
+  <div class="d-flex flex-column align-center ma-5">
     <div class="d-flex justify-center">
       <img :src="team.logo" />
     </div>
@@ -16,8 +16,8 @@
 <script>
 export default {
   props: {
-    team: Object
-  }
+    team: Object,
+  },
 };
 </script>
 
