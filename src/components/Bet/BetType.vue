@@ -44,9 +44,7 @@
       </v-dialog>
       <v-dialog v-model="hasBet" persistent max-width="400">
         <v-card>
-          <v-card-title class="headline">
-            Récapitulatif du pari
-          </v-card-title>
+          <v-card-title class="headline"> Récapitulatif du pari </v-card-title>
           <v-card-text class="text-center">
             <p>{{ `${bet.team.name} - ${bet.type}` }}</p>
             <p>
@@ -166,15 +164,12 @@ export default {
 <style lang="scss" scoped>
 .bet-type {
   border-bottom: 1px solid silver;
-
   &:last-of-type {
     border-bottom: none;
   }
-
   .bet-label {
     width: 150px;
   }
-
   .v-btn {
     background: linear-gradient(
       0.25turn,
@@ -183,7 +178,6 @@ export default {
       var(--v-secondary-base)
     );
   }
-
   .disabled {
     background: gray;
   }

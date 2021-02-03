@@ -20,9 +20,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
                 <span>{{ typeToLabel[type] }}</span>
-                <v-icon right>
-                  mdi-menu-down
-                </v-icon>
+                <v-icon right> mdi-menu-down </v-icon>
               </v-btn>
             </template>
             <v-list>
@@ -73,7 +71,11 @@
             </v-card-text>
             <v-row class="justify-space-around">
               <v-card-actions>
-                <v-btn text color="primary">
+                <v-btn
+                  text
+                  color="primary"
+                  :to="{ name: 'Bet', params: { id: selectedEvent.id } }"
+                >
                   Accéder au paris
                 </v-btn>
               </v-card-actions>
@@ -91,7 +93,10 @@
 </template>
 
 <script>
+import store from "@/store/index.js";
+
 export default {
+  store: store,
   data: () => ({
     focus: "",
     type: "month",
@@ -99,264 +104,17 @@ export default {
       month: "Mois",
       week: "Semaine",
       day: "Jour",
-      "4day": "4 jours"
+      "4day": "4 jours",
     },
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
-    events: [
-      {
-        name: "G2 Esports VS MAD Lions",
-        start: "2021-01-22 18:00",
-        end: "2021-01-22 19:00"
-      },
-      {
-        name: "Astralis VS SK Gaming",
-        start: "2021-01-22 19:00",
-        end: "2021-01-22 20:00"
-      },
-      {
-        name: "Rogue VS EXCEL",
-        start: "2021-01-22 20:00",
-        end: "2021-01-22 21:00"
-      },
-      {
-        name: "Team Vitality VS Schalke 04",
-        start: "2021-01-22 21:00",
-        end: "2021-01-22 22:00"
-      },
-      {
-        name: "Misfits Gaming VS Fnatic",
-        start: "2021-01-22 22:00",
-        end: "2021-01-22 23:00"
-      },
-      {
-        name: "Schalke 04 VS EXCEL",
-        start: "2021-01-23 17:00",
-        end: "2021-01-22 18:00"
-      },
-      {
-        name: "Team Vitality VS Misfits Gaming",
-        start: "2021-01-23 18:00",
-        end: "2021-01-22 19:00"
-      },
-      {
-        name: "MAD Lions VS Astralis",
-        start: "2021-01-23 19:00",
-        end: "2021-01-22 20:00"
-      },
-      {
-        name: "SK Gaming VS G2 Esports",
-        start: "2021-01-23 20:00",
-        end: "2021-01-22 21:00"
-      },
-      {
-        name: "Fnatic VS Rogue",
-        start: "2021-01-23 21:00",
-        end: "2021-01-22 22:00"
-      },
-      {
-        name: "Astralis VS Team Vitality",
-        start: "2021-01-24 17:00",
-        end: "2021-01-24 18:00"
-      },
-      {
-        name: "Rogue VS SK Gaming",
-        start: "2021-01-24 18:00",
-        end: "2021-01-24 19:00"
-      },
-      {
-        name: "Misfits Gaming VS MAD Lions",
-        start: "2021-01-24 19:00",
-        end: "2021-01-24 20:00"
-      },
-      {
-        name: "Fnatic VS Schalke 04",
-        start: "2021-01-24 20:00",
-        end: "2021-01-24 21:00"
-      },
-      {
-        name: "EXCEL VS G2 Esports",
-        start: "2021-01-24 21:00",
-        end: "2021-01-24 22:00"
-      },
-      {
-        name: "MAD Lions VS EXCEL",
-        start: "2021-01-29 18:00",
-        end: "2021-01-29 19:00"
-      },
-      {
-        name: "Schalke 04 VS SK Gaming",
-        start: "2021-01-29 19:00",
-        end: "2021-01-29 20:00"
-      },
-      {
-        name: "G2 Esports VS Astralis",
-        start: "2021-01-29 20:00",
-        end: "2021-01-29 21:00"
-      },
-      {
-        name: "Misfits Gaming VS Rogue",
-        start: "2021-01-29 21:00",
-        end: "2021-01-29 22:00"
-      },
-      {
-        name: "Team Vitality VS Fnatic",
-        start: "2021-01-29 22:00",
-        end: "2021-01-29 23:00"
-      },
-      {
-        name: "EXCEL VS Astralis",
-        start: "2021-01-30 17:00",
-        end: "2021-01-30 18:00"
-      },
-      {
-        name: "Team Vitality VS Rogue",
-        start: "2021-01-30 18:00",
-        end: "2021-01-30 19:00"
-      },
-      {
-        name: "Misfits Gaming VS SK Gaming",
-        start: "2021-01-30 19:00",
-        end: "2021-01-30 20:00"
-      },
-      {
-        name: "Schalke 04 VS G2 Esports",
-        start: "2021-01-30 20:00",
-        end: "2021-01-30 21:00"
-      },
-      {
-        name: "Fnatic VS MAD Lions",
-        start: "2021-01-30 21:00",
-        end: "2021-01-30 22:00"
-      },
-      {
-        name: "Schalke 04 VS Rogue",
-        start: "2021-02-5 18:00",
-        end: "2021-02-5 19:00"
-      },
-      {
-        name: "Misfits Gaming VS EXCEL",
-        start: "2021-02-5 19:00",
-        end: "2021-02-5 20:00"
-      },
-      {
-        name: "Team Vitality VS G2 Esports",
-        start: "2021-02-5 20:00",
-        end: "2021-02-5 21:00"
-      },
-      {
-        name: "MAD Lions VS SK Gaming",
-        start: "2021-02-5 21:00",
-        end: "2021-02-5 22:00"
-      },
-      {
-        name: "Fnatic VS Astralis",
-        start: "2021-02-5 22:00",
-        end: "2021-02-5 23:00"
-      },
-      {
-        name: "EXCEL VS SK Gaming",
-        start: "2021-02-6 17:00",
-        end: "2021-02-6 18:00"
-      },
-      {
-        name: "Schalke 04 VS Misfits Gaming",
-        start: "2021-02-6 18:00",
-        end: "2021-02-6 19:00"
-      },
-      {
-        name: "Team Vitality VS MAD Lions",
-        start: "2021-02-6 19:00",
-        end: "2021-02-6 20:00"
-      },
-      {
-        name: "Rogue VS Astralis",
-        start: "2021-02-6 20:00",
-        end: "2021-02-6 21:00"
-      },
-      {
-        name: "G2 Esports VS Fnatic",
-        start: "2021-02-6 21:00",
-        end: "2021-02-6 22:00"
-      },
-      {
-        name: "Team Vitality VS SK Gaming",
-        start: "2021-02-12 18:00",
-        end: "2021-02-12 19:00"
-      },
-      {
-        name: "Schalke 04 VS MAD Lions",
-        start: "2021-02-12 19:00",
-        end: "2021-02-12 20:00"
-      },
-      {
-        name: "Misfits Gaming VS Astralis",
-        start: "2021-02-12 20:00",
-        end: "2021-02-12 21:00"
-      },
-      {
-        name: "Fnatic VS EXCEL",
-        start: "2021-02-12 21:00",
-        end: "2021-02-12 22:00"
-      },
-      {
-        name: "G2 Esports VS Rogue",
-        start: "2021-02-12 22:00",
-        end: "2021-02-12 23:00"
-      },
-      {
-        name: "Team Vitality VS EXCEL",
-        start: "2021-02-13 17:00",
-        end: "2021-02-13 18:00"
-      },
-      {
-        name: "Schalke 04 VS Astralis",
-        start: "2021-02-13 18:00",
-        end: "2021-02-13 19:00"
-      },
-      {
-        name: "Fnatic VS SK Gaming",
-        start: "2021-02-13 19:00",
-        end: "2021-02-13 20:00"
-      },
-      {
-        name: "MAD Lions VS Rogue",
-        start: "2021-02-13 20:00",
-        end: "2021-02-13 21:00"
-      },
-      {
-        name: "Misfits Gaming VS G2 Esports",
-        start: "2021-02-13 21:00",
-        end: "2021-02-13 22:00"
-      },
-      {
-        name: "Schalke 04 VS SK Gaming",
-        start: "2021-02-19 18:00",
-        end: "2021-02-19 19:00"
-      },
-      {
-        name: "MAD Lions VS EXCEL",
-        start: "2021-02-19 19:00",
-        end: "2021-02-19 20:00"
-      },
-      {
-        name: "Misfits Gaming VS Rogue",
-        start: "2021-02-19 20:00",
-        end: "2021-02-19 21:00"
-      },
-      {
-        name: "Team Vitality VS Fnatic",
-        start: "2021-02-19 21:00",
-        end: "2021-02-19 22:00"
-      },
-      {
-        name: "G2 Esports VS Astralis",
-        start: "2021-02-19 22:00",
-        end: "2021-02-19 23:00"
-      }
-    ]
   }),
+  computed: {
+    events() {
+      return this.$store.state.events;
+    },
+  },
   mounted() {
     this.$refs.calendar.checkChange();
   },
@@ -414,12 +172,12 @@ export default {
           start: first,
           end: second,
           color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay
+          timed: !allDay,
         });
       }
 
       this.events = events;
-    }
-  }
+    },
+  },
 };
 </script>
