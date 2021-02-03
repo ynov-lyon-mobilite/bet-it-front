@@ -5,7 +5,7 @@
         <div v-show="!isLanding" class="col-2 ma-0 pa-0">
           <Navbar></Navbar>
         </div>
-        <div class="col-10 ma-0 pa-0 vh-100 overflow-auto">
+        <div class="col-10 ma-0 pa-0 vh-100 overflow-y-auto overflow-x-hidden">
           <router-view />
         </div>
       </v-row>
