@@ -59,4 +59,8 @@ html {
 .h-100 {
   height: 100%;
 }
+
+.v-application{
+
+}
 </style>

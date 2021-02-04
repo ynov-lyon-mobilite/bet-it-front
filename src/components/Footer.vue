@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="#272727">
+  <v-footer absolute color="#272727">
     <v-row justify="space-around" no-gutters>
       <v-btn
         v-for="link in links"
@@ -26,6 +26,7 @@
   export default {
     data: () => ({
       links: [
+        ' ',
         'Mentions légales',
         'Conditions générales d\'utilisation',
         'Équipe',

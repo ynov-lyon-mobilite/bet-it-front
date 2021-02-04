@@ -1,7 +1,7 @@
 <template>
   <div class="pa-10">
     <UserHead></UserHead>
-  <MatchList></MatchList>
+    <MatchList></MatchList>
   </div>
 </template>
 
