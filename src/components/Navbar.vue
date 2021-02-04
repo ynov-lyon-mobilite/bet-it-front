@@ -24,8 +24,7 @@
     </v-toolbar>
     <v-divider></v-divider>
 
-    <v-list>
-      <v-subheader>Menu</v-subheader>
+    <v-list class="pt-10">
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item v-for="(page, i) in pages" :key="i" :to="page.route">
           <v-list-item-icon>
