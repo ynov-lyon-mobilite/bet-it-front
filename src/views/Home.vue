@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-10">
+  <div>
     <UserHead></UserHead>
     <MatchList></MatchList>
   </div>

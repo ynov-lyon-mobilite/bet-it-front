@@ -1,10 +1,10 @@
 <template>
-  <div class="wrapper">
-    <v-card class="ma-10">
+  <div class="container">
+    <v-card>
       <v-card-title class="card-title"
         >Classement des utilisateurs</v-card-title
       >
-      <v-simple-table fixed-header class="ladder overflow-y-auto">
+      <v-simple-table fixed-header class="overflow-y-auto">
         <thead>
           <tr>
             <th class="text-left">
@@ -72,7 +72,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .card-title {
   background: linear-gradient(
     0.25turn,
@@ -82,11 +82,4 @@ export default {
   );
 }
 
-.ladder {
-  max-height: 800px;
-}
-
-.wrapper {
-  min-height: calc(100vh - 172px);
-}
 </style>

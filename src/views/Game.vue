@@ -1,7 +1,7 @@
 <template>
-  <main>
+  <v-container>
     <h1 class="text-center mt-5">Gagnez des betties</h1>
-    <div class="mt-16 mb-16 d-flex justify-space-around flex-wrap">
+    <div class="d-flex justify-space-around flex-wrap">
       <v-card class="mx-auto pa-4" width="350">
         <div class="d-flex justify-center mt-2">
           <v-img
@@ -60,7 +60,7 @@
         </v-card-actions>
       </v-card>
     </div>
-  </main>
+  </v-container>
 </template>
 
 <script>

@@ -6,9 +6,9 @@
         <div class="ma-0 pa-0" v-show="!isLanding" style="width: 15vw">
           <Navbar></Navbar>
         </div>
-        <div class="ma-0 pa-0" style="width: 85vw">
+        <div class="ma-0 pa-10" style="width: 85vw">
           <router-view />
-          <Footer></Footer>
+          <Footer v-show="!isLanding" ></Footer>
         </div>
 
       </v-row>

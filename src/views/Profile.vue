@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-10">
+  <v-container>
     <v-row justify="space-between">
       <v-col cols="12" md="6">
         <BetHistory />

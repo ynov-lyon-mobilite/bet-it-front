@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-5">
+  <v-container>
     <SuccessCategory
       label="Paris"
       :successList="categories.bet"
