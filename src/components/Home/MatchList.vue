@@ -42,7 +42,7 @@
         <img style="width: 10vw" src="../../assets/coffre.svg" alt="monnaie" />
       </div>
     </v-row>
-    <v-container style="height:140vh" class="matches-container">
+    <v-container class="vh-100 matches-container">
       <v-row
         class="flex-row justify-center"
         style="margin: 105px 0px -3vw 16vw"
