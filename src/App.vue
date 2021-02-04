@@ -3,10 +3,10 @@
   <v-app>
     <v-main>
       <v-row>
-        <div class="ma-0 pa-0" v-show="!isLanding" style="width: 15vw">
+        <div v-show="!isLanding" style="width: 15vw">
           <Navbar></Navbar>
         </div>
-        <div class="ma-0 pa-10" style="width: 85vw">
+        <div class="pa-10 mb-16" style="width: 85vw">
           <router-view />
           <Footer v-show="!isLanding" ></Footer>
         </div>
@@ -19,7 +19,6 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-import MatchList from "@/components/Home/MatchList";
 import axios from "axios";
 import store from "@/store/index.js";
 import Footer from "@/components/Footer";
@@ -28,7 +27,6 @@ export default {
   name: "App",
 
   components: {
-    MatchList,
     Navbar,
     Footer,
   },
