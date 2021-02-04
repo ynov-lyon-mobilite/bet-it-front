@@ -1,13 +1,13 @@
 <template>
   <div class="d-flex flex-column align-center ma-5">
-    <div class="d-flex justify-center">
+    <div class="d-flex circle logo-wrapper justify-center align-center">
       <img :src="team.logo" />
     </div>
     <div class="d-flex">
       <div
         v-for="(game, idx) in team.history"
         :key="idx"
-        :class="`circle ma-2  ${game.result === 'W' ? 'win' : 'lose'}`"
+        :class="`circle result ma-2  ${game.result === 'W' ? 'win' : 'lose'}`"
       ></div>
     </div>
   </div>
@@ -21,23 +21,32 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 img {
   height: 80px;
 }
 
 .circle {
   border-radius: 50%;
-  border: 1px solid white;
-  width: 20px;
-  height: 20px;
-}
 
-.win {
-  background: green;
-}
+  &.logo-wrapper {
+    width: 120px;
+    height: 120px;
+    background: white;
+  }
 
-.lose {
-  background: red;
+  &.result {
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+
+    &.win {
+      background: green;
+    }
+
+    &.lose {
+      background: red;
+    }
+  }
 }
 </style>

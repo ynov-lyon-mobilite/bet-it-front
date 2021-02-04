@@ -38,7 +38,7 @@
           </td>
           <td class="text-center">{{ `Game ${bet.game.gameNumber}` }}</td>
           <td class="text-center">{{ bet.amount }}</td>
-          <td class="text-center">{{ bet.amount * bet.odd }}</td>
+          <td class="text-center">{{ Math.ceil(bet.amount * bet.odd) }}</td>
           <td class="text-center">{{ `${bet.team.name} - ${bet.type}` }}</td>
         </tr>
       </tbody>

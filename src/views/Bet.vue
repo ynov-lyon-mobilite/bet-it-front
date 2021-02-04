@@ -36,7 +36,7 @@
       <v-col cols="12" md="6">
         <v-card class="bet-types" color="white">
           <v-card-title class="card-title text-h4">Paris à venir</v-card-title>
-          <div class="pa-2">
+          <div class="pa-2 bet-types-list overflow-y-scroll">
             <BetType v-for="(bet, idx) in bets" :key="idx" :bet="bet" />
           </div>
         </v-card>
@@ -146,6 +146,10 @@ export default {
 .bet-types,
 .games-history {
   background: #303030 !important;
+}
+
+.bet-types-list {
+  height: 560px;
 }
 
 .games-history {
