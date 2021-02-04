@@ -1,5 +1,5 @@
 <template>
-  <v-container class="vh-100 pa-10">
+  <v-container class="pa-10">
     <v-row justify="space-between">
       <v-col cols="12" md="6">
         <BetHistory />
@@ -33,15 +33,20 @@ export default {
     AccountInfos,
     AccountDeletion,
     BetHistory,
-    BettiesAmount
-  }
+    BettiesAmount,
+  },
 };
 </script>
 
 <style lang="scss">
 .card-title,
 .btn {
-  background: linear-gradient(0.25turn, var(--v-darkPurple-base) , var(--v-info-base),  var(--v-secondary-base));
+  background: linear-gradient(
+    0.25turn,
+    var(--v-darkPurple-base),
+    var(--v-info-base),
+    var(--v-secondary-base)
+  );
   text-transform: none;
 }
 

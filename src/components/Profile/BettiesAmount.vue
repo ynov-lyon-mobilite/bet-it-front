@@ -1,13 +1,33 @@
 <template>
   <v-card>
     <v-card-title class="card-title">Betties</v-card-title>
-    <div class="pa-2 d-flex justify-center align-center">
-      <span class="amount mx-3">{{ betties }}</span>
-      <v-img
-        class="mx-3"
-        max-width="200"
-        src="../../assets/betties.png"
-      ></v-img>
+    <div
+      class="pa-5 d-flex justify-center align-center"
+      v-if="betties >= 1 && betties < 30"
+    >
+      <span class="amount mx-5">{{ betties }}</span>
+      <img style="width: 10vw" src="../../assets/tas.svg" alt="monnaie" />
+    </div>
+    <div
+      class="pa-5 d-flex justify-center align-center"
+      v-else-if="betties >= 30 && betties < 60"
+    >
+      <span class="amount mx-5">{{ betties }}</span>
+      <img style="width: 15vw" src="../../assets/tasUp.svg" alt="monnaie" />
+    </div>
+    <div
+      class="pa-5 d-flex justify-center align-center"
+      v-else-if="betties >= 60 && betties < 150"
+    >
+      <span class="amount mx-5">{{ betties }}</span>
+      <img style="width: 10vw" src="../../assets/bourse.svg" alt="monnaie" />
+    </div>
+    <div
+      class="pa-5 d-flex justify-center align-center"
+      v-else-if="betties >= 150"
+    >
+      <span class="amount mx-5">{{ betties }}</span>
+      <img style="width: 10vw" src="../../assets/coffre.svg" alt="monnaie" />
     </div>
     <div class="d-flex justify-center py-3">
       <v-btn class="btn">Ajouter des Betties</v-btn>

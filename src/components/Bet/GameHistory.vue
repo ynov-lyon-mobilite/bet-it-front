@@ -1,14 +1,28 @@
 <template>
-  <div class="d-flex flex-column align-center ma-5">
-    <div class="d-flex circle logo-wrapper justify-center align-center">
-      <img :src="team.logo" />
+  <div class="d-flex">
+    <div class="d-flex flex-column align-center ma-5">
+      <div class="d-flex justify-center align-center circle logo-wrapper">
+        <img :src="event.team1.logo" />
+      </div>
+      <div class="d-flex">
+        <div
+          v-for="(game, idx) in event.team1.history"
+          :key="idx"
+          :class="`circle result ma-2  ${game.result === 'W' ? 'win' : 'lose'}`"
+        ></div>
+      </div>
     </div>
-    <div class="d-flex">
-      <div
-        v-for="(game, idx) in team.history"
-        :key="idx"
-        :class="`circle result ma-2  ${game.result === 'W' ? 'win' : 'lose'}`"
-      ></div>
+    <div class="d-flex flex-column align-center ma-5">
+      <div class="d-flex justify-center align-center circle logo-wrapper">
+        <img :src="event.team2.logo" />
+      </div>
+      <div class="d-flex">
+        <div
+          v-for="(game, idx) in event.team2.history"
+          :key="idx"
+          :class="`circle result ma-2  ${game.result === 'W' ? 'win' : 'lose'}`"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,14 +30,14 @@
 <script>
 export default {
   props: {
-    team: Object,
+    event: Object,
   },
 };
 </script>
 
 <style lang="scss" scoped>
 img {
-  height: 80px;
+  width: 80px;
 }
 
 .circle {

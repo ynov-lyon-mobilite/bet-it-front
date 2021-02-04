@@ -2,11 +2,15 @@
   <v-app>
     <v-main>
       <v-row class="vh-100">
-        <div v-show="!isLanding" class="col-2 ma-0 pa-0">
+        <div v-show="!isLanding" class="ma-0 pa-0" style="width: 15vw">
           <Navbar></Navbar>
         </div>
-        <div class="col-10 ma-0 pa-0 vh-100 overflow-auto">
+        <div
+          class="ma-0 pa-0 vh-100 overflow-y-auto overflow-x-hidden"
+          style="width: 85vw"
+        >
           <router-view />
+          <Footer></Footer>
         </div>
       </v-row>
     </v-main>
@@ -15,12 +19,14 @@
 
 <script>
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default {
   name: "App",
 
   components: {
     Navbar,
+    Footer,
   },
   computed: {
     isLanding() {

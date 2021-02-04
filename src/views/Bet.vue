@@ -1,8 +1,29 @@
 <template>
   <v-container>
-    <div class="d-flex justify-end align-center">
-      <span class="amount text-h3">{{ betties }}</span>
-      <v-img class="mx-3" max-width="100" src="../assets/betties.png"></v-img>
+    <div
+      class="d-flex justify-end align-center"
+      v-if="betties >= 1 && betties < 30"
+    >
+      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <img style="width: 100px" src="../assets/tas.svg" alt="monnaie" />
+    </div>
+    <div
+      class="d-flex justify-end align-center"
+      v-else-if="betties >= 30 && betties < 60"
+    >
+      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <img style="width: 100px" src="../assets/tasUp.svg" alt="monnaie" />
+    </div>
+    <div
+      class="d-flex justify-end align-center"
+      v-else-if="betties >= 60 && betties < 150"
+    >
+      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <img style="width: 100px" src="../assets/bourse.svg" alt="monnaie" />
+    </div>
+    <div class="d-flex justify-end align-center" v-else-if="betties >= 150">
+      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <img style="width: 100px" src="../assets/coffre.svg" alt="monnaie" />
     </div>
     <v-row class="mt-12 justify-center">
       <v-col cols="12" md="6" class="d-flex flex-column align-center">
@@ -14,13 +35,9 @@
           outlined
         >
           <div class="d-flex align-center div-text w-100 justify-space-between">
-            <v-img
-              class="mx-2"
-              src="../assets/100T_logo.png"
-              width="80"
-            ></v-img>
+            <v-img class="mx-2" :src="event.team1.logo" width="80"></v-img>
             <div class="line"></div>
-            <v-img class="mx-2" src="../assets/DW_Logo.png" width="80"></v-img>
+            <v-img class="mx-2" :src="event.team2.logo" width="80"></v-img>
           </div>
         </v-card>
         <v-card
@@ -29,14 +46,15 @@
         >
           <div class="text-h3 text-center my-3">Derniers matchs</div>
           <div class="d-flex justify-center flex-wrap">
-            <GameHistory v-for="(team, idx) in teams" :key="idx" :team="team" />
+            <GameHistory :event="event" />
           </div>
         </v-card>
       </v-col>
+
       <v-col cols="12" md="6">
         <v-card class="bet-types" color="white">
           <v-card-title class="card-title text-h4">Paris à venir</v-card-title>
-          <div class="pa-2 bet-types-list overflow-y-scroll">
+          <div class="pa-2 bet-types-list overflow-y-auto">
             <BetType v-for="(bet, idx) in bets" :key="idx" :bet="bet" />
           </div>
         </v-card>
@@ -48,96 +66,110 @@
 <script>
 import BetType from "@/components/Bet/BetType";
 import GameHistory from "@/components/Bet/GameHistory";
-
-const teams = [
-  {
-    name: "100T",
-    logo: require("../assets/100T_logo.png"),
-    history: [
-      { result: "W" },
-      { result: "W" },
-      { result: "L" },
-      { result: "W" },
-      { result: "L" },
-    ],
-  },
-  {
-    name: "DW",
-    logo: require("../assets/DW_Logo.png"),
-    history: [
-      { result: "W" },
-      { result: "W" },
-      { result: "L" },
-      { result: "W" },
-      { result: "L" },
-    ],
-  },
-];
-
-const game = {
-  id: 0,
-  team1: teams[0],
-  team2: teams[1],
-  gameNumber: 1,
-  league: "LCS",
-};
+import store from "@/store/index.js";
 
 export default {
+  store: store,
+
   components: {
     BetType,
     GameHistory,
   },
   data: () => ({
-    teams,
-    bets: [
-      {
-        id: "0-100T-W",
-        type: "Winner",
-        team: teams[0],
-        odd: 1.1,
-        game,
-      },
-      {
-        id: "0-DW-W",
-        type: "Winner",
-        team: teams[1],
-        odd: 2,
-        game,
-      },
-      {
-        id: "0-100T-FB",
-        type: "First Blood",
-        team: teams[0],
-        odd: 1.1,
-        game,
-      },
-      {
-        id: "0-DW-FB",
-        type: "First Blood",
-        team: teams[1],
-        odd: 2,
-        game,
-      },
-      {
-        id: "0-100T-FT",
-        type: "First Turret",
-        team: teams[0],
-        odd: 1.1,
-        game,
-      },
-      {
-        id: "0-DW-FT",
-        type: "First Turret",
-        team: teams[1],
-        odd: 2,
-        game,
-      },
-    ],
+    bets: [],
   }),
   computed: {
     betties() {
       return this.$store.state.betties;
     },
+
+    event() {
+      return this.$store.state.event;
+    },
+  },
+  mounted: async function() {
+    store.dispatch("getEventId", this.$route.params.id);
+
+    this.bets = [
+      {
+        id: "0-" + this.event.team1.name + "'-W",
+        type: "Winner",
+        team: this.event.team1,
+        odd: 1.1,
+        game: {
+          id: 0,
+          team1: this.event.team1,
+          team2: this.event.team2,
+          gameNumber: 1,
+          league: "LCS",
+        },
+      },
+      {
+        id: "0-" + this.event.team2.name + "-W",
+        type: "Winner",
+        team: this.event.team2,
+        odd: 2,
+        game: {
+          id: 0,
+          team1: this.event.team1,
+          team2: this.event.team2,
+          gameNumber: 1,
+          league: "LCS",
+        },
+      },
+      {
+        id: "0-" + this.event.team1.name + "-FB",
+        type: "First Blood",
+        team: this.event.team1,
+        odd: 1.1,
+        game: {
+          id: 0,
+          team1: this.event.team1,
+          team2: this.event.team2,
+          gameNumber: 1,
+          league: "LCS",
+        },
+      },
+      {
+        id: "0-" + this.event.team2.name + "-FB",
+        type: "First Blood",
+        team: this.event.team2,
+        odd: 2,
+        game: {
+          id: 0,
+          team1: this.event.team1,
+          team2: this.event.team2,
+          gameNumber: 1,
+          league: "LCS",
+        },
+      },
+      {
+        id: "0-" + this.event.team1.name + "-FT",
+        type: "First Turret",
+        team: this.event.team1,
+        odd: 1.1,
+        game: {
+          id: 0,
+          team1: this.event.team1,
+          team2: this.event.team2,
+          gameNumber: 1,
+          league: "LCS",
+        },
+      },
+      {
+        id: "0-" + this.event.team2.name + "-FT",
+        type: "First Turret",
+        team: this.event.team2,
+        odd: 2,
+        game: {
+          id: 0,
+          team1: this.event.team1,
+          team2: this.event.team2,
+          gameNumber: 1,
+          league: "LCS",
+        },
+      },
+    ];
   },
 };
 </script>
