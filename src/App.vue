@@ -3,7 +3,7 @@
   <v-app>
     <v-main>
       <v-row>
-        <div class="ma-0 pa-0" style="width: 15vw">
+        <div class="ma-0 pa-0" v-show="!isLanding" style="width: 15vw">
           <Navbar></Navbar>
         </div>
         <div class="ma-0 pa-0" style="width: 85vw">
@@ -32,20 +32,31 @@ export default {
     Navbar,
     Footer,
   },
-
-  data: () => ({
-    isLoading: false,
-  }),
-  mounted() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1500);
+  computed: {
+    isLanding() {
+      return this.$route.name === "Landing";
+    },
   },
 };
 </script>
 
 <style>
+.vh-100 {
+  height: 100vh;
+}
+.vh-90 {
+  height: 100vh;
+}
+.vw-100 {
+  width: 100vw;
+}
+.w-100 {
+  width: 100%;
+}
 html {
   overflow-y: auto !important;
+}
+.h-100 {
+  height: 100%;
 }
 </style>

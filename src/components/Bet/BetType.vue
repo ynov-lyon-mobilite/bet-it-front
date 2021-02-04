@@ -2,7 +2,7 @@
   <div
     class="bet-type d-flex flex-wrap-reverse justify-space-around align-center pa-4"
   >
-    <div class="d-flex flex-column justify-center pr-12">
+    <div class="d-flex flex-column justify-center">
       <div class="bet-label text-h5 text-center">{{ bet.type }}</div>
       <v-btn
         :class="!canBet && 'disabled'"
@@ -48,11 +48,7 @@
           <v-card-text class="text-center">
             <p>{{ `${bet.team.name} - ${bet.type}` }}</p>
             <p>
-              {{
-                `Gains potentiels : ${bet.odd * amount} betties (${amount} x ${
-                  bet.odd
-                })`
-              }}
+              {{ `Gains potentiels : ${Math.ceil(bet.odd * amount)} betties` }}
             </p>
             <p>{{ `Betties restant : ${betties - amount}` }}</p>
           </v-card-text>
@@ -68,21 +64,22 @@
         </v-card>
       </v-dialog>
     </div>
-
-    <div class="d-flex flex-column align-center">
-      <v-img :src="bet.team.logo" width="60"></v-img>
+    <div class="d-flex flex-column align-center px-10">
+      <div class="d-flex justify-center align-center circle logo-wrapper pa-3">
+        <v-img :src="bet.team.logo"></v-img>
+      </div>
       <div class="text-h6">{{ bet.odd }}</div>
     </div>
     <v-text-field
-        @keypress="isNumber($event)"
-        v-model="amount"
-        outlined
-        class=" px-12 mt-9"
-        label="Mise"
-        color="black"
-        clearable
-        :disabled="!canBet"
-        dense
+      @keypress="isNumber($event)"
+      v-model="amount"
+      outlined
+      class="mt-10"
+      label="Mise"
+      color="black"
+      clearable
+      :disabled="!canBet"
+      dense
     ></v-text-field>
   </div>
 </template>
@@ -181,6 +178,16 @@ export default {
   }
   .disabled {
     background: gray;
+  }
+
+  .circle {
+    border-radius: 50%;
+
+    &.logo-wrapper {
+      width: 75px;
+      height: 75px;
+      background: white;
+    }
   }
 }
 </style>

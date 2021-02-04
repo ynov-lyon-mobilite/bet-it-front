@@ -5,25 +5,25 @@
       v-if="betties >= 1 && betties < 30"
     >
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 10vw" src="../assets/tas.svg" alt="monnaie" />
+      <img style="width: 100px" src="../assets/tas.svg" alt="monnaie" />
     </div>
     <div
       class="d-flex justify-end align-center"
       v-else-if="betties >= 30 && betties < 60"
     >
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 15vw" src="../assets/tasUp.svg" alt="monnaie" />
+      <img style="width: 100px" src="../assets/tasUp.svg" alt="monnaie" />
     </div>
     <div
       class="d-flex justify-end align-center"
       v-else-if="betties >= 60 && betties < 150"
     >
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 10vw" src="../assets/bourse.svg" alt="monnaie" />
+      <img style="width: 100px" src="../assets/bourse.svg" alt="monnaie" />
     </div>
     <div class="d-flex justify-end align-center" v-else-if="betties >= 150">
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 10vw" src="../assets/coffre.svg" alt="monnaie" />
+      <img style="width: 100px" src="../assets/coffre.svg" alt="monnaie" />
     </div>
     <v-row class="mt-12 justify-center">
       <v-col cols="12" md="6" class="d-flex flex-column align-center">
@@ -54,7 +54,7 @@
       <v-col cols="12" md="6">
         <v-card class="bet-types" color="white">
           <v-card-title class="card-title text-h4">Paris à venir</v-card-title>
-          <div class="pa-2">
+          <div class="pa-2 bet-types-list overflow-y-auto">
             <BetType v-for="(bet, idx) in bets" :key="idx" :bet="bet" />
           </div>
         </v-card>
@@ -87,7 +87,7 @@ export default {
       return this.$store.state.event;
     },
   },
-  mounted: async function () {
+  mounted: async function() {
     store.dispatch("getEventId", this.$route.params.id);
 
     this.bets = [
@@ -97,11 +97,11 @@ export default {
         team: this.event.team1,
         odd: 1.1,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -110,11 +110,11 @@ export default {
         team: this.event.team2,
         odd: 2,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -123,11 +123,11 @@ export default {
         team: this.event.team1,
         odd: 1.1,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -136,11 +136,11 @@ export default {
         team: this.event.team2,
         odd: 2,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -149,11 +149,11 @@ export default {
         team: this.event.team1,
         odd: 1.1,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -162,11 +162,11 @@ export default {
         team: this.event.team2,
         odd: 2,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
     ];
@@ -178,6 +178,10 @@ export default {
 .bet-types,
 .games-history {
   background: #303030 !important;
+}
+
+.bet-types-list {
+  height: 560px;
 }
 
 .games-history {
