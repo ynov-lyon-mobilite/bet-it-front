@@ -16,9 +16,9 @@
           </v-list-item-content>
         </v-row>
         <v-img
-          width="100"
-          style="flex: none;"
-          src="../assets/logo-couleur.svg"
+            width="100"
+            style="flex: none;"
+            src="../assets/logo-couleur.svg"
         ></v-img>
       </v-row>
     </v-toolbar>
@@ -60,15 +60,18 @@ export default {
 <style scoped lang="scss">
 .v-item--active:link {
   background: linear-gradient(
-    90deg,
-    var(--v-secondary-base),
-    var(--v-info-base),
-    var(--v-darkPurple-base)
+          90deg,
+          var(--v-darkPurple-base),
+          var(--v-info-base),
+          var(--v-secondary-base)
   );
   transition: 0.4s ease-in-out;
   color: white;
 }
 .v-list-item__title {
-  color: white;
+  color: var(--v-info-lighten5);
+}
+.v-list-item--link:before {
+  opacity: 0 !important;
 }
 </style>
