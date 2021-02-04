@@ -1,8 +1,8 @@
 <template>
   <span>
     <v-row class="matches-container">
-      <v-row
-        class="flex-row justify-center"
+      <div
+        class="div-match flex-row justify-center"
       >
         <v-card
           v-for="match in bloc1"
@@ -43,7 +43,7 @@
             </v-col>
           </div>
         </v-card>
-      </v-row>
+      </div>
 <!--      <v-row class="flex-row justify-center mb-0">-->
 <!--        <v-card-->
 <!--          v-for="match in bloc2"-->
@@ -391,13 +391,9 @@ export default {
     transform: rotate(0deg);
     font-size: 30px;
   }
-  .row {
-    width: 50vw;
-    position: relative;
-    top: 200px;
+  .div-match {
     transform: rotate(45deg);
     transform-origin: center;
-    margin-bottom: 170px;
   }
   .line {
     height: 11rem;
