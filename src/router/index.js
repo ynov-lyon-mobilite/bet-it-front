@@ -45,6 +45,11 @@ const routes = [
     name: "Ladder",
     component: () => import("../views/Ladder.vue"),
   },
+  {
+    path: "/games",
+    name: "Games",
+    component: () => import("../views/Game.vue"),
+  },
 ];
 
 const router = new VueRouter({
