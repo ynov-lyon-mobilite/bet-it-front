@@ -136,13 +136,6 @@
       </v-row>
       <v-row
         class="flex-row justify-start"
-        style="
-          width: 50vw;
-          margin-bottom: 0;
-          margin-bottom: 0px;
-          margin-left: 7vw;
-          margin-top: -20px;
-        "
       >
         <v-card
           v-for="match in bloc3"
