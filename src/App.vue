@@ -3,14 +3,14 @@
   <v-app>
     <v-main>
       <v-row class="vh-100">
-        <div class="col-2 ma-0 pa-0">
+        <div class="ma-0 pa-0" style="width: 15vw">
           <Navbar></Navbar>
         </div>
-        <div class="col-10 ma-0 pa-0 vh-100 overflow-y-auto overflow-x-hidden">
+        <div class="ma-0 pa-0 vh-100 overflow-y-auto overflow-x-hidden" style="width: 85vw">
           <router-view />
-                                  <Footer></Footer>
-
+          <Footer></Footer>
         </div>
+
       </v-row>
 
     </v-main>
