@@ -6,7 +6,7 @@
         <div class="ma-0 pa-0" style="width: 15vw">
           <Navbar></Navbar>
         </div>
-        <div class="ma-0 pa-0 vh-100 overflow-y-auto overflow-x-hidden" style="width: 85vw">
+        <div class="ma-0 pa-0 vh-100" style="width: 85vw">
           <router-view />
           <Footer></Footer>
         </div>
@@ -57,9 +57,9 @@ export default {
 .w-100 {
   width: 100%;
 }
-html {
-  overflow-y: auto !important;
-}
+/*html {*/
+/*  overflow-y: auto !important;*/
+/*}*/
 .h-100 {
   height: 100%;
 }

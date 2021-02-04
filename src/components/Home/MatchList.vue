@@ -42,10 +42,9 @@
         <img style="width: 10vw" src="../../assets/coffre.svg" alt="monnaie" />
       </div>
     </v-row>
-    <v-container style="height:140vh" class="matches-container">
+    <v-container class="matches-container">
       <v-row
         class="flex-row justify-center"
-        style="margin: 105px 0px -3vw 16vw"
       >
         <v-card
           v-for="match in bloc1"
@@ -66,12 +65,6 @@
                 class="ml-4 mt-6"
               ></v-img>
               <p
-                style="
-                  margin-left: 31px;
-                  margin-top: 6px;
-                  font-size: 20px;
-                  margin-bottom: 10px;
-                "
                 class="content"
               >
                 {{ match.team1.cote }}
@@ -85,7 +78,6 @@
                 class="mr-4 mt-7"
               ></v-img>
               <p
-                style="margin-left: 14px; margin-top: 12px; font-size: 20px"
                 class="content"
               >
                 {{ match.team2.cote }}

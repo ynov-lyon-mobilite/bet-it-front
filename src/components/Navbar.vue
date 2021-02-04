@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer absolute permanent left class="vh-100" style="width: 15vw">
+  <v-navigation-drawer fixed permanent left class="vh-100" style="width: 15vw">
     <v-toolbar flat extended height="250" class="pa-3">
       <v-row justify="space-around">
         <v-row class="ma-4">
