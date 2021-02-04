@@ -74,7 +74,7 @@
       @keypress="isNumber($event)"
       v-model="amount"
       outlined
-      class="mt-9"
+      class="mt-10"
       label="Mise"
       color="black"
       clearable

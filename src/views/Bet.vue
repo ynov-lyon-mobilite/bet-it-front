@@ -97,11 +97,11 @@ export default {
         team: this.event.team1,
         odd: 1.1,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -110,11 +110,11 @@ export default {
         team: this.event.team2,
         odd: 2,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -123,11 +123,11 @@ export default {
         team: this.event.team1,
         odd: 1.1,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -136,11 +136,11 @@ export default {
         team: this.event.team2,
         odd: 2,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -149,11 +149,11 @@ export default {
         team: this.event.team1,
         odd: 1.1,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
       {
@@ -162,11 +162,11 @@ export default {
         team: this.event.team2,
         odd: 2,
         game: {
-          id: 0,
+          id: this.event.id,
           team1: this.event.team1,
           team2: this.event.team2,
           gameNumber: 1,
-          league: "LCS",
+          league: "LEC",
         },
       },
     ];
