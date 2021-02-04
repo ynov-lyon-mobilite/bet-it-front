@@ -50,7 +50,7 @@ export default {
       { text: "Calendrier", icon: "fas fa-calendar-alt", route: "/calendar" },
       { text: "Compte", icon: "fas fa-users", route: "/profile" },
       { text: "Succès", icon: "fas fa-trophy", route: "/success" },
-      { text: "Jeux", icon: "fas fa-gamepad", route: "/games" }
+      { text: "Jeux", icon: "fas fa-gamepad", route: "/game" }
     ],
     right: null
   })
