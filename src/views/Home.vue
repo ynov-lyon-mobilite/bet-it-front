@@ -1,6 +1,11 @@
 <template>
   <div>
-    <UserHead></UserHead>
+<!--    <v-row align="center">-->
+<!--        <div class="col-9"> <v-app-bar class="rounded-60"></v-app-bar></div>-->
+<!--        <div class="col-3">-->
+          <BettiesSold></BettiesSold>
+<!--        </div>-->
+<!--    </v-row>-->
     <MatchList></MatchList>
   </div>
 </template>
@@ -8,12 +13,12 @@
 <script>
 // @ is an alias to /src
 import MatchList from "@/components/Home/MatchList";
-import UserHead from "@/components/UserHead";
+import BettiesSold from "@/components/BettiesSold";
 
 export default {
   name: "Home",
   components: {
-    UserHead,
+    BettiesSold,
     MatchList
   }
 };
@@ -21,6 +26,8 @@ export default {
 
 <style>
 
-
+.rounded-60{
+  border-radius: 60px !important;
+}
 
 </style>
