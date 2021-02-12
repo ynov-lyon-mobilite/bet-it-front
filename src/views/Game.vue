@@ -8,7 +8,7 @@
             contain
             max-height="160"
             max-width="240"
-            src="../assets/poro1.png"
+            src="../assets/games/poroBattle/poro1.png"
           ></v-img>
         </div>
 
@@ -37,7 +37,7 @@
             contain
             max-height="160"
             max-width="240"
-            src="../assets/poro2.png"
+            src="../assets/games/poroBattle/poro2.png"
           ></v-img>
         </div>
         <h3 class="text-center mt-2">Poro insolent</h3>

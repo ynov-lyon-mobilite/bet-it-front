@@ -20,25 +20,25 @@
         v-if="betties >= 1 && betties < 30"
     >
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 120px" src="../assets/tas.svg" alt="monnaie" />
+      <img style="width: 120px" src="../assets/monney/tas.svg" alt="monnaie" />
     </div>
     <div
         class="d-flex justify-end align-center"
         v-else-if="betties >= 30 && betties < 60"
     >
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 120px" src="../assets/tasUp.svg" alt="monnaie" />
+      <img style="width: 120px" src="../assets/monney/tasUp.svg" alt="monnaie" />
     </div>
     <div
         class="d-flex justify-end align-center"
         v-else-if="betties >= 60 && betties < 150"
     >
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 120px" src="../assets/bourse.svg" alt="monnaie" />
+      <img style="width: 120px" src="../assets/monney/bourse.svg" alt="monnaie" />
     </div>
     <div class="d-flex justify-end align-center" v-else-if="betties >= 150">
       <span class="amount text-h3 mr-5">{{ betties }}</span>
-      <img style="width: 120px" src="../assets/coffre.svg" alt="monnaie" />
+      <img style="width: 120px" src="../assets/monney/coffre.svg" alt="monnaie" />
     </div>
   </v-row>
 </template>

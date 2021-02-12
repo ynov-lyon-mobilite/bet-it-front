@@ -18,7 +18,7 @@
         <v-img
             width="100"
             style="flex: none;"
-            src="../assets/logo-couleur.svg"
+            src="../assets/logo/logoSimple.svg"
         ></v-img>
       </v-row>
     </v-toolbar>
