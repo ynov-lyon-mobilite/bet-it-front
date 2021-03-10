@@ -34,8 +34,7 @@
             elevation="2"
             :disabled="!valid"
             @click.prevent="getAuth()"
-            >Se connecter</v-btn
-          >
+            >Se connecter</v-btn>
         </center>
         <div v-if="success">
           <v-alert type="success" elevation="10"

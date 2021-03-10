@@ -1,33 +1,28 @@
 <template>
   <v-container>
     <div v-if="user.id != null">
-    <v-row justify="space-between">
-      <v-col cols="12" md="6">
-        <BetHistory />
-      </v-col>
-      <v-col cols="12" md="6">
-        <BettiesAmount />
-      </v-col>
-    </v-row>
-    <v-row class="my-5" no-gutters>
-      <v-col>
-        <AccountInfos />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" md="6">
-        <AccountDeletion />
-      </v-col>
-    </v-row>
+      <v-row justify="space-between">
+        <v-col cols="12" md="6">
+          <BetHistory />
+        </v-col>
+        <v-col cols="12" md="6">
+          <BettiesAmount />
+        </v-col>
+      </v-row>
+      <v-row class="my-5" no-gutters>
+        <v-col>
+          <AccountInfos />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" md="6">
+          <AccountDeletion />
+        </v-col>
+      </v-row>
     </div>
     <div v-else>
-       <center>
-          <h1 class="ma-10">Vous n'êtes pas connecté</h1>
-          <v-btn class="ma-2" :to="{ name: 'Registration'}">S'inscrire </v-btn>
-          <v-btn class="ma-2" :to="{ name: 'Connection'}"> Se connecter</v-btn>
-        </center>
+      <NotConnected></NotConnected>
     </div>
-
   </v-container>
 </template>
 
@@ -37,21 +32,23 @@ import AccountDeletion from "@/components/Profile/AccountDeletion";
 import BetHistory from "@/components/Profile/BetHistory";
 import BettiesAmount from "@/components/Profile/BettiesAmount";
 import store from "@/store/index.js";
+import NotConnected from "@/components/NotConnected.vue";
 
 export default {
   name: "Profile",
-    store: store,
+  store: store,
 
   components: {
     AccountInfos,
     AccountDeletion,
     BetHistory,
     BettiesAmount,
+    NotConnected,
   },
   computed: {
     user() {
       return store.state.user;
-    }, 
+    },
   },
 };
 </script>

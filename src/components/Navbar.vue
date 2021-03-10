@@ -17,8 +17,8 @@
           </v-row>
           <div v-else>
             <center>
-              <v-btn class="ma-2" :to="{ name: 'Registration'}">S'inscrire </v-btn>
-              <v-btn class="ma-2" :to="{ name: 'Connection'}"> Se connecter</v-btn>
+              <v-btn class="notco ma-2" :to="{ name: 'Registration'}">S'inscrire </v-btn>
+              <v-btn class="notco ma-2" :to="{ name: 'Connection'}"> Se connecter</v-btn>
             </center>
           </div>
         </v-row>
@@ -83,6 +83,15 @@ export default {
   transition: 0.4s ease-in-out;
   color: white;
 }
+.notco{
+  background: linear-gradient(
+    90deg,
+    var(--v-darkPurple-base),
+    var(--v-info-base),
+    var(--v-secondary-base)
+  );
+}
+
 .v-list-item__title {
   color: var(--v-info-lighten5);
 }

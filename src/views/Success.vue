@@ -13,15 +13,7 @@
       />
     </div>
     <div v-else>
-      <center>
-        <h1 class="ma-10">
-          Vous ne pouvez pas accéder aux succès tant que vous n'êtes pas connecté
-        </h1>
-        <v-btn class="ma-2" :to="{ name: 'Registration' }"
-          >S'inscrire
-        </v-btn>
-        <v-btn class="ma-2" :to="{ name: 'Connection' }"> Se connecter</v-btn>
-      </center>
+      <NotConnected></NotConnected>
     </div>
   </v-container>
 </template>
@@ -29,11 +21,13 @@
 <script>
 import store from "@/store/index.js";
 import SuccessCategory from "@/components/Success/SuccessCategory.vue";
+import NotConnected from "@/components/NotConnected.vue";
 
 export default {
   store: store,
   components: {
     SuccessCategory,
+    NotConnected,
   },
   data: () => ({
     month: 1,
