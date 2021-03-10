@@ -1,28 +1,29 @@
 <template>
   <v-container>
+    <div v-if="getuser.id != null">
     <div
       class="d-flex justify-end align-center"
-      v-if="betties >= 1 && betties < 30"
+      v-if="getuser.betties >= 1 && getuser.betties < 30"
     >
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 100px" src="../assets/tas.svg" alt="monnaie" />
     </div>
     <div
       class="d-flex justify-end align-center"
-      v-else-if="betties >= 30 && betties < 60"
+      v-else-if="getuser.betties >= 30 && getuser.betties < 60"
     >
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 100px" src="../assets/tasUp.svg" alt="monnaie" />
     </div>
     <div
       class="d-flex justify-end align-center"
-      v-else-if="betties >= 60 && betties < 150"
+      v-else-if="getuser.betties >= 60 && getuser.betties < 150"
     >
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 100px" src="../assets/bourse.svg" alt="monnaie" />
     </div>
-    <div class="d-flex justify-end align-center" v-else-if="betties >= 150">
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+    <div class="d-flex justify-end align-center" v-else-if="getuser.betties >= 150">
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 100px" src="../assets/coffre.svg" alt="monnaie" />
     </div>
     <v-row class="mt-12 justify-center">
@@ -60,6 +61,14 @@
         </v-card>
       </v-col>
     </v-row>
+    </div>
+    <div v-else>
+        <center>
+          <h1 class="ma-10">Vous ne pouvez pas parier tant que vous n'êtes pas connecté </h1>
+          <v-btn class="ma-2" :to="{ name: 'Registration'}">S'inscrire </v-btn>
+          <v-btn class="ma-2" :to="{ name: 'Connection'}"> Se connecter</v-btn>
+        </center>
+    </div>
   </v-container>
 </template>
 
@@ -79,17 +88,16 @@ export default {
     bets: [],
   }),
   computed: {
-    betties() {
-      return this.$store.state.betties;
-    },
-
     event() {
       return this.$store.state.event;
     },
+    getuser() {
+      return this.$store.state.user;
+    },
   },
-  mounted: async function() {
+ 
+  mounted: async function () {
     store.dispatch("getEventId", this.$route.params.id);
-
     this.bets = [
       {
         id: "0-" + this.event.team1.name + "'-W",

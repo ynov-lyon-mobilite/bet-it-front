@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <div v-if="user.id != null">
     <v-row justify="space-between">
       <v-col cols="12" md="6">
         <BetHistory />
@@ -18,6 +19,15 @@
         <AccountDeletion />
       </v-col>
     </v-row>
+    </div>
+    <div v-else>
+       <center>
+          <h1 class="ma-10">Vous n'êtes pas connecté</h1>
+          <v-btn class="ma-2" :to="{ name: 'Registration'}">S'inscrire </v-btn>
+          <v-btn class="ma-2" :to="{ name: 'Connection'}"> Se connecter</v-btn>
+        </center>
+    </div>
+
   </v-container>
 </template>
 
@@ -26,14 +36,22 @@ import AccountInfos from "@/components/Profile/AccountInfos";
 import AccountDeletion from "@/components/Profile/AccountDeletion";
 import BetHistory from "@/components/Profile/BetHistory";
 import BettiesAmount from "@/components/Profile/BettiesAmount";
+import store from "@/store/index.js";
 
 export default {
   name: "Profile",
+    store: store,
+
   components: {
     AccountInfos,
     AccountDeletion,
     BetHistory,
     BettiesAmount,
+  },
+  computed: {
+    user() {
+      return store.state.user;
+    }, 
   },
 };
 </script>
@@ -57,7 +75,6 @@ export default {
     var(--v-info-base),
     var(--v-secondary-base)
   );
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 </style>

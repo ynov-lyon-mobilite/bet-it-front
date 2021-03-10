@@ -14,24 +14,24 @@
       </div>
       <div class="my-6 mx-8 text-center">
         <AccountInfoTextField
-          fieldName="alias"
-          @value="user.alias = $event"
-          :fieldValue="user.alias"
+          fieldName="firstName"
+          @value="getUser.firstName = $event"
+          :fieldValue="getUser.firstName"
         />
         <AccountInfoTextField
           fieldName="username"
-          @value="user.username = $event"
-          :fieldValue="user.username"
+          @value="getUser.pseudo = $event"
+          :fieldValue="getUser.pseudo"
         />
         <AccountInfoTextField
           fieldName="email"
-          @value="user.email = $event"
-          :fieldValue="user.email"
+          @value="getUser.email = $event"
+          :fieldValue="getUser.email"
         />
         <AccountInfoTextField
           fieldName="phoneNumber"
-          @value="user.phoneNumber = $event"
-          :fieldValue="user.phoneNumber"
+          @value="getUser.PhoneNumber = $event"
+          :fieldValue="getUser.PhoneNumber"
         />
         <v-btn block class="btn">Changer de mot de passe</v-btn>
       </div>
@@ -45,16 +45,13 @@ import AccountInfoTextField from "@/components/Profile/AccountInfoTextField";
 export default {
   name: "AccountInfos",
   components: {
-    AccountInfoTextField
+    AccountInfoTextField,
   },
-  data: () => ({
-    user: {
-      alias: "alias",
-      username: "username",
-      email: "email@mail.com",
-      phoneNumber: "0606059875"
-    }
-  })
+  computed: {
+    getUser() {
+      return this.$store.state.user;
+    },
+  },
 };
 </script>
 

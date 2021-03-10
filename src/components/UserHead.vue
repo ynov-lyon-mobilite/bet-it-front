@@ -17,27 +17,27 @@
     </div>
         <div
         class="d-flex justify-end align-center"
-        v-if="betties >= 1 && betties < 30"
+        v-if="getuser.betties >= 1 && getuser.betties < 30"
     >
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 120px" src="../assets/tas.svg" alt="monnaie" />
     </div>
     <div
         class="d-flex justify-end align-center"
-        v-else-if="betties >= 30 && betties < 60"
+        v-else-if="getuser.betties >= 30 && getuser.betties < 60"
     >
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 120px" src="../assets/tasUp.svg" alt="monnaie" />
     </div>
     <div
         class="d-flex justify-end align-center"
-        v-else-if="betties >= 60 && betties < 150"
+        v-else-if="getuser.betties >= 60 && getuser.betties < 150"
     >
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 120px" src="../assets/bourse.svg" alt="monnaie" />
     </div>
-    <div class="d-flex justify-end align-center" v-else-if="betties >= 150">
-      <span class="amount text-h3 mr-5">{{ betties }}</span>
+    <div class="d-flex justify-end align-center" v-else-if="getuser.betties >= 150">
+      <span class="amount text-h3 mr-5">{{ getuser.betties }}</span>
       <img style="width: 120px" src="../assets/coffre.svg" alt="monnaie" />
     </div>
   </v-row>
@@ -47,9 +47,10 @@
 export default {
   name: "UserHead",
   computed: {
-    betties() {
-      return this.$store.state.betties;
-    },
+    getuser() {
+      return this.$store.state.user;
+    }
+    
   },
 }
 </script>

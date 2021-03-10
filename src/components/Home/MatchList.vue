@@ -89,11 +89,6 @@
 <script>
 export default {
   name: "MatchList",
-  computed: {
-    betties() {
-      return this.$store.state.betties;
-    }
-  },
   data: () => ({
     matches: [
       {

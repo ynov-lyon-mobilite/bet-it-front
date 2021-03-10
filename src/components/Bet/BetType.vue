@@ -8,8 +8,8 @@
         :class="!canBet && 'disabled'"
         @click="wantToBet"
         :disabled="!canBet"
-        >Parier</v-btn
-      >
+        >Parier
+      </v-btn>
       <v-dialog v-model="errors.bettiesAmount" max-width="400">
         <v-card>
           <v-card-text class="d-flex justify-center pa-4">
@@ -50,13 +50,14 @@
             <p>
               {{ `Gains potentiels : ${Math.ceil(bet.odd * amount)} betties` }}
             </p>
-            <p>{{ `Betties restant : ${betties - amount}` }}</p>
+            <p>{{ `Betties restant : ${getuser.betties - amount}` }}</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="secondary" text @click="confirmBet">
               Confirmer
             </v-btn>
+
             <v-btn color="secondary" text @click="hasBet = false">
               Annuler
             </v-btn>
@@ -89,21 +90,26 @@ export default {
   props: {
     bet: Object,
   },
-  data: () => ({
-    amount: null,
-    hasBet: false,
-    errors: {
-      betInput: false,
-      bettiesAmount: false,
-    },
-  }),
+  data() {
+    return {
+      user: {},
+      amount: null,
+      hasBet: false,
+      errors: {
+        betInput: false,
+        bettiesAmount: false,
+      },
+      total: {},
+    };
+  },
   computed: {
+    getuser() {
+      return this.$store.state.user;
+    },
     betHistory() {
       return this.$store.state.betHistory;
     },
-    betties() {
-      return this.$store.state.betties;
-    },
+
     hasAlreadyBet() {
       return (
         this.betHistory.find((bet) => bet.id === this.bet.id) !== undefined
@@ -142,7 +148,8 @@ export default {
     wantToBet() {
       if (!this.amount || parseFloat(this.amount) === 0)
         this.errors.betInput = true;
-      else if (this.amount > this.betties) this.errors.bettiesAmount = true;
+      else if (this.amount > this.getuser.betties)
+        this.errors.bettiesAmount = true;
       else this.hasBet = true;
     },
     confirmBet() {
@@ -151,6 +158,10 @@ export default {
         bet: { ...this.bet, amount: parseFloat(this.amount), date: new Date() },
       });
       this.hasBet = false;
+      this.$store.dispatch("PutBetties", {
+        betties: this.getuser.betties,
+        id: this.getuser.id,
+      });
     },
   },
   mounted() {

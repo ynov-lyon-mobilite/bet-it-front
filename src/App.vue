@@ -1,4 +1,3 @@
-
 <template>
   <v-app>
     <v-main>
@@ -8,24 +7,24 @@
         </div>
         <div class="pa-10 mb-16" style="width: 85vw">
           <router-view />
-          <Footer v-show="!isLanding" ></Footer>
+          <Footer v-show="!isLanding"></Footer>
         </div>
-
       </v-row>
-
     </v-main>
   </v-app>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar";
-import axios from "axios";
 import store from "@/store/index.js";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer"; 
+import axios from 'axios';
+  
+axios.defaults.baseURL = "http://localhost:8000/";
 
 export default {
   name: "App",
-
+  store: store,
   components: {
     Navbar,
     Footer,
@@ -34,8 +33,10 @@ export default {
     isLanding() {
       return this.$route.name === "Landing";
     },
-  },
+  }, 
+
 };
+
 </script>
 
 <style>
@@ -56,9 +57,5 @@ html {
 }
 .h-100 {
   height: 100%;
-}
-
-.v-application{
-
 }
 </style>

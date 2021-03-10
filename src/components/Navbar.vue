@@ -3,22 +3,29 @@
     <v-toolbar flat extended height="250" class="pa-3">
       <v-row justify="space-around">
         <v-row class="ma-4">
-          <v-avatar>
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-          </v-avatar>
-          <v-list-item-content>
-            <v-list-item-title class="title">
-              UserName
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              @subtext
-            </v-list-item-subtitle>
-          </v-list-item-content>
+
+          <v-row v-if="user.id != null">
+            <v-avatar>
+              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+            </v-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="title">
+                {{ user.firstName }}
+              </v-list-item-title>
+              <v-list-item-subtitle> @{{ user.pseudo }} </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-row>
+          <div v-else>
+            <center>
+              <v-btn class="ma-2" :to="{ name: 'Registration'}">S'inscrire </v-btn>
+              <v-btn class="ma-2" :to="{ name: 'Connection'}"> Se connecter</v-btn>
+            </center>
+          </div>
         </v-row>
         <v-img
-            width="100"
-            style="flex: none;"
-            src="../assets/logo-couleur.svg"
+          width="100"
+          style="flex: none"
+          src="../assets/logo-couleur.svg"
         ></v-img>
       </v-row>
     </v-toolbar>
@@ -40,30 +47,38 @@
 </template>
 
 <script>
+import store from "@/store/index.js";
+
 export default {
+  store: store,
   name: "Navbar",
   data: () => ({
     selectedItem: 1,
     pages: [
       { text: "Accueil", icon: "fas fa-home", route: "/home" },
       { text: "Calendrier", icon: "fas fa-calendar-alt", route: "/calendar" },
-      { text: "Compte", icon: "fas fa-users", route: "/profile" },
+      { text: "Compte", icon: "fas fa-users", route: "/profile/" },
       { text: "Succès", icon: "fas fa-trophy", route: "/success" },
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
-      { text: "Jeux", icon: "fas fa-gamepad", route: "/games" }
+      { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
     ],
-    right: null
-  })
+    right: null,
+  }),
+  computed: {
+    user() {
+      return store.state.user;
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .v-item--active:link {
   background: linear-gradient(
-          90deg,
-          var(--v-darkPurple-base),
-          var(--v-info-base),
-          var(--v-secondary-base)
+    90deg,
+    var(--v-darkPurple-base),
+    var(--v-info-base),
+    var(--v-secondary-base)
   );
   transition: 0.4s ease-in-out;
   color: white;

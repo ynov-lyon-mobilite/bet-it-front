@@ -26,7 +26,7 @@ export default {
       email: "Email",
       phoneNumber: "Numéro de téléphone",
       username: "Nom d'utilisateur",
-      alias: "Alias"
+      firstName: "Prénom"
     }
   }),
   methods: {

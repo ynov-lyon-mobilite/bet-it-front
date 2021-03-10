@@ -1,24 +1,39 @@
 <template>
   <v-container>
-    <SuccessCategory
-      label="Paris"
-      :successList="categories.bet"
-      :progress="wonBet"
-    />
-    <SuccessCategory
-      label="Anniversaires"
-      :successList="categories.birthday"
-      :progress="month"
-    />
+    <div v-if="user.id != null">
+      <SuccessCategory
+        label="Paris"
+        :successList="categories.bet"
+        :progress="wonBet"
+      />
+      <SuccessCategory
+        label="Anniversaires"
+        :successList="categories.birthday"
+        :progress="month"
+      />
+    </div>
+    <div v-else>
+      <center>
+        <h1 class="ma-10">
+          Vous ne pouvez pas accéder aux succès tant que vous n'êtes pas connecté
+        </h1>
+        <v-btn class="ma-2" :to="{ name: 'Registration' }"
+          >S'inscrire
+        </v-btn>
+        <v-btn class="ma-2" :to="{ name: 'Connection' }"> Se connecter</v-btn>
+      </center>
+    </div>
   </v-container>
 </template>
 
 <script>
+import store from "@/store/index.js";
 import SuccessCategory from "@/components/Success/SuccessCategory.vue";
 
 export default {
+  store: store,
   components: {
-    SuccessCategory
+    SuccessCategory,
   },
   data: () => ({
     month: 1,
@@ -30,36 +45,36 @@ export default {
           label: "Remporter 5 paris",
           goal: 5,
           reward: 100,
-          isDone: true
+          isDone: true,
         },
         {
           id: "10wins",
           label: "Remporter 10 paris",
           goal: 10,
           reward: 250,
-          isDone: false
+          isDone: false,
         },
         {
           id: "20wins",
           label: "Remporter 20 paris",
           goal: 20,
           reward: 300,
-          isDone: false
+          isDone: false,
         },
         {
           id: "30wins",
           label: "Remporter 30 paris",
           goal: 30,
           reward: 600,
-          isDone: false
+          isDone: false,
         },
         {
           id: "50wins",
           label: "Remporter 50 paris",
           goal: 50,
           reward: 1500,
-          isDone: false
-        }
+          isDone: false,
+        },
       ],
       birthday: [
         {
@@ -67,32 +82,37 @@ export default {
           label: "1 mois d'ancienneté",
           goal: 1,
           reward: 10,
-          isDone: true
+          isDone: true,
         },
         {
           id: "2months",
           label: "2 mois d'ancienneté",
           goal: 2,
           reward: 20,
-          isDone: false
+          isDone: false,
         },
         {
           id: "3months",
           label: "3 mois d'ancienneté",
           goal: 3,
           reward: 50,
-          isDone: false
+          isDone: false,
         },
         {
           id: "6months",
           label: "6 mois d'ancienneté",
           goal: 6,
           reward: 100,
-          isDone: false
-        }
-      ]
-    }
-  })
+          isDone: false,
+        },
+      ],
+    },
+  }),
+  computed: {
+    user() {
+      return store.state.user;
+    },
+  },
 };
 </script>
 

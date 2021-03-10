@@ -1,15 +1,15 @@
+import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-
     state: {
-        betties: 150,
+        user: [],
         betHistory: [],
         event: {},
-
+        token: {},
         events: [{
                 name: "G2 Esports VS MAD Lions",
                 start: "2021-01-22 18:00",
@@ -1621,10 +1621,10 @@ export default new Vuex.Store({
 
     mutations: {
         addBetties(state, amount) {
-            state.betties += amount;
+            state.user.betties += amount;
         },
         removeBetties(state, amount) {
-            state.betties -= amount;
+            state.user.betties -= amount;
         },
         addBetToHistory(state, bet) {
             state.betHistory = [...state.betHistory, bet];
@@ -1632,7 +1632,15 @@ export default new Vuex.Store({
 
         setEvent(state, event) {
             state.event = event;
-        }
+        },
+
+        setUser(state, user) {
+            state.user = user;
+        },
+        setToken(state, token) {
+            state.token = token;
+        },
+
 
     },
 
@@ -1648,10 +1656,77 @@ export default new Vuex.Store({
                     commit("setEvent", event);
                 }
             });
-        }
+        },
 
+        async getAuth({
+                commit,
+                dispatch
+            },
+            user) {
+            await axios
+                .post("/api/auth", {
+                    email: user.email,
+                    password: user.password,
+                })
+                .then(response => {
+                    axios.defaults.headers.common = {
+                        Authorization: `bearer ${ response.data.token }`
+                    };
+                    commit("setToken", response.data.token);
+                    dispatch("getUserById", response.data.data.id);
+
+                })
+
+
+            .catch(function(error) {
+                return Promise.reject(error)
+            });
+        },
+
+        async getUserById(context, id) {
+            await axios
+                .get("api/users/" + id)
+                .then(response => {
+                    context.commit("setUser", response.data);
+                })
+                .catch(function(error) {
+                    return Promise.reject(error)
+                });
+        },
+
+        async addUser(context, user) {
+            await axios
+                .post("/api/users", {
+                    email: user.email,
+                    roles: ["ROLE_USER"],
+                    password: "",
+                    plainPassword: user.plainPassword,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    betties: 2,
+                    pseudo: user.pseudo,
+                    PhoneNumber: user.PhoneNumber,
+                    sexe: user.sexe,
+                    birthday: user.birthday,
+                })
+                .then(response => {
+                    context.commit("setUser", response.data);
+                })
+                .catch(function(error) {
+                    return Promise.reject(error)
+                });
+        },
+
+        async PutBetties(context, user) {
+            await axios
+                .put("/api/users/" + user.id, {
+                    betties: user.betties,
+                    id: user.id
+
+                })
+                .then(response => {
+                    context.commit("setUser", response.data);
+                })
+        },
     },
-
-
-    modules: {},
-});
+})
