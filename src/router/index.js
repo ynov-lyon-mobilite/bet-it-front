@@ -1,61 +1,65 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    redirect: "/landing",
+    path: '/',
+    redirect: '/landing'
   },
   {
-    path: "/landing",
-    name: "Landing",
+    path: '/landing',
+    name: 'Landing',
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Landing.vue"),
+      import(/* webpackChunkName: "about" */ '../views/Landing.vue')
   },
   {
-    path: "/home",
-    name: "Home",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Home.vue"),
+    path: '/home',
+    name: 'Home',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
   {
-    path: "/profile",
-    name: "Profile",
-    component: () => import("../views/Profile.vue"),
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('../views/Profile.vue')
   },
   {
-    path: "/success",
-    name: "Success",
-    component: () => import("../views/Success.vue"),
+    path: '/success',
+    name: 'Success',
+    component: () => import('../views/Success.vue')
   },
   {
-    path: "/bet/:id",
-    name: "Bet",
-    component: () => import("../views/Bet.vue"),
+    path: '/bet/:id',
+    name: 'Bet',
+    component: () => import('../views/Bet.vue')
   },
   {
-    path: "/calendar",
-    name: "Calendar",
-    component: () => import("../views/Calendar.vue"),
+    path: '/calendar',
+    name: 'Calendar',
+    component: () => import('../views/Calendar.vue')
   },
   {
-    path: "/ladder",
-    name: "Ladder",
-    component: () => import("../views/Ladder.vue"),
+    path: '/ladder',
+    name: 'Ladder',
+    component: () => import('../views/Ladder.vue')
   },
   {
-    path: "/games",
-    name: "Games",
-    component: () => import("../views/Game.vue"),
+    path: '/games',
+    name: 'Games',
+    component: () => import('../views/Game.vue')
   },
+  {
+    path: '/fantasy',
+    name: 'Fantasy',
+    component: () => import('../views/Fantasy.vue')
+  }
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 export default router;
