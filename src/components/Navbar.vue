@@ -3,7 +3,6 @@
     <v-toolbar flat extended height="250" class="pa-3">
       <v-row justify="space-around">
         <v-row class="ma-4">
-
           <v-row v-if="user.id != null">
             <v-avatar>
               <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
@@ -17,8 +16,12 @@
           </v-row>
           <div v-else>
             <center>
-              <v-btn class="notco ma-2" :to="{ name: 'Registration'}">S'inscrire </v-btn>
-              <v-btn class="notco ma-2" :to="{ name: 'Connection'}"> Se connecter</v-btn>
+              <v-btn class="notco ma-2" :to="{ name: 'Registration' }"
+                >S'inscrire
+              </v-btn>
+              <v-btn class="notco ma-2" :to="{ name: 'Connection' }">
+                Se connecter</v-btn
+              >
             </center>
           </div>
         </v-row>
@@ -31,7 +34,7 @@
     </v-toolbar>
     <v-divider></v-divider>
 
-    <v-list class="pt-10">
+    <v-list class="pt-10 pb-10">
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item v-for="(page, i) in pages" :key="i" :to="page.route">
           <v-list-item-icon>
@@ -39,6 +42,27 @@
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title v-text="page.text"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+    <center>
+      <p>FANTASY LEAGUE</p>
+    </center>
+
+    <v-list class="pt-2">
+      <v-list-item-group v-model="selectedItem" color="primary">
+        <v-list-item
+          v-for="(FantasyLeague, i) in FantasyLeagues"
+          :key="i"
+          :to="FantasyLeague.route"
+        >
+          <v-list-item-content>
+            <center>
+              <v-list-item-title
+                v-text="FantasyLeague.text"
+              ></v-list-item-title>
+            </center>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -62,8 +86,10 @@ export default {
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
     ],
+    FantasyLeagues: [{ text: "Mes salons", route: "/room" }],
     right: null,
   }),
+
   computed: {
     user() {
       return store.state.user;
@@ -83,7 +109,7 @@ export default {
   transition: 0.4s ease-in-out;
   color: white;
 }
-.notco{
+.notco {
   background: linear-gradient(
     90deg,
     var(--v-darkPurple-base),
