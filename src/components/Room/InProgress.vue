@@ -26,13 +26,13 @@
         </div>
         <div class="ma-5">
           <p>
-            <i class="fas fa-user-friends mr-3"></i>Nombre de joueur : 1 /
+            <i class="fas fa-user-friends mr-3"></i>Nombre de joueurs : 1 /
             {{ getRoom.NumberOfPlayers }}
           </p>
           <p>
             <i class="fas fa-calendar-check mr-4"></i>Fin du salon le : {{ getRoom.EndRoom }}
           </p>
-          <p><i class="fas fa-gem mr-4"></i>Votre classement : 1/1 </p>
+          <p><i class="fas fa-gem mr-4"></i>Votre classement : 1er </p>
           <p>
             <i class="fas fa-trophy mr-3"></i>
             La compétition : {{ getRoom.Competition }}
@@ -60,7 +60,7 @@
         <div class="ma-4">
           <p>
             <i class="fas fa-user-friends mr-3"></i
-            >Nombre de joueur : {{ salon.Info.NombreJoueur }}
+            >Nombre de joueurs : {{ salon.Info.NombreJoueur }}
           </p>
           <p>
             <i class="fas fa-calendar-check mr-4"></i>Fin du salon le : {{ salon.Info.FinSalon }}
@@ -98,7 +98,7 @@ export default {
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10/100",
+            Classement : "10ème",
             Propriétaire: 0,
           },
         },
@@ -109,7 +109,7 @@ export default {
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10/100",
+            Classement : "10ème",
             Propriétaire: 1,
           },
         },
@@ -120,7 +120,7 @@ export default {
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10/100",
+            Classement : "10ème",
             Propriétaire: 0,
           },
         },
@@ -131,7 +131,7 @@ export default {
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10/100",
+            Classement : "10ème",
             Propriétaire: 1,
           },
         },
