@@ -2,15 +2,18 @@
 <template>
   <v-app>
     <v-main>
-      <v-row>
-        <div v-show="!isLanding" style="width: 15vw">
+      <v-row v-if="!isLanding">
+        <div style="width: 15vw">
           <Navbar></Navbar>
         </div>
-        <div class="pa-10 mb-16" style="width: 85vw">
+        <div class="pa-10 mb-16 vh-100" :style="!isLanding&&'width: 85vw'">
           <router-view />
-          <Footer v-show="!isLanding" ></Footer>
+          <Footer ></Footer>
         </div>
 
+      </v-row>
+      <v-row v-else>
+        <Landing ></Landing>
       </v-row>
 
     </v-main>
@@ -22,6 +25,7 @@ import Navbar from "@/components/Navbar";
 import axios from "axios";
 import store from "@/store/index.js";
 import Footer from "@/components/Footer";
+import Landing from './views/Landing.vue';
 
 export default {
   name: "App",
@@ -29,6 +33,7 @@ export default {
   components: {
     Navbar,
     Footer,
+    Landing,
   },
   computed: {
     isLanding() {
