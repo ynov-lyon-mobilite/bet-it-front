@@ -6,8 +6,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+
         user: [],
         betHistory: [],
+        room: [],
         event: {},
         token: {},
         events: [{
@@ -1641,6 +1643,10 @@ export default new Vuex.Store({
             state.token = token;
         },
 
+        setRoom(state, room) {
+            state.room = room;
+        },
+
 
     },
 
@@ -1658,6 +1664,11 @@ export default new Vuex.Store({
             });
         },
 
+        addRoom(context, room) {
+
+            context.commit("setRoom", room);
+        },
+
         async getAuth({
                 commit,
                 dispatch
@@ -1670,7 +1681,7 @@ export default new Vuex.Store({
                 })
                 .then(response => {
                     axios.defaults.headers.common = {
-                        Authorization: `bearer ${ response.data.token }`
+                        Authorization: `bearer ${response.data.token}`
                     };
                     commit("setToken", response.data.token);
                     dispatch("getUserById", response.data.data.id);

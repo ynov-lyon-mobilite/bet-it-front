@@ -109,7 +109,6 @@ export default {
     betHistory() {
       return this.$store.state.betHistory;
     },
-
     hasAlreadyBet() {
       return (
         this.betHistory.find((bet) => bet.id === this.bet.id) !== undefined

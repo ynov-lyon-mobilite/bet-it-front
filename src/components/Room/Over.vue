@@ -7,7 +7,7 @@
       :headers="headers"
       :items="endroom"
       :items-per-page="5"
-      class="elevation-1 ma-10"
+      class="elevation-5 ma-10"
     ></v-data-table>
     <v-row>
       <v-col cols="12" sm="12" md="6" offset-md="3"> </v-col>
@@ -24,7 +24,7 @@ export default {
         { text: "Nom", value: "nom" },
         { text: "League", value: "League" },
         { text: "Participant", value: "Participant" },
-        { text: "Point gagné", value: "Point" },
+        { text: "Classement", value: "Point" },
       ],
       endroom: [
         {
@@ -32,59 +32,60 @@ export default {
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
         {
           date: "30/05",
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
         {
           date: "30/05",
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
         {
           date: "30/05",
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
         {
           date: "30/05",
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
         {
           date: "30/05",
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
         {
           date: "30/05",
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
         {
           date: "30/05",
           nom: "test",
           League: "LEC",
           Participant: "250/300",
-          Point: 400,
+          Point: "10/250",
         },
       ],
     };
   },
 };
 </script>
+

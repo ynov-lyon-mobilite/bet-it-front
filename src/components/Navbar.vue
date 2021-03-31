@@ -86,7 +86,10 @@ export default {
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
     ],
-    FantasyLeagues: [{ text: "Mes salons", route: "/room" }],
+    FantasyLeagues: [
+      { text: "Ajouter un salon", route: "/addRoom" },
+      { text: "Mes salons", route: "/room" },
+    ],
     right: null,
   }),
 

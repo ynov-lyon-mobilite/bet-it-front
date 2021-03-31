@@ -34,7 +34,6 @@ export default {
       return this.$route.name === "Landing";
     },
   }, 
-
 };
 
 </script>

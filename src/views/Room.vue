@@ -30,21 +30,21 @@
         <img style="width: 120px" src="../assets/coffre.svg" alt="monnaie" />
       </div>
     </div>
+
     <InProgress></InProgress>
     <Over></Over>
   </v-container>
 </template>
 <script>
 import store from "@/store/index.js";
-import InProgress from '@/components/Room/InProgress.vue';
-import Over from '@/components/Room/Over.vue';
+import InProgress from "@/components/Room/InProgress.vue";
+import Over from "@/components/Room/Over.vue";
 
 export default {
   components: { InProgress, Over },
   store: store,
   InProgress,
   Over,
-
 
   computed: {
     getuser() {
@@ -55,8 +55,7 @@ export default {
 </script>
 
 <style>
-.Top,
-thead tr {
+.Top , .v-data-table-header  {
   background: linear-gradient(
     90deg,
     var(--v-darkPurple-base),
@@ -77,4 +76,5 @@ h2 {
 #chip {
   font-size: 23px;
 }
+
 </style>
