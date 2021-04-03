@@ -3,7 +3,7 @@
     <v-card
       color="#1e1e1e"
       class="rounded-pill pa-4 d-flex justify-center align-center"
-      ><div class="text-h3">OPEN LEAGUE MYROOM</div>
+      ><h1>OPEN LEAGUE MYROOM</h1>
     </v-card>
     <BettiesSold />
   </div>
