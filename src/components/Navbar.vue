@@ -16,9 +16,9 @@
           </v-list-item-content>
         </v-row>
         <v-img
-            width="100"
-            style="flex: none;"
-            src="../assets/logo/logoSimple.svg"
+          width="100"
+          style="flex: none;"
+          src="../assets/logo/logoSimple.svg"
         ></v-img>
       </v-row>
     </v-toolbar>
@@ -50,7 +50,8 @@ export default {
       { text: "Compte", icon: "fas fa-users", route: "/profile" },
       { text: "Succès", icon: "fas fa-trophy", route: "/success" },
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
-      { text: "Jeux", icon: "fas fa-gamepad", route: "/games" }
+      { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
+      { text: "Fantasy", icon: "fab fa-foursquare", route: "/fantasy" }
     ],
     right: null
   })
@@ -60,10 +61,10 @@ export default {
 <style scoped lang="scss">
 .v-item--active:link {
   background: linear-gradient(
-          90deg,
-          var(--v-darkPurple-base),
-          var(--v-info-base),
-          var(--v-secondary-base)
+    90deg,
+    var(--v-darkPurple-base),
+    var(--v-info-base),
+    var(--v-secondary-base)
   );
   transition: 0.4s ease-in-out;
   color: white;

@@ -1,54 +1,84 @@
 <template>
   <div>
     <RoomInfos />
-    <v-card color="#1e1e1e" class="my-8">
-      <v-card-title class="card-title">Je constitue mon équipe</v-card-title>
-      <div class="d-flex flex-column my-team pa-8">
-        <div
-          v-for="lane in team"
-          :key="lane.name"
-          class="d-flex justify-center align-center my-2"
-        >
-          <img
-            :class="`lane-logo pa-2 mx-2 ${!lane.player && 'clickable'}`"
-            :src="lane.logo"
-            :alt="lane.name"
-            @click="!lane.player && selectLane(lane.name)"
-          />
+    <div class="d-flex flex-column align-center">
+      <v-card color="#1e1e1e" class="my-8" width="700">
+        <v-card-title class="card-title">Je constitue mon équipe</v-card-title>
+        <div class="d-flex flex-column my-team pa-8">
           <div
-            v-if="lane.player"
-            class="team-logo-wrapper d-flex justify-center pa-2 ml-2 mr-6"
+            v-for="lane in team"
+            :key="lane.name"
+            class="d-flex justify-center flex-wrap align-center my-4 my-md-2"
           >
-            <img class="team-logo " :src="lane.player.teamLogo" />
+            <img
+              :class="`lane-logo pa-2 mx-1 ${!lane.player && 'clickable'}`"
+              :src="lane.logo"
+              :alt="lane.name"
+              @click="!lane.player && selectLane(lane.name)"
+            />
+            <div
+              v-if="lane.player"
+              class="team-logo-wrapper d-flex justify-center pa-2 mx-1"
+            >
+              <img class="team-logo " :src="lane.player.team.logo" />
+            </div>
+            <img
+              class="player-picture mx-1"
+              v-if="lane.player"
+              :src="lane.player.picture"
+            />
+            <h4 v-if="lane.player" class="text-center text-uppercase mx-1">
+              {{ lane.player.name }}
+            </h4>
+            <v-icon
+              x-large
+              v-if="lane.player && ((fantasyTeam && editMode) || !fantasyTeam)"
+              class="mx-2 my-4 my-md-0"
+              @click="removePlayer(lane)"
+              >fa-times-circle</v-icon
+            >
           </div>
-          <img
-            class="mx-6 player-picture"
-            v-if="lane.player"
-            :src="lane.player.picture"
-          />
-          <h4 v-if="lane.player" class="text-center text-uppercase">
-            {{ lane.player.name }}
-          </h4>
-          <v-icon
-            x-large
-            v-if="lane.player"
-            class="mx-6"
-            @click="removePlayer(lane)"
-            >fa-times-circle</v-icon
+        </div>
+        <div class="text-center py-2 mx-6">
+          Valeur actuelle de l'équipe : {{ teamValue }}/100
+        </div>
+        <div class="d-flex flex-column justify-center align-center my-3">
+          <v-btn
+            v-if="fantasyTeam && !editMode"
+            @click="editTeam"
+            class="btn rounded-pill pa-5 mb-2 text-h4"
+            ><h2>Modifier</h2></v-btn
+          >
+          <v-btn
+            v-if="fantasyTeam && editMode"
+            @click="confirmTeamEdition"
+            :class="
+              `btn rounded-pill pa-5 mb-2 text-h4 ${!canParticipate &&
+                'disabled'}`
+            "
+            :disabled="!canParticipate"
+            ><h2>Valider les modifications</h2></v-btn
+          >
+          <v-btn
+            v-if="fantasyTeam && editMode"
+            @click="cancelTeamEdition"
+            class="
+            `pa-5 mb-2 text-h4
+            "
+            ><h2>Annuler les modifications</h2></v-btn
           >
         </div>
-      </div>
-      <div class="text-center py-2 mx-6">
-        Valeur actuelle de l'équipe : {{ teamValue }}/100
-      </div>
-    </v-card>
+      </v-card>
+    </div>
     <div class="d-flex flex-column align-center">
       <v-btn
+        v-if="!fantasyTeam"
         :disabled="!canParticipate"
         :class="
           `btn rounded-pill pa-5 mb-2 text-h4 participate ${!canParticipate &&
             'disabled'}`
         "
+        @click="validateTeam"
         >Je participe !
         <div class="circle d-flex justify-center align-center">
           1€
@@ -92,7 +122,7 @@
         <v-card-title
           class="d-flex justify-space-between align-center card-title"
           ><h2>Je choisis mon {{ selectedLane }}</h2>
-          <v-icon @click="closeDialog">fas fa-times</v-icon></v-card-title
+          <v-icon @click="closePlayerDialog">fas fa-times</v-icon></v-card-title
         >
         <div class="pa-4">
           <div class="d-flex justify-space-between">
@@ -102,7 +132,10 @@
           <div class="d-flex flex-wrap justify-center overflow-y-auto">
             <div
               v-for="player in selectablePlayers"
-              :class="`player ma-8 ${player === selectedPlayer && 'selected'}`"
+              :class="
+                `player d-flex flex-column ma-8 ${player === selectedPlayer &&
+                  'selected'}`
+              "
               :key="player.id"
               @click="selectPlayer(player)"
             >
@@ -114,12 +147,12 @@
                 </h4></v-chip
               >
               <div class="team-logo pa-3 d-flex justify-center align-center">
-                <v-img width="50" :src="player.teamLogo"></v-img>
+                <v-img width="50" :src="player.team.logo"></v-img>
               </div>
             </div>
           </div>
           <div class="d-flex justify-center my-4">
-            <v-btn class="rounded-pill mx-4" @click="closeDialog"
+            <v-btn class="rounded-pill mx-4" @click="closePlayerDialog"
               >Annuler</v-btn
             >
             <v-btn class="btn rounded-pill mx-4" @click="validatePlayer"
@@ -142,137 +175,88 @@
         >
       </v-card>
     </v-dialog>
+    <v-dialog v-model="isValidatingTeam">
+      <v-card>
+        <v-card-title class="card-title"
+          ><h2>Je valide mon équipe et passe au paiement</h2></v-card-title
+        >
+        <v-card-text class="text-center pa-4 white--text text-h5"
+          ><p>Vous êtes sur le point de valider votre équipe.</p>
+          <p>
+            Vous pouvez la modifier jusqu'au 23/04 dans l'onglet : Mes salons
+          </p>
+          <p>
+            Pour participer, il ne vous reste plus qu'à payer l'inscription !
+          </p></v-card-text
+        >
+        <v-card-actions class="flex-column align-center"
+          ><v-btn
+            class="
+          btn rounded-pill pa-5 mb-8 text-h4 validate
+        "
+            @click="confirmTeamValidation"
+            >Je paie ma participation !
+            <div class="circle d-flex justify-center align-center">
+              1€
+            </div></v-btn
+          >
+          <v-btn
+            class="rounded-pill pa-5 mb-4 text-h5 cancel"
+            @click="leaveTeamValidation"
+            >Annuler</v-btn
+          ></v-card-actions
+        >
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import RoomInfos from '@/components/Fantasy/RoomInfos';
+import RoomInfos from "@/components/Fantasy/RoomInfos";
+import players from "@/assets/fixtures/players";
+
 export default {
-  name: 'Fantasy',
+  name: "Fantasy",
   components: {
     RoomInfos
   },
   data: () => ({
     isSelectingPlayer: false,
+    isValidatingTeam: false,
     selectedLane: null,
     selectedPlayer: null,
     pointsError: false,
-    players: [
-      {
-        id: 1,
-        name: 'Rekkles',
-        position: 'adc',
-        teamLogo:
-          'https://am-a.akamaihd.net/image/?resize=70:&f=http%3A%2F%2Fstatic.lolesports.com%2Fteams%2F1592591295307_FnaticFNC-01-FullonDark.png',
-        picture: require('../assets/players/rekkles.png'),
-        value: 40
-      },
-      {
-        id: 2,
-        name: 'Hans Sama',
-        position: 'adc',
-        teamLogo:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/a/af/Rogue_logo.svg/220px-Rogue_logo.svg.png',
-        picture: require('../assets/players/hans_sama.png'),
-        value: 30
-      },
-      {
-        id: 3,
-        name: 'Adam',
-        position: 'top',
-        teamLogo: require('../assets/teams/karmine_corp.png'),
-        picture: require('../assets/players/adam.png'),
-        value: 15
-      },
-      {
-        id: 4,
-        name: 'Saken',
-        position: 'mid',
-        teamLogo: require('../assets/teams/karmine_corp.png'),
-        picture: require('../assets/players/saken.png'),
-        value: 15
-      },
-      {
-        id: 5,
-        name: 'Targamas',
-        position: 'support',
-        teamLogo: require('../assets/teams/karmine_corp.png'),
-        picture: require('../assets/players/targamas.png'),
-        value: 10
-      },
-      {
-        id: 6,
-        name: 'Cinkrof',
-        position: 'jungler',
-        teamLogo: require('../assets/teams/karmine_corp.png'),
-        picture: require('../assets/players/cinkrof.png'),
-        value: 10
-      },
-      {
-        id: 7,
-        name: 'xMatty',
-        position: 'adc',
-        teamLogo: require('../assets/teams/karmine_corp.png'),
-        picture: require('../assets/players/xmatty.png'),
-        value: 15
-      },
-      {
-        id: 8,
-        name: 'Faker',
-        position: 'mid',
-        teamLogo: require('../assets/teams/t1.png'),
-        picture: require('../assets/players/faker.png'),
-        value: 99
-      },
-      {
-        id: 9,
-        name: 'Kryze',
-        position: 'top',
-        teamLogo: require('../assets/teams/excel.png'),
-        picture: require('../assets/players/kryze.png'),
-        value: 10
-      },
-      {
-        id: 10,
-        name: 'Jactroll',
-        position: 'support',
-        teamLogo: require('../assets/teams/misfits_premier.png'),
-        picture: require('../assets/players/jactroll.png'),
-        value: 10
-      },
-      {
-        id: 11,
-        name: 'toucouille',
-        position: 'mid',
-        teamLogo: require('../assets/teams/gameward.png'),
-        picture: require('../assets/players/toucouille.png'),
-        value: 10
-      }
-    ],
+    editMode: false,
+    players,
     team: [
       {
-        name: 'top',
-        logo: require('../assets/fantasy/top.png'),
+        name: "top",
+        logo: require("../assets/fantasy/top.png"),
         player: null
       },
       {
-        name: 'jungler',
-        logo: require('../assets/fantasy/jungle.png'),
+        name: "jungler",
+        logo: require("../assets/fantasy/jungle.png"),
         player: null
       },
       {
-        name: 'mid',
-        logo: require('../assets/fantasy/mid.png'),
+        name: "mid",
+        logo: require("../assets/fantasy/mid.png"),
         player: null
       },
       {
-        name: 'adc',
-        logo: require('../assets/fantasy/adc.png'),
+        name: "adc",
+        logo: require("../assets/fantasy/adc.png"),
         player: null
       },
       {
-        name: 'support',
-        logo: require('../assets/fantasy/support.png'),
+        name: "support",
+        logo: require("../assets/fantasy/support.png"),
+        player: null
+      },
+      {
+        name: "coach",
+        logo: require("../assets/fantasy/coach.png"),
         player: null
       }
     ]
@@ -280,6 +264,9 @@ export default {
   computed: {
     betties() {
       return this.$store.state.betties;
+    },
+    fantasyTeam() {
+      return this.$store.state.fantasyTeam;
     },
     teamValue() {
       let sum = 0;
@@ -304,10 +291,12 @@ export default {
     }
   },
   methods: {
-    removePlayer(lane) {
-      lane.player = null;
+    removePlayer(removedPlayerLane) {
+      this.team.find(
+        lane => lane.name === removedPlayerLane.name
+      ).player = null;
     },
-    closeDialog() {
+    closePlayerDialog() {
       this.selectedPlayer = null;
       this.isSelectingPlayer = false;
     },
@@ -328,9 +317,42 @@ export default {
         this.team.find(
           lane => lane.name === this.selectedLane
         ).player = this.selectedPlayer;
-        this.closeDialog();
+        this.closePlayerDialog();
       }
+    },
+    editTeam() {
+      this.editMode = true;
+    },
+    leaveTeamEdition() {
+      this.editMode = false;
+    },
+    validateTeam() {
+      this.isValidatingTeam = true;
+    },
+    leaveTeamValidation() {
+      this.isValidatingTeam = false;
+    },
+    registerTeam() {
+      this.$store.dispatch({
+        type: "validateTeam",
+        team: [...this.team]
+      });
+    },
+    confirmTeamValidation() {
+      this.registerTeam();
+      this.leaveTeamValidation();
+    },
+    confirmTeamEdition() {
+      this.registerTeam();
+      this.leaveTeamEdition();
+    },
+    cancelTeamEdition() {
+      this.team = [...this.fantasyTeam];
+      this.leaveTeamEdition();
     }
+  },
+  mounted() {
+    this.team = [...this.fantasyTeam];
   }
 };
 </script>
@@ -389,14 +411,32 @@ export default {
   );
 }
 
-.participate {
+.participate,
+.validate {
   height: 60px !important;
+  position: relative;
+}
+
+.cancel {
+  height: 60px !important;
+}
+
+.participate {
+  .circle {
+    top: 20px;
+    left: 230px;
+  }
+}
+
+.validate {
+  .circle {
+    top: 20px;
+    right: -69px;
+  }
 }
 
 .circle {
   position: absolute;
-  top: 20px;
-  left: 230px;
   width: 75px;
   height: 75px;
   background: var(--v-darkPurple-base);
@@ -420,6 +460,8 @@ export default {
 
   .lane-logo {
     border-radius: 50%;
+    width: 70px;
+    height: 70px;
     &.clickable {
       cursor: pointer;
       &:hover {
