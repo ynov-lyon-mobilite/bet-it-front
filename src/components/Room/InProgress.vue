@@ -30,9 +30,10 @@
             {{ getRoom.NumberOfPlayers }}
           </p>
           <p>
-            <i class="fas fa-calendar-check mr-4"></i>Fin du salon le : {{ getRoom.EndRoom }}
+            <i class="fas fa-calendar-check mr-4"></i>Fin du salon le :
+            {{ getRoom.EndRoom }}
           </p>
-          <p><i class="fas fa-gem mr-4"></i>Votre classement : 1er </p>
+          <p><i class="fas fa-medal mr-3"></i>Votre classement : 1er</p>
           <p>
             <i class="fas fa-trophy mr-3"></i>
             La compétition : {{ getRoom.Competition }}
@@ -59,18 +60,20 @@
         </div>
         <div class="ma-4">
           <p>
-            <i class="fas fa-user-friends mr-3"></i
-            >Nombre de joueurs : {{ salon.Info.NombreJoueur }}
+            <i class="fas fa-user-friends mr-3"></i>Nombre de joueurs :
+            {{ salon.Info.NombreJoueur }}
           </p>
           <p>
-            <i class="fas fa-calendar-check mr-4"></i>Fin du salon le : {{ salon.Info.FinSalon }}
+            <i class="fas fa-calendar-check mr-4"></i>Fin du salon le :
+            {{ salon.Info.FinSalon }}
           </p>
           <p>
-            <i class="fas fa-gem mr-4"></i>Votre classement : {{ salon.Info.Classement }} 
+            <i class="fas fa-medal mr-3"></i>
+            Votre classement : {{ salon.Info.Classement }}
           </p>
           <p>
             <i class="fas fa-trophy mr-3"></i>
-             La compétition : {{ salon.Info.Competition }}
+            La compétition : {{ salon.Info.Competition }}
           </p>
           <div v-if="salon.Info.Propriétaire == 1">
             <center>
@@ -98,29 +101,29 @@ export default {
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10ème",
+            Classement: "10ème",
             Propriétaire: 0,
           },
         },
         {
           Info: {
             Nom: "Bonsoir",
-           NombreJoueur: "100 / 200",
+            NombreJoueur: "100 / 200",
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10ème",
+            Classement: "10ème",
             Propriétaire: 1,
           },
         },
         {
           Info: {
             Nom: "Le cartel bang bang",
-           NombreJoueur: "100 / 200",
+            NombreJoueur: "100 / 200",
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10ème",
+            Classement: "10ème",
             Propriétaire: 0,
           },
         },
@@ -131,7 +134,7 @@ export default {
             FinSalon: " 2021-03-31",
             NombreDePoint: "200",
             Competition: "LEC",
-            Classement : "10ème",
+            Classement: "10ème",
             Propriétaire: 1,
           },
         },
@@ -146,10 +149,8 @@ export default {
 };
 </script>
 <style  scoped>
-
-p{
+p {
   font-size: 18px;
   padding-bottom: 10px;
 }
-
 </style>

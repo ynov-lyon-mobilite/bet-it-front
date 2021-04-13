@@ -85,6 +85,7 @@ export default {
       { text: "Succès", icon: "fas fa-trophy", route: "/success" },
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
+      { text: "BDE", icon: "fas fa-gamepad", route: "/addTournament" },
     ],
     FantasyLeagues: [
       { text: "Ajouter un salon", route: "/addRoom" },
