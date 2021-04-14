@@ -1,4 +1,3 @@
-
 <template>
   <v-app>
     <v-main>
@@ -6,16 +5,12 @@
         <div style="width: 15vw">
           <Navbar></Navbar>
         </div>
-        <div class="pa-10 mb-16 vh-100" :style="!isLanding&&'width: 85vw'">
+        <div class="pa-10 mb-16" style="width: 85vw">
           <router-view />
-          <Footer ></Footer>
+          <Footer></Footer>
         </div>
-
       </v-row>
-      <v-row v-else>
-        <Landing ></Landing>
-      </v-row>
-
+      <Landing v-else></Landing>
     </v-main>
   </v-app>
 </template>
@@ -25,7 +20,7 @@ import Navbar from "@/components/Navbar";
 import axios from "axios";
 import store from "@/store/index.js";
 import Footer from "@/components/Footer";
-import Landing from './views/Landing.vue';
+import Landing from "./views/Landing.vue";
 
 export default {
   name: "App",
@@ -33,32 +28,33 @@ export default {
   components: {
     Navbar,
     Footer,
-    Landing,
+    Landing
   },
   computed: {
     isLanding() {
       return this.$route.name === "Landing";
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
-$title-font: 'Bebas Neue';
-$under-title-font: 'Varela Round';
-$body-font: 'Roboto';
+$title-font: "Bebas Neue";
+$under-title-font: "Varela Round";
+$body-font: "Roboto";
 
 .v-application {
-  h1{
+  h1 {
     font-family: $title-font, cursive !important;
     font-weight: normal;
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     font-family: $title-font, cursive !important;
     font-weight: normal;
     font-size: 2rem;
@@ -66,7 +62,7 @@ $body-font: 'Roboto';
   p {
     font-family: $body-font, sans-serif !important;
   }
-  .card-title{
+  .card-title {
     font-family: $title-font, sans-serif !important;
     font-size: 2rem;
   }
@@ -80,16 +76,19 @@ $body-font: 'Roboto';
   width: 100vw;
 }
 
-.font-title{
+.font-title {
   font-family: $title-font, cursive !important;
   font-weight: normal;
   font-size: 3rem;
 }
 
-.font-body{
+.font-body {
   font-family: $title-font;
 }
 
+.under-title-font{
+  font-family: $under-title-font;
+}
 
 html {
   overflow-y: auto !important;

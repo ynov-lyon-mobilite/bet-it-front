@@ -1,143 +1,176 @@
 <template>
-  <v-container class="container-landing ">
-    <v-row class="d-flex justify-center row-landing vh-100">
-      
+  <v-row class="d-flex justify-center ma-0 pa-0 vh-100">
+    <video class="vh-100 video-fantasy" autoplay loop playsinline muted>
+      <source src="../assets/landingPage/video.webm" type="video/webm" />
+      <source src="../assets/landingPage/video.mp4" type="video/mp4" />
+    </video>
+    <video class="vh-100 video-paris" autoplay loop playsinline muted>
+<!--      <source src="../assets/landingPage/video.webm" type="video/webm" />-->
+      <source src="../assets/landingPage/paris.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute-card">
+      <v-card
+        rounded
+        outlined
+        class="pa-5 card-title-rotate"
+        width="250"
+        height="250"
+      >
+        <div class="align-center flex-column justify-center d-flex mt-2">
+          <h1 class="pa-2 text-center">
+            Bet-It parier <br />
+            e-sportif !
+          </h1>
+          <v-btn class="mx-2" fab color="primary">
+            <v-icon px->
+              fas fa-door-open
+            </v-icon>
+          </v-btn>
+        </div>
+      </v-card>
+    </div>
 
-      <v-col cols="6" class="col-perso">
-        <v-card class="card-landing" href="google.com">
-          <v-img class="img-left" src="http://boucharlat.ovh/wp-content/uploads/img/photo3.jpg">
-            <v-btn x-large elevation="4" rounded class="my-span1 test" color="primary">
-              <h2>Paris e-sportifs</h2>
-            </v-btn>
-            <v-row>
-              <v-col cols="7" offset-md="3" class="row-slogan">
-                <p>Viens te confronter aux meilleurs parieurs de la ligue !</p>
-              </v-col>
-            </v-row>
-          </v-img>
-        </v-card >
-      </v-col>
+    <v-col
+      lg="6"
+      md="12"
+      sm="12"
+      xs="10"
+      class="ma-0 pa-0 d-flex align-center justify-center paris"
+    >
+      <div class="d-flex justify-center flex-column align-center">
+        <v-btn x-large elevation="4" rounded class="font-title" color="primary">
+          <h2>Paris e-sportifs</h2>
+          <v-icon>
+            fas fa-trophy
+          </v-icon>
+        </v-btn>
+        <p class="pa-3 under-title-font">
+          Pariez sur l'équipe que vous soutenez !
+        </p>
+      </div>
+    </v-col>
 
-      <v-col cols="6" class="col-perso">
-        <v-card class="card-landing" href="google.com">
-          <v-img class="img-right" src="http://boucharlat.ovh/wp-content/uploads/img/photo1.jpg">
-            <v-btn x-large elevation="4" rounded class="my-span3 test" color="primary">
-              <h2>Fantasy League</h2>
-            </v-btn>
-            
-          </v-img>
-        </v-card>
-      </v-col>
-
-    </v-row>
-  </v-container>
-
+    <v-col
+      lg="6"
+      md="12"
+      sm="12"
+      xs="12"
+      class="ma-0 pa-0 d-flex align-center justify-center fantasy" style="background: transparent"
+    >
+      <div class="d-flex justify-center flex-column align-center">
+        <v-btn x-large elevation="4" rounded class="font-title" color="primary">
+          <h2>Fantasy League</h2>
+          <v-icon>
+            fas fa-users
+          </v-icon>
+        </v-btn>
+        <p class="pa-3 under-title-font">
+          Composez votre équipe et affrontez d'autres joueurs !
+        </p>
+      </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
   name: "Landing",
   mounted() {
-    setTimeout(() => {
-      this.$router.push({ path: "/home" });
-    }, 30000000);
-  },
+    // setTimeout(() => {
+    //   this.$router.push({ path: "/home" });
+    // }, 3000);
+  }
 };
 </script>
 
-<style scoped>
-video {
+<style scoped lang="scss">
+
+
+.video-fantasy {
   object-fit: cover;
   position: fixed;
+  width: 50%;
+  top: 0;
+  right: 0;
+}
+
+.video-paris{
+  object-fit: cover;
+  position: fixed;
+  width: 50%;
   top: 0;
   left: 0;
 }
 
-.logo-wrapper {
-  position: relative;
-  width: 50%;
-  color: #31f4d9;
+.fantasy{
+  z-index: 1;
+  background-color: transparent;
+  border-width: 2px 0 2px 2px;
+  border-style: solid;
+  //-webkit-border-image:
+  //    -webkit-gradient(linear, 100% 0, 0 0, from(var(--v-darkPurple-base)), to(var(--v-secondary-base))) 1 100%;
+  //-webkit-border-image:
+  //    -webkit-linear-gradient(bottom, var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
+  //-moz-border-image:
+  //    -moz-linear-gradient(bottom, var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
+  //-o-border-image:
+  //    -o-linear-gradient(bottom, var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
+  border-image:
+      linear-gradient(to bottom, var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
 }
 
-.container-landing{
-  overflow: hidden;
-  height: 100vh;
-  display: contents;
+.paris{
+  z-index: 1;
+  border-width: 2px 2px 2px 0;
+  border-style: solid;
+  //-webkit-border-image:
+  //    -webkit-gradient(linear, 0 0, 100% 0, from(var(--v-darkPurple-base)), to(var(--v-secondary-base))) 1 100%;
+  //-webkit-border-image:
+  //    -webkit-linear-gradient(bottom, var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
+  //-moz-border-image:
+  //    -moz-linear-gradient(bottom, var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
+  //-o-border-image:
+  //    -o-linear-gradient(bottom, var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
+  border-image:
+      linear-gradient(to bottom,var(--v-darkPurple-base), var(--v-secondary-base)) 1 100%;
 }
 
-.row-landing, .card-landing{
-  height: 100%;
+.theme--dark.v-sheet--outlined {
+  border-image: linear-gradient(
+      90deg,
+      var(--v-darkPurple-base),
+      var(--v-info-base),
+      var(--v-secondary-base)
+    )
+    100 / 3px;
 }
 
-.card-landing{
-  background-image: url("/src/assets/landingPage/lol1.jpg");
-
+.absolute-card {
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  .card-title-rotate {
+    transform: rotate(45deg);
+    transform-origin: center;
+    div {
+      transform: rotate(-45deg);
+      transform-origin: center;
+    }
+  }
 }
 
-.img-left{
+.img-left {
   filter: blur(2px);
   filter: brightness(40%);
-  overflow: hidden;
-  padding-top: 50%; 
-
+  padding-top: 50%;
 }
 
-.img-left:hover{
+.img-left:hover {
   transform: scale(1.03);
   transition-duration: 1s;
-  overflow: hidden;
   filter: blur(0px);
-  filter: brightness(100%)
+  filter: brightness(100%);
 }
-
-.img-right{
-  filter: blur(2px);
-  filter: brightness(40%);
-  overflow: hidden;
-  padding-top: 50%; 
-
-}
-
-.img-right:hover{
-  transform: scale(1.03);
-  transition-duration: 1s;
-  overflow: hidden;
-  filter: blur(0px);
-  filter: brightness(100%)
-}
-
-.col-perso{
-  padding: 0px !important;
-  overflow: hidden;
-}
-
-.my-span1,.my-span2,.my-span3,.my-span4 {
-  font-size: 35px;
-  margin-left: 50%;
-}
-
-.my-span1 {
-  margin-left: 38%;
-}
-.my-span2 {
-  margin-left: 30%;
-}
-.my-span3 {
-  margin-left: 34%;
-}
-.my-span4 {
-  margin-left: 30%;
-}
-
-.test{
-  font-family: Bebas Neue, cursive !important;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-.row-slogan{
-  background-color: rgba(255, 255, 255, 0.7);
-  color: black;
-  text-align: center;
-}
-
 </style>
