@@ -59,7 +59,6 @@ export default {
     selectedItem: 1,
     pages: [
       { text: "Accueil", icon: "fas fa-home", route: "/home" },
-      // { text: "Mes salons", icon: "fab fa-foursquare", route: "/fantasy" },
       { text: "Mes salons", icon: "fab fa-foursquare", route: "/room" },
       { text: "Calendrier", icon: "fas fa-calendar-alt", route: "/calendar" },
       { text: "Tournois", icon: "fas fa-sitemap", route: "/addTournament" },
