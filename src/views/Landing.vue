@@ -1,8 +1,8 @@
 <template>
   <v-row class="d-flex justify-center ma-0 pa-0 vh-100">
     <video class="vh-100 video-fantasy" autoplay loop playsinline muted>
-      <source src="../assets/landingPage/video.webm" type="video/webm" />
-      <source src="../assets/landingPage/video.mp4" type="video/mp4" />
+<!--      <source src="../assets/landingPage/video.webm" type="video/webm" />-->
+      <source src="../assets/landingPage/fantasy.mp4" type="video/mp4" />
     </video>
     <video class="vh-100 video-paris" autoplay loop playsinline muted>
 <!--      <source src="../assets/landingPage/video.webm" type="video/webm" />-->
@@ -21,8 +21,8 @@
             Bet-It parier <br />
             e-sportif !
           </h1>
-          <v-btn class="mx-2" fab color="primary">
-            <v-icon px->
+          <v-btn class="mx-2" fab color="primary" v-on:click="$router.push('/home')">
+            <v-icon>
               fas fa-door-open
             </v-icon>
           </v-btn>
@@ -38,9 +38,9 @@
       class="ma-0 pa-0 d-flex align-center justify-center paris"
     >
       <div class="d-flex justify-center flex-column align-center">
-        <v-btn x-large elevation="4" rounded class="font-title" color="primary">
+        <v-btn x-large elevation="4" rounded class="font-title" color="primary" v-on:click="$router.push('/home')">
           <h2>Paris e-sportifs</h2>
-          <v-icon>
+          <v-icon class="pl-2">
             fas fa-trophy
           </v-icon>
         </v-btn>
@@ -58,9 +58,9 @@
       class="ma-0 pa-0 d-flex align-center justify-center fantasy" style="background: transparent"
     >
       <div class="d-flex justify-center flex-column align-center">
-        <v-btn x-large elevation="4" rounded class="font-title" color="primary">
+        <v-btn x-large elevation="4" rounded class="font-title" color="primary" v-on:click="$router.push('/home')">
           <h2>Fantasy League</h2>
-          <v-icon>
+          <v-icon class="pl-2">
             fas fa-users
           </v-icon>
         </v-btn>
@@ -78,27 +78,23 @@ export default {
   mounted() {
     // setTimeout(() => {
     //   this.$router.push({ path: "/home" });
-    // }, 3000);
+    // }, 4000);
   }
 };
 </script>
 
 <style scoped lang="scss">
 
-
-.video-fantasy {
+video{
   object-fit: cover;
-  position: fixed;
+  position: absolute;
   width: 50%;
   top: 0;
+}
+.video-fantasy {
   right: 0;
 }
-
 .video-paris{
-  object-fit: cover;
-  position: fixed;
-  width: 50%;
-  top: 0;
   left: 0;
 }
 
@@ -159,18 +155,5 @@ export default {
       transform-origin: center;
     }
   }
-}
-
-.img-left {
-  filter: blur(2px);
-  filter: brightness(40%);
-  padding-top: 50%;
-}
-
-.img-left:hover {
-  transform: scale(1.03);
-  transition-duration: 1s;
-  filter: blur(0px);
-  filter: brightness(100%);
 }
 </style>
