@@ -46,27 +46,6 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <center>
-      <p>FANTASY LEAGUE</p>
-    </center>
-
-    <v-list class="pt-2">
-      <v-list-item-group v-model="selectedItem" color="primary">
-        <v-list-item
-          v-for="(FantasyLeague, i) in FantasyLeagues"
-          :key="i"
-          :to="FantasyLeague.route"
-        >
-          <v-list-item-content>
-            <center>
-              <v-list-item-title
-                v-text="FantasyLeague.text"
-              ></v-list-item-title>
-            </center>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
   </v-navigation-drawer>
 </template>
 
@@ -85,7 +64,7 @@ export default {
       { text: "Succès", icon: "fas fa-trophy", route: "/success" },
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
-      { text: "BDE", icon: "fas fa-gamepad", route: "/addTournament" },
+      { text: "Tournois", icon: "fas fa-gamepad", route: "/addTournament" },
     ],
     FantasyLeagues: [
       { text: "Ajouter un salon", route: "/addRoom" },
