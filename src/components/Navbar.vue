@@ -59,18 +59,15 @@ export default {
     selectedItem: 1,
     pages: [
       { text: "Accueil", icon: "fas fa-home", route: "/home" },
+      // { text: "Mes salons", icon: "fab fa-foursquare", route: "/fantasy" },
+      { text: "Mes salons", icon: "fab fa-foursquare", route: "/room" },
       { text: "Calendrier", icon: "fas fa-calendar-alt", route: "/calendar" },
-      { text: "Compte", icon: "fas fa-users", route: "/profile" },
-      { text: "Succès", icon: "fas fa-trophy", route: "/success" },
-      { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
       { text: "Tournois", icon: "fas fa-sitemap", route: "/addTournament" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
-      { text: "Fantasy", icon: "fab fa-foursquare", route: "/fantasy" }
+      { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
+      { text: "Succès", icon: "fas fa-trophy", route: "/success" },
+      { text: "Compte", icon: "fas fa-user", route: "/profile" }
     ],
-    // FantasyLeagues: [
-    //   { text: "Ajouter un salon", route: "/addRoom" },
-    //   { text: "Mes salons", route: "/room" },
-    // ],
     right: null,
   }),
   computed: {

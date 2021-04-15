@@ -17,7 +17,7 @@
         class="room ma-10"
         elevation="10"
         width="315"
-        :to="{ name: 'Home' }"
+        :to="{ name: 'Fantasy' }"
       >
         <div class="Top" height="60px">
           <center>
@@ -51,7 +51,7 @@
         class="room ma-10"
         elevation="10"
         width="315"
-        :to="{ name: 'Home' }"
+        :to="{ name: 'Fantasy' }"
       >
         <div class="Top" height="60px">
           <center>
