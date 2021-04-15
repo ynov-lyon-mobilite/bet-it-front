@@ -60,19 +60,19 @@ export default {
     pages: [
       { text: "Accueil", icon: "fas fa-home", route: "/home" },
       { text: "Calendrier", icon: "fas fa-calendar-alt", route: "/calendar" },
-      { text: "Compte", icon: "fas fa-users", route: "/profile/" },
+      { text: "Compte", icon: "fas fa-users", route: "/profile" },
       { text: "Succès", icon: "fas fa-trophy", route: "/success" },
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
       { text: "Tournois", icon: "fas fa-sitemap", route: "/addTournament" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
+      { text: "Fantasy", icon: "fab fa-foursquare", route: "/fantasy" }
     ],
-    FantasyLeagues: [
-      { text: "Ajouter un salon", route: "/addRoom" },
-      { text: "Mes salons", route: "/room" },
-    ],
+    // FantasyLeagues: [
+    //   { text: "Ajouter un salon", route: "/addRoom" },
+    //   { text: "Mes salons", route: "/room" },
+    // ],
     right: null,
   }),
-
   computed: {
     user() {
       return store.state.user;

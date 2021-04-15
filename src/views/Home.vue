@@ -1,22 +1,18 @@
 <template>
   <div>
-<!--    <v-row align="center">-->
-<!--        <div class="col-9"> <v-app-bar class="rounded-60"></v-app-bar></div>-->
-<!--        <div class="col-3">-->
-          <BettiesSold></BettiesSold>
-<!--        </div>-->
-<!--    </v-row>-->
+    <v-row id="title" class="flex-row justify-end pa-4">
+      <BettiesSold></BettiesSold>
+    </v-row>
     <MatchList></MatchList>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import MatchList from "@/components/Home/MatchList";
-import BettiesSold from "@/components/BettiesSold";
+import MatchList from '@/components/Home/MatchList';
+import BettiesSold from '@/components/BettiesSold';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     BettiesSold,
     MatchList
@@ -25,9 +21,7 @@ export default {
 </script>
 
 <style>
-
-.rounded-60{
+.rounded-60 {
   border-radius: 60px !important;
 }
-
 </style>

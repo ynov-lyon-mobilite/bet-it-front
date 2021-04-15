@@ -2,10 +2,14 @@ import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 
+import events from "@/assets/fixtures/events";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    betties: 150,
+    fantasyTeam: null,
     user: [],
     betHistory: [],
     room: [],
@@ -1729,7 +1733,6 @@ export default new Vuex.Store({
     setEvent(state, event) {
       state.event = event;
     },
-
     setUser(state, user) {
       state.user = user;
     },
@@ -1739,6 +1742,9 @@ export default new Vuex.Store({
 
     setRoom(state, room) {
       state.room = room;
+    },
+    setFantasyTeam(state, team) {
+      state.fantasyTeam = team;
     }
   },
 
@@ -1747,7 +1753,9 @@ export default new Vuex.Store({
       commit("addBetToHistory", bet);
       commit("removeBetties", bet.amount);
     },
-
+    validateTeam({ commit }, { team }) {
+      commit("setFantasyTeam", team);
+    },
     getEventId({ commit, state }, eventId) {
       state.events.forEach(event => {
         if (event.id == eventId) {
@@ -1789,6 +1797,8 @@ export default new Vuex.Store({
           return Promise.reject(error);
         });
     },
+  modules: {}
+});
 
     async addUser(context, user) {
       await axios
