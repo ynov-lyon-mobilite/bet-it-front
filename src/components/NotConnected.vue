@@ -8,7 +8,7 @@
   </center>
 </template>
 
-<style>
+<style lang="scss" scoped>
 
 .notco{
 background: linear-gradient(
@@ -18,5 +18,5 @@ background: linear-gradient(
     var(--v-secondary-base)
   );
 }
-  
+
 </style>
