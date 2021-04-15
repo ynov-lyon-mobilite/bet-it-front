@@ -34,7 +34,7 @@
       lg="6"
       md="12"
       sm="12"
-      xs="10"
+      xs="12"
       class="ma-0 pa-0 d-flex align-center justify-center paris"
     >
       <div class="d-flex justify-center flex-column align-center">
