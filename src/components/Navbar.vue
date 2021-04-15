@@ -28,7 +28,7 @@
         <v-img
           width="100"
           style="flex: none"
-          src="../assets/logo-couleur.svg"
+          src="../assets/logo/logoSimple.svg"
         ></v-img>
       </v-row>
     </v-toolbar>
@@ -63,8 +63,8 @@ export default {
       { text: "Compte", icon: "fas fa-users", route: "/profile/" },
       { text: "Succès", icon: "fas fa-trophy", route: "/success" },
       { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
+      { text: "Tournois", icon: "fas fa-sitemap", route: "/addTournament" },
       { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
-      { text: "Tournois", icon: "fas fa-gamepad", route: "/addTournament" },
     ],
     FantasyLeagues: [
       { text: "Ajouter un salon", route: "/addRoom" },
