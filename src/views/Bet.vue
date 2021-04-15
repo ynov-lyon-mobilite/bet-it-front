@@ -93,6 +93,10 @@ export default {
     bets: [],
   }),
   computed: {
+    betties() {
+      return this.$store.state.betties;
+    },
+
     event() {
       return this.$store.state.event;
     },
@@ -103,6 +107,7 @@ export default {
 
   mounted: async function () {
     store.dispatch("getEventId", this.$route.params.id);
+
     this.bets = [
       {
         id: "0-" + this.event.team1.name + "'-W",

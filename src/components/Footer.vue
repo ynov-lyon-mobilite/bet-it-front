@@ -1,10 +1,9 @@
 <template>
-  <v-footer absolute color="#272727">
+  <v-footer absolute>
     <v-row justify="space-around" no-gutters>
       <v-btn
         v-for="link in links"
         :key="link"
-        color="white"
         text
         rounded
         class="my-2"
@@ -14,7 +13,6 @@
       <v-col
         class="lighten-2 py-4 text-center white--text"
         cols="12"
-        color="#121212"
       >
         {{ new Date().getFullYear() }} — <strong>Bet-it</strong>
       </v-col>
