@@ -18,10 +18,10 @@
       >
         <div class="align-center flex-column justify-center d-flex mt-2">
           <h1 class="pa-2 text-center">
-            Bet-It parier <br />
+            Bet-It pariez <br />
             e-sportif !
           </h1>
-          <v-btn class="mx-2" fab color="primary" v-on:click="$router.push('/home')">
+          <v-btn fab color="primary" v-on:click="$router.push('/home')">
             <v-icon>
               fas fa-door-open
             </v-icon>
@@ -44,7 +44,7 @@
             fas fa-trophy
           </v-icon>
         </v-btn>
-        <p class="pa-3 under-title-font">
+        <p class="pa-3 font-under-title">
           Pariez sur l'équipe que vous soutenez !
         </p>
       </div>
@@ -64,7 +64,7 @@
             fas fa-users
           </v-icon>
         </v-btn>
-        <p class="pa-3 under-title-font">
+        <p class="pa-3 font-under-title">
           Composez votre équipe et affrontez d'autres joueurs !
         </p>
       </div>

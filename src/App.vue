@@ -42,6 +42,23 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
+// Utils --------------------------------------------------------------
+.vh-100 {
+  height: 100vh;
+}
+
+.vw-100 {
+  width: 100vw;
+}
+.gradient {
+  background: linear-gradient(
+    90deg,
+    var(--v-darkPurple-base),
+    var(--v-info-base),
+    var(--v-secondary-base)
+  );
+}
+//Fonts overrides ---------------------------------------------
 $title-font: "Bebas Neue";
 $under-title-font: "Varela Round";
 $body-font: "Roboto";
@@ -67,15 +84,7 @@ $body-font: "Roboto";
     font-size: 2rem;
   }
 }
-
-.vh-100 {
-  height: 100vh;
-}
-
-.vw-100 {
-  width: 100vw;
-}
-
+// Classes for casuals overrides fonts -------------------------------
 .font-title {
   font-family: $title-font, cursive !important;
   font-weight: normal;
@@ -83,13 +92,13 @@ $body-font: "Roboto";
 }
 
 .font-body {
-  font-family: $title-font;
+  font-family: $title-font !important;
 }
 
-.under-title-font{
-  font-family: $under-title-font;
+.font-under-title {
+  font-family: $under-title-font !important;
 }
-
+//Important for page with no need scroll --------------------------------
 html {
   overflow-y: auto !important;
 }
