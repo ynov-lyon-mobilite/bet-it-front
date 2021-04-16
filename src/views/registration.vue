@@ -67,7 +67,7 @@
           <v-date-picker v-model="user.birthday"></v-date-picker>
         </v-row>
 
-        <center>
+        <div class="d-flex justify-center">
           <v-btn
             style="color: white; width: 140px"
             large
@@ -77,7 +77,7 @@
             @click.prevent="createUser()"
             >S'enregistrer</v-btn
           >
-        </center>
+        </div>
         <div v-if="success">
           <v-alert type="success" elevation="10"
             >Votre compte à bien été créer</v-alert
@@ -93,7 +93,7 @@
 import store from "@/store/index.js";
 import axios from "axios";
 axios.defaults.headers.common["Authorization"] =
-  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTUzNjQ5NzcsImV4cCI6MTYxNTM2ODU3Nywicm9sZXMiOlsic3RyaW5nIiwiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdEBhemRoLmNvbSJ9.Gdf4VWYy2byU_kUF7T3WMsJak-zE_HNag-8_iTYZ0iHbX9EgmwCvT_-GnshABQQbqlSgdU1GpJ-fjyMNsX2DprAZC9goXrr6TQpz86kmndMO2DT79gSRDbCWbfOc7ZsWGljARskSttekP7V0q_J8tYIYssyj_Lm2vGFXzFJrYOVkzFLTS2_sZbzGXMw97iSDmk_oeMtCa8EjXU5v1Lx2JlD8-kz4whaeuljmuAObs2WLXdJmJdlh8XJRKrqlhPfoccNvZ5V2Yf3rOdsFFbYcOqYZ5HbB0SI0VKrzcYL5aXj6Xc_8THSHq8rkSXVNC9KXY0sgh8YlRtC8HP5gktg0jmyWo-8IGKBXil6nu1k4hoh8bjQRFZAbQORkSe2PbkS2-D1fSwx7cANAs1RIlvOjl0EvmVeCBiBB_xOEohCucsyXqD72Hw7DKdoNlWDZhynAM7owz-LhjB930s0q2yIZQ_cSPpqzpne7gozmI29VNqqirh-jeLgKEOob28o4IIwmRXrVaaUog993f9inhBv4vTj-OmMqrg5VN1U4MDcT_cb4sCvcJJjLsa4hMPy-r9GLVftVNM-KEaqHSKcjtfmD2bT_gFJxPKImjVm9WF26LTvOQyT6ViwYpzx7fQrl4iOJXMq9A34FNZSiuSaTZYl_4Bx-QFNJsPwB1XpgLHxFfpY";
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTg2MDE4NjAsImV4cCI6MTYxODYwNTQ2MCwicm9sZXMiOlsic3RyaW5nIiwiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdEBhemRoLmNvbSJ9.UMASIPyEX6uRSGijpr75BT-REGWs5IXXJuPLnaMoSCSJ3c8BIJbC5B_mdFpEUqBUuJ6WwpXkQGKev5k5ZbtA3ZtdgXPfniFE7e2VJI6PY3fKcycJ2ZFoeupBLsXKzlCDsAhZ1-FbutK41PQ3O64ycPbBaSt7SM7wYAZw2E0pYTP9x1xSR2Suww47rpPFd-8cE2CujEPamSbWKGSVhLGrHxRgNqXs9MqTkIS_F_p7GGFrI2POYELqCo68d3ecLiBr3yyj0VSvPVCX5UShbueMRXhVUt9zg3fFFNb7ElxrgIDH9Dup35L3qwy-qDg13DDt7DB4lIbiE13MweecUpSA4ABD4xlvseSFWit39MheIXFnQluCNXQAwITu3vDBGK92ayKbccvjf20--DD434c1Y3o-f3Sx6pm6pqt0E4WnfVvd5z5A3h0AJkjCygyoBrRAFgC8kMvQzDlsGy9GRvcUfvZkbvIwa_DWco5kYhZZaKAexnlDR1Ls-WWXTL6MFZuoVRVR0TAGLEeG-SMtlx0LvUK6EIHuBPfF-fTWSUfbb783m6tPURov3QYDMPXymPz9Bz23bz42HUvv5TYUF7RRarPDLW8dblACBAczuVWuoTg52m7aFIkAXduwKWBwGbfmZQv66ocU_6P2dnuLFolcrdLBoB5sw75Iqf7p_HJu-qc";
 export default {
   store: store,
   data() {

@@ -9,10 +9,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     betties: 150,
+    teams: [],
     fantasyTeam: null,
     user: [],
     betHistory: [],
-    room: [],
+    rooms: [],
     event: {},
     token: {},
     events
@@ -40,8 +41,13 @@ export default new Vuex.Store({
     },
 
     setRoom(state, room) {
-      state.room = room;
+      state.rooms = [...state.rooms, room];
     },
+
+    setTeam(state, team) {
+      state.teams = [...state.teams, team];
+    },
+
     setFantasyTeam(state, team) {
       state.fantasyTeam = team;
     }
@@ -67,6 +73,11 @@ export default new Vuex.Store({
       context.commit("setRoom", room);
     },
 
+    addTeam(context, team) {
+
+      context.commit("setTeam", team);
+    },
+
     async getAuth({ commit, dispatch }, user) {
       await axios
         .post("/api/auth", {
@@ -81,7 +92,7 @@ export default new Vuex.Store({
           dispatch("getUserById", response.data.data.id);
         })
 
-        .catch(function(error) {
+        .catch(function (error) {
           return Promise.reject(error);
         });
     },
@@ -92,7 +103,7 @@ export default new Vuex.Store({
         .then(response => {
           context.commit("setUser", response.data);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           return Promise.reject(error);
         });
     },
@@ -114,7 +125,7 @@ export default new Vuex.Store({
         .then(response => {
           context.commit("setUser", response.data);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           return Promise.reject(error);
         });
     },

@@ -26,7 +26,7 @@
           @click:append="show1 = !show1"
         ></v-text-field>
 
-        <center>
+        <div class="d-flex justify-center">
           <v-btn
             style="color: white; width: 140px"
             large
@@ -35,7 +35,7 @@
             :disabled="!valid"
             @click.prevent="getAuth()"
             >Se connecter</v-btn>
-        </center>
+        </div>
         <div v-if="success">
           <v-alert type="success" elevation="10"
             >Vous allez être rediriger sur votre profil</v-alert

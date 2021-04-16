@@ -22,6 +22,9 @@ import store from "@/store/index.js";
 import Footer from "@/components/Footer";
 import Landing from "./views/Landing.vue";
 
+axios.defaults.baseURL = "http://localhost:8000/";
+
+
 export default {
   name: "App",
 
