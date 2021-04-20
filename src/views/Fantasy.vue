@@ -221,7 +221,7 @@
                 </div>
               </div>
 
-              <div class="text-center">
+              <div v-if="selectedBonusType" class="text-center">
                 {{
                   (selectedBonus[selectedBonusType] &&
                     selectedBonus[selectedBonusType].description) ||
