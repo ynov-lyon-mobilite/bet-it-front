@@ -1,3 +1,5 @@
+import { playerBonusDefaultValues as bonusList } from "./bonus";
+
 export default {
   fnatic: {
     id: 1,
@@ -33,5 +35,53 @@ export default {
     id: 7,
     name: "Karmine Corp",
     logo: require("@/assets/teams/karmine_corp.png")
+  },
+  vitality: {
+    id: 8,
+    name: "Vitality",
+    logo: require("@/assets/teams/vitality.png")
+  },
+  ldlcOl: {
+    id: 9,
+    name: "LDLC OL",
+    logo: require("@/assets/teams/ldlc_ol.png")
   }
 };
+
+const defaultValues = {
+  player: null,
+  bonusList
+};
+
+export const teamDefaultValues = [
+  {
+    name: "top",
+    logo: require("@/assets/fantasy/top.png"),
+    ...defaultValues
+  },
+  {
+    name: "jungler",
+    logo: require("@/assets/fantasy/jungle.png"),
+    ...defaultValues
+  },
+  {
+    name: "mid",
+    logo: require("@/assets/fantasy/mid.png"),
+    ...defaultValues
+  },
+  {
+    name: "adc",
+    logo: require("@/assets/fantasy/adc.png"),
+    ...defaultValues
+  },
+  {
+    name: "support",
+    logo: require("@/assets/fantasy/support.png"),
+    ...defaultValues
+  },
+  {
+    name: "coach",
+    logo: require("@/assets/fantasy/coach.png"),
+    ...defaultValues
+  }
+];

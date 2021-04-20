@@ -96,5 +96,21 @@ export default [
     team: teams.karmineCorp,
     picture: require("@/assets/players/striker.png"),
     value: 10
+  },
+  {
+    id: 13,
+    name: "Duke",
+    position: "coach",
+    team: teams.vitality,
+    picture: require("@/assets/players/duke.png"),
+    value: 15
+  },
+  {
+    id: 14,
+    name: "Manaty",
+    position: "jungler",
+    team: teams.ldlcOl,
+    picture: require("@/assets/players/manaty.png"),
+    value: 10
   }
 ];
