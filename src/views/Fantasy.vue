@@ -27,7 +27,12 @@
               v-if="lane.player"
               :src="lane.player.picture"
             />
-            <h4 v-if="lane.player" class="text-center text-uppercase mx-1">
+            <h4
+              v-if="lane.player"
+              :class="
+                `text-center text-uppercase mx-1 ${hasBonus(lane) && 'boosted'}`
+              "
+            >
               {{ lane.player.name }}
             </h4>
             <v-icon
@@ -63,7 +68,7 @@
             v-if="fantasyTeam && editMode"
             @click="cancelTeamEdition"
             class="
-            `pa-5 mb-2 text-h4
+            `rounded-pill pa-5 mb-2 text-h4
             "
             ><h2>Annuler les modifications</h2></v-btn
           >
@@ -151,30 +156,98 @@
               </div>
             </div>
           </div>
+
+          <div v-if="selectedPlayer && selectedLane !== 'coach'">
+            <div class="d-flex align-center flex-column">
+              <h4 class="text-center text-uppercase">
+                Booster mon joueur : {{ selectedPlayer && selectedPlayer.name }}
+              </h4>
+              <p class="text-center">
+                Plus il a de bonus, plus il vous rapportera de points !
+              </p>
+            </div>
+
+            <div class="d-flex flex-column align-center justify-center my-2">
+              <div class="d-flex justify-center">
+                <div
+                  v-for="type in bonusTypes"
+                  :key="type"
+                  class="bonus-wrapper d-flex flex-column justify-center align-center mx-2"
+                >
+                  <div
+                    :class="
+                      `bonus d-flex justify-center align-center ${type ===
+                        selectedBonusType && 'type'} ${selectedBonus[type] &&
+                        'selected'}`
+                    "
+                    @click="selectBonusType(type)"
+                  >
+                    <v-icon v-if="selectedBonus[type]" x-large>{{
+                      selectedBonus[type] && selectedBonus[type].icon
+                    }}</v-icon>
+                  </div>
+                  <div class="d-flex align-center my-2">
+                    <div class="mr-1">
+                      {{
+                        (selectedBonus[type] && selectedBonus[type].price) || 0
+                      }}
+                    </div>
+                    <v-icon x-small>fas fa-gem</v-icon>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-center">
+                <div
+                  v-for="bonus in getSelectedBonusTypeList(selectedBonusType)"
+                  :key="bonus.id"
+                >
+                  <v-btn
+                    :class="
+                      `rounded-pill d-flex flex-column align-center justify-center ma-2 ${bonus ===
+                        selectedBonus[selectedBonusType] && 'btn selected'}`
+                    "
+                    @click="toggleSelectBonus(bonus)"
+                    :disabled="isExistingBonus(bonus)"
+                  >
+                    <div>{{ bonus.label }}</div>
+                    <div class="d-flex align-center ml-2 my-2">
+                      <div class="mr-1">
+                        {{ bonus.price }}
+                      </div>
+                      <v-icon x-small>fas fa-gem</v-icon>
+                    </div>
+                  </v-btn>
+                </div>
+              </div>
+
+              <div v-if="selectedBonusType" class="text-center">
+                {{
+                  (selectedBonus[selectedBonusType] &&
+                    selectedBonus[selectedBonusType].description) ||
+                    "Aucun bonus sélectionné"
+                }}
+              </div>
+            </div>
+          </div>
+
           <div class="d-flex justify-center my-4">
             <v-btn class="rounded-pill mx-4" @click="closePlayerDialog"
               >Annuler</v-btn
             >
-            <v-btn class="btn rounded-pill mx-4" @click="validatePlayer"
+            <v-btn
+              :class="`btn rounded-pill mx-4 ${!selectedPlayer && 'disabled'}`"
+              :disabled="!selectedPlayer"
+              @click="validatePlayer"
               >Valider</v-btn
             >
           </div>
         </div>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="pointsError">
-      <v-card class="d-flex flex-column align-center pa-8 points-error">
-        <v-card-text class="text-center"
-          >Vous n'avez pas assez de points pour sélectionner ce
-          joueur.</v-card-text
-        >
-        <v-card-actions
-          ><v-btn color="secondary darken-1" text @click="pointsError = false">
-            OK
-          </v-btn></v-card-actions
-        >
-      </v-card>
-    </v-dialog>
+    <ErrorDialog :error="errors.notEnoughBetties" />
+    <ErrorDialog :error="errors.notEnoughPoints" />
+    <ErrorDialog :error="errors.tooManySameTeamMembers" />
     <v-dialog v-model="isValidatingTeam">
       <v-card>
         <v-card-title class="card-title"
@@ -212,12 +285,19 @@
 </template>
 
 <script>
+import ErrorDialog from "@/components/Fantasy/ErrorDialog";
 import RoomInfos from "@/components/Fantasy/RoomInfos";
+import { teamDefaultValues } from "@/assets/fixtures/teams";
+import bonus, {
+  bonusTypes,
+  playerBonusDefaultValues
+} from "@/assets/fixtures/bonus";
 import players from "@/assets/fixtures/players";
 
 export default {
   name: "Fantasy",
   components: {
+    ErrorDialog,
     RoomInfos
   },
   data: () => ({
@@ -225,48 +305,37 @@ export default {
     isValidatingTeam: false,
     selectedLane: null,
     selectedPlayer: null,
-    pointsError: false,
+    selectedBonusPriceSum: 0,
+    selectedBonusType: null,
+    selectedBonus: { ...playerBonusDefaultValues },
+    existingBonus: null,
     editMode: false,
+    bonusList: bonus,
+    bonusTypes,
     players,
-    team: [
-      {
-        name: "top",
-        logo: require("../assets/fantasy/top.png"),
-        player: null
+    team: teamDefaultValues,
+    errors: {
+      notEnoughBetties: {
+        value: false,
+        text: "Vous n'avez pas assez de betties pour sélectionner ce bonus."
       },
-      {
-        name: "jungler",
-        logo: require("../assets/fantasy/jungle.png"),
-        player: null
+      notEnoughPoints: {
+        value: false,
+        text: "Vous n'avez pas assez de points pour sélectionner ce joueur."
       },
-      {
-        name: "mid",
-        logo: require("../assets/fantasy/mid.png"),
-        player: null
-      },
-      {
-        name: "adc",
-        logo: require("../assets/fantasy/adc.png"),
-        player: null
-      },
-      {
-        name: "support",
-        logo: require("../assets/fantasy/support.png"),
-        player: null
-      },
-      {
-        name: "coach",
-        logo: require("../assets/fantasy/coach.png"),
-        player: null
+      tooManySameTeamMembers: {
+        value: false,
+        text:
+          "Vous ne pouvez sélectionner que deux joueurs d'une même équipe (coach exclu)."
       }
-    ]
+    }
   }),
   computed: {
     betties() {
       return this.$store.state.betties;
     },
     fantasyTeam() {
-      return this.$store.state.fantasyTeam;
+      return this.$store.state.fantasy.fantasyTeam;
     },
     teamValue() {
       let sum = 0;
@@ -291,35 +360,120 @@ export default {
     }
   },
   methods: {
+    // BONUS METHODS
+    hasBonus(lane) {
+      const { kill, support, objective } = lane.bonusList;
+      return kill || support || objective;
+    },
+    getSelectedBonusTypeList(type) {
+      return this.bonusList.filter(bonus => bonus.type === type);
+    },
+    selectBonusType(type) {
+      this.selectedBonusType = type;
+    },
+    isBonusSelected(selectedBonus) {
+      return this.selectedBonus[this.selectedBonusType] === selectedBonus;
+    },
+    isExistingBonus(selectedBonus) {
+      return this.existingBonus[this.selectedBonusType] === selectedBonus;
+    },
+    isSameTypeBonusSelected(selectedBonus) {
+      const currentBonus = this.selectedBonus[this.selectedBonusType];
+      if (currentBonus)
+        return currentBonus.type === selectedBonus.type &&
+          currentBonus.id !== selectedBonus.id
+          ? currentBonus
+          : null;
+      return null;
+    },
+    toggleSelectBonus(bonus) {
+      const sameTypeBonus = this.isSameTypeBonusSelected(bonus);
+      if (
+        sameTypeBonus &&
+        (this.canBuyBonus(bonus) || !this.isExistingBonus(sameTypeBonus))
+      )
+        this.removeBonus(sameTypeBonus);
+
+      if (this.isBonusSelected(bonus)) this.removeBonus(bonus);
+      else if (!this.canBuyBonus(bonus))
+        this.errors.notEnoughBetties.value = true;
+      else this.selectBonus(bonus);
+    },
+    selectBonus(bonus) {
+      this.selectedBonus[this.selectedBonusType] = bonus;
+      this.selectedBonusPriceSum += bonus.price;
+    },
+    removeBonus(removedBonus) {
+      if (!this.isExistingBonus(removedBonus))
+        this.selectedBonusPriceSum -= removedBonus.price;
+      this.selectedBonus[this.selectedBonusType] = null;
+    },
+    canBuyBonus(bonus) {
+      return this.betties - (this.selectedBonusPriceSum + bonus.price) >= 0;
+    },
+    clearBonus() {
+      this.selectedBonusPriceSum = 0;
+      this.selectedBonusType = null;
+      this.selectedBonus = { ...playerBonusDefaultValues };
+    },
+
+    // PLAYER METHODS
     removePlayer(removedPlayerLane) {
-      this.team.find(
-        lane => lane.name === removedPlayerLane.name
-      ).player = null;
+      this.team = this.team.map(lane =>
+        lane.name === removedPlayerLane.name ? { ...lane, player: null } : lane
+      );
     },
     closePlayerDialog() {
       this.selectedPlayer = null;
+      this.selectedLane = null;
       this.isSelectingPlayer = false;
+      this.clearBonus();
     },
     selectLane(lane) {
       this.selectedLane = lane;
       this.isSelectingPlayer = true;
-      this.selectedPlayer = this.team.find(
-        lane => lane.name === this.selectedLane
-      ).player;
+      if (this.editMode) {
+        this.existingBonus = this.fantasyTeam.find(
+          teamLane => teamLane.name === lane
+        ).bonusList;
+      } else {
+        this.existingBonus = this.team.find(
+          teamLane => teamLane.name === lane
+        ).bonusList;
+      }
+      this.selectedBonus = { ...this.existingBonus };
     },
     selectPlayer(player) {
       this.selectedPlayer = player;
-    },
-    validatePlayer() {
-      if (this.selectedPlayer.value + this.teamValue > 100)
-        this.pointsError = true;
-      else {
-        this.team.find(
-          lane => lane.name === this.selectedLane
-        ).player = this.selectedPlayer;
-        this.closePlayerDialog();
+      if (
+        this.selectedLane !== "coach" &&
+        this.hasTooManySameTeamMembers() &&
+        !this.isInTeam(player)
+      ) {
+        this.errors.tooManySameTeamMembers.value = true;
+        this.selectedPlayer = null;
+      } else if (this.selectedPlayer.value + this.teamValue > 100) {
+        this.errors.notEnoughPoints.value = true;
+        this.selectedPlayer = null;
       }
     },
+    validatePlayer() {
+      let lane = this.team.find(lane => lane.name === this.selectedLane);
+      lane.player = this.selectedPlayer;
+      lane.bonusList = this.selectedBonus;
+
+      this.$store.commit("removeFakeBetties", this.selectedBonusPriceSum);
+      this.closePlayerDialog();
+    },
+    isInTeam(player) {
+      const lane =
+        this.fantasyTeam &&
+        this.fantasyTeam.find(lane => lane.name === this.selectedLane);
+      if (lane && lane.player) return lane.player.id === player.id;
+      return false;
+    },
+
+    // TEAM METHODS
     editTeam() {
       this.editMode = true;
     },
@@ -334,7 +488,7 @@ export default {
     },
     registerTeam() {
       this.$store.dispatch({
-        type: "validateTeam",
+        type: "fantasy/validateTeam",
         team: [...this.team]
       });
     },
@@ -349,15 +503,49 @@ export default {
     cancelTeamEdition() {
       this.team = [...this.fantasyTeam];
       this.leaveTeamEdition();
+    },
+    hasTooManySameTeamMembers() {
+      let count = 0;
+      for (let i = 0; i < this.team.length; i++) {
+        const player = this.team[i].player;
+        if (player && player.team.id === this.selectedPlayer.team.id)
+          count += 1;
+      }
+      return count > 1;
     }
   },
   mounted() {
-    this.team = [...this.fantasyTeam];
+    if (this.fantasyTeam) this.team = [...this.fantasyTeam];
   }
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+.boosted {
+  color: var(--v-secondary-base);
+}
+.bonus {
+  cursor: pointer;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 2px solid white;
+
+  &.selected {
+    background: linear-gradient(
+      0.25turn,
+      var(--v-darkPurple-base),
+      var(--v-info-base),
+      var(--v-secondary-base)
+    ) !important;
+  }
+
+  &:hover,
+  &.type {
+    border: 3px solid var(--v-secondary-base);
+  }
+}
+
 .subtext {
   font-size: 15px;
 }
@@ -397,7 +585,8 @@ export default {
   }
 }
 
-.disabled {
+.disabled,
+.bonus-wrapper .btn.selected {
   background: rgb(66, 62, 62) !important;
 }
 

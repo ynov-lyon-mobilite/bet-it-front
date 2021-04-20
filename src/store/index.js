@@ -2,14 +2,15 @@ import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
 
+import fantasy from "./fantasy";
+
 import events from "@/assets/fixtures/events";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    betties: 150,
-    fantasyTeam: null,
+    betties: 250,
     user: [],
     betHistory: [],
     room: [],
@@ -18,12 +19,19 @@ export default new Vuex.Store({
     events
   },
 
+  modules: {
+    fantasy
+  },
+
   mutations: {
     addBetties(state, amount) {
       state.user.betties += amount;
     },
     removeBetties(state, amount) {
       state.user.betties -= amount;
+    },
+    removeFakeBetties(state, amount) {
+      state.betties -= amount;
     },
     addBetToHistory(state, bet) {
       state.betHistory = [...state.betHistory, bet];
@@ -41,9 +49,6 @@ export default new Vuex.Store({
 
     setRoom(state, room) {
       state.room = room;
-    },
-    setFantasyTeam(state, team) {
-      state.fantasyTeam = team;
     }
   },
 
@@ -51,9 +56,6 @@ export default new Vuex.Store({
     betAction({ commit }, { bet }) {
       commit("addBetToHistory", bet);
       commit("removeBetties", bet.amount);
-    },
-    validateTeam({ commit }, { team }) {
-      commit("setFantasyTeam", team);
     },
     getEventId({ commit, state }, eventId) {
       state.events.forEach(event => {
@@ -129,6 +131,5 @@ export default new Vuex.Store({
           context.commit("setUser", response.data);
         });
     }
-  },
-  modules: {}
+  }
 });
