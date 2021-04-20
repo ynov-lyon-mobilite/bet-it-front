@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <div v-if="user.id != null">
+<!--    <div v-if="user.id != null">-->
+    <div>
       <v-row justify="space-between">
         <v-col cols="12" md="6">
           <BetHistory />
@@ -20,9 +21,9 @@
         </v-col>
       </v-row>
     </div>
-    <div v-else>
-      <NotConnected></NotConnected>
-    </div>
+<!--    <div v-else>-->
+<!--      <NotConnected></NotConnected>-->
+<!--    </div>-->
   </v-container>
 </template>
 
@@ -32,7 +33,7 @@ import AccountDeletion from "@/components/Profile/AccountDeletion";
 import BetHistory from "@/components/Profile/BetHistory";
 import BettiesAmount from "@/components/Profile/BettiesAmount";
 import store from "@/store/index.js";
-import NotConnected from "@/components/NotConnected.vue";
+// import NotConnected from "@/components/NotConnected.vue";
 
 export default {
   name: "Profile",
@@ -43,7 +44,7 @@ export default {
     AccountDeletion,
     BetHistory,
     BettiesAmount,
-    NotConnected,
+    // NotConnected,
   },
   computed: {
     user() {
