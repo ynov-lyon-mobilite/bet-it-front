@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div> <!--    <div v-if="getuser.id != null">-->
+    <div v-if="getuser.id != null">
       <div
         class="d-flex justify-end align-center"
         v-if="getuser.betties >= 1 && getuser.betties < 30"
@@ -69,9 +69,9 @@
         </v-col>
       </v-row>
     </div>
-<!--    <div v-else>-->
-<!--      <NotConnected></NotConnected>-->
-<!--    </div>-->
+    <div v-else>
+      <NotConnected></NotConnected>
+    </div>
   </v-container>
 </template>
 
@@ -79,7 +79,7 @@
 import BetType from "@/components/Bet/BetType";
 import GameHistory from "@/components/Bet/GameHistory";
 import store from "@/store/index.js";
-// import NotConnected from "@/components/NotConnected.vue";
+import NotConnected from "@/components/NotConnected.vue";
 
 export default {
   store: store,
@@ -87,7 +87,7 @@ export default {
   components: {
     BetType,
     GameHistory,
-    // NotConnected,
+    NotConnected,
   },
   data: () => ({
     bets: [],
