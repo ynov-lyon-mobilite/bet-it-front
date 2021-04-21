@@ -157,10 +157,11 @@ export default {
         bet: { ...this.bet, amount: parseFloat(this.amount), date: new Date() },
       });
       this.hasBet = false;
-      this.$store.dispatch("PutBetties", {
-        betties: this.getuser.betties,
-        id: this.getuser.id,
-      });
+      this.$store.state.betties = this.$store.state.betties- this.amount;
+      // this.$store.dispatch("PutBetties", {
+      //   betties: this.getuser.betties,
+      //   id: this.getuser.id,
+      // });
     },
   },
   mounted() {
