@@ -4,7 +4,7 @@
       <h1>
         LEC 2021
       </h1>
-      <p>22/01 | 06/02</p>
+      <p>21/04 | 06/05</p>
     </div>
     <v-row class="matches-container">
       <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
