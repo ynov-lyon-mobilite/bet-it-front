@@ -1,8 +1,6 @@
 <template>
   <v-card elevation="10" class="pa-5" width="900">
-    <center>
-      <h1>Lan BDE Ynov</h1>
-    </center>
+      <h1 class="text-center">Lan BDE Ynov</h1>
     <v-row class="d-flex justify-space-around ma-6">
       <p>Type de tournois</p>
       <v-chip
@@ -42,9 +40,7 @@
         >Eliminiation double</v-chip
       >
     </v-row>
-    <center>
-      <p>{{ text }}</p>
-    </center>
+      <p class="text-center">{{ text }}</p>
   </v-card>
 </template>
 

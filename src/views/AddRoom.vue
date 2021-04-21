@@ -1,8 +1,6 @@
 <template>
   <v-container>
-    <center>
-      <h1>Ajouter un salon</h1>
-    </center>
+    <h1 class="text-center">Ajouter un salon</h1>
     <v-form v-model="valid">
       <div class="d-flex justify-center mt-5">
         <div class="d-flex flex-column">
@@ -11,12 +9,14 @@
             label="Nom du salon"
             required
             solo
+            :rules="rules"
           ></v-text-field>
           <v-autocomplete
             v-model="room.Competition"
             :items="items"
             dense
             filled
+            :rules="rules"
             label="Compétition"
           ></v-autocomplete>
           <v-text-field
@@ -24,6 +24,7 @@
             v-model="room.NumberOfPlayers"
             label="Nombre de joureur maximal"
             required
+            :rules="rules"
             solo
           ></v-text-field>
           <h2 class="text-center ma-5">Date de fin de salon</h2>
@@ -33,7 +34,7 @@
           </v-row>
         </div>
       </div>
-      <center>
+      <div class="d-flex justify-center">
         <v-btn
           large
           class="ma-9"
@@ -42,7 +43,7 @@
           @click.prevent="createSalon()"
           >Créer le salon</v-btn
         >
-      </center>
+      </div>
     </v-form>
   </v-container>
 </template>
@@ -67,9 +68,10 @@ export default {
       NumberOfPlayers: null,
       EndRoom: new Date().toISOString().substr(0, 10),
       Competition: "",
-      Propriétaire:true,
+      Propriétaire: true,
     },
     items: ["LEC", "LCK", "LPL", "LCS"],
+    rules: [(value) => !!value || "Required."],
   }),
   methods: {
     isNumber: function (evt) {

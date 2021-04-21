@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style>
-.Top , .v-data-table-header  {
+.v-data-table-header  {
   background: linear-gradient(
     90deg,
     var(--v-darkPurple-base),

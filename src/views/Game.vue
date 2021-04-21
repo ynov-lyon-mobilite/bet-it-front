@@ -27,7 +27,7 @@
         </div>
 
         <v-card-actions class="mt-5 mb-5 d-flex justify-space-around">
-          <v-btn class="btn"> Attaquer </v-btn>
+          <v-btn class="gradient"> Attaquer </v-btn>
           <v-btn class="btn"> Soigner </v-btn>
         </v-card-actions>
       </v-card>
@@ -55,8 +55,8 @@
         </div>
 
         <v-card-actions class="mt-5 mb-5 d-flex justify-space-around">
-          <v-btn class="btn"> Attaquer </v-btn>
-          <v-btn class="btn"> Soigner </v-btn>
+          <v-btn class="gradient"> Attaquer </v-btn>
+          <v-btn class="gradient"> Soigner </v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -75,14 +75,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.btn {
-  background: linear-gradient(
-    90deg,
-    var(--v-darkPurple-base),
-    var(--v-info-base),
-    var(--v-secondary-base)
-  );
-}
 .line {
   border: 1px solid;
   width: 20vw;

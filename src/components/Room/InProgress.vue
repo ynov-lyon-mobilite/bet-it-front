@@ -1,8 +1,6 @@
 <template>
   <div>
-    <center>
-      <h2 class="ma-2">MES SALONS EN COURS</h2>
-    </center>
+    <h2 class="ma-2 text-center">MES SALONS EN COURS</h2>
     <v-row>
       <v-card
         class="room ma-10 d-flex align-center justify-center"
@@ -13,35 +11,34 @@
         <img style="width: 120px" src="../../assets/add.png" alt="plus" />
       </v-card>
       <v-card
-        v-if="getRoom.RoomName != null"
+        v-for="salon in getRoom"
+        v-bind:key="salon"
         class="room ma-10"
         elevation="10"
         width="315"
         :to="{ name: 'Fantasy' }"
       >
-        <div class="Top" height="60px">
-          <center>
-            <p class="pa-2">{{ getRoom.RoomName }}</p>
-          </center>
+        <div class="gradient" height="60px">
+          <p class="pa-2 text-center">{{ salon.RoomName }}</p>
         </div>
         <div class="ma-5">
           <p>
             <i class="fas fa-user-friends mr-3"></i>Nombre de joueurs : 1 /
-            {{ getRoom.NumberOfPlayers }}
+            {{ salon.NumberOfPlayers }}
           </p>
           <p>
             <i class="fas fa-calendar-check mr-4"></i>Fin du salon le :
-            {{ getRoom.EndRoom }}
+            {{ salon.EndRoom }}
           </p>
           <p><i class="fas fa-medal mr-3"></i>Votre classement : 1er</p>
           <p>
             <i class="fas fa-trophy mr-3"></i>
-            La compétition : {{ getRoom.Competition }}
+            La compétition : {{ salon.Competition }}
           </p>
-          <div v-if="getRoom.Propriétaire == 1">
-            <center>
+          <div v-if="salon.Propriétaire == 1">
+            <div class="d-flex align-center justify-center">
               <v-chip large chip><i id="chip" class="fas fa-crown"></i></v-chip>
-            </center>
+            </div>
           </div>
         </div>
       </v-card>
@@ -53,10 +50,8 @@
         width="315"
         :to="{ name: 'Fantasy' }"
       >
-        <div class="Top" height="60px">
-          <center>
-            <p class="pa-2">{{ salon.Info.Nom }}</p>
-          </center>
+        <div class="gradient" height="60px">
+          <p class="pa-2 text-center">{{ salon.Info.Nom }}</p>
         </div>
         <div class="ma-4">
           <p>
@@ -76,9 +71,9 @@
             La compétition : {{ salon.Info.Competition }}
           </p>
           <div v-if="salon.Info.Propriétaire == 1">
-            <center>
+            <div class="d-flex align-center justify-center">
               <v-chip large chip><i id="chip" class="fas fa-crown"></i></v-chip>
-            </center>
+            </div>
           </div>
         </div>
       </v-card>
@@ -143,7 +138,7 @@ export default {
   },
   computed: {
     getRoom() {
-      return store.state.room;
+      return store.state.rooms;
     },
   },
 };

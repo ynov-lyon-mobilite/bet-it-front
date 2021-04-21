@@ -1,8 +1,6 @@
 <template>
   <div>
-    <center>
-      <h2>MES SALONS TERMINÉS</h2>
-    </center>
+    <h2 class="text-center">MES SALONS TERMINÉS</h2>
     <v-data-table
       :headers="headers"
       :items="endroom"

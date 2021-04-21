@@ -20,9 +20,7 @@
           width="70"
           elevation="20"
         >
-          <center>
-            <p>{{ Match.Teams1.Nom }}</p>
-          </center>
+            <p class="text-center">{{ Match.Teams1.Nom }}</p>
         </v-card>
         <v-card
           :style="
@@ -38,9 +36,7 @@
           width="70"
           elevation="20"
         >
-          <center>
-            <p>{{ Match.Teams2.Nom }}</p>
-          </center>
+          <p class="text-center">{{ Match.Teams2.Nom }}</p>
         </v-card>
       </div>
     </div>
@@ -73,9 +69,7 @@
           width="110"
           elevation="20"
         >
-          <center>
-            <p>{{ Demi.Teams1.Nom }}</p>
-          </center>
+          <p class="text-center">{{ Demi.Teams1.Nom }}</p>
         </v-card>
         <v-card
           :style="
@@ -91,20 +85,18 @@
           width="110"
           elevation="20"
         >
-          <center>
-            <p>{{ Demi.Teams2.Nom }}</p>
-          </center>
+          <p class="text-center">{{ Demi.Teams2.Nom }}</p>
         </v-card>
       </div>
     </div>
 
-    <div class="d-flex flex-wrap justify-space-around ">
+    <div class="d-flex flex-wrap justify-space-around">
       <div v-for="Demi in Demis" v-bind:key="Demi" class="line"></div>
     </div>
-    <div class="d-flex flex-wrap justify-space-around ">
+    <div class="d-flex flex-wrap justify-space-around">
       <div v-for="Final in Finals" v-bind:key="Final" class="lineBottom2"></div>
     </div>
-    <div class="d-flex flex-wrap justify-space-around ">
+    <div class="d-flex flex-wrap justify-space-around">
       <div v-for="Final in Finals" v-bind:key="Final" class="line"></div>
     </div>
 
@@ -127,9 +119,7 @@
         width="150"
         elevation="20"
       >
-        <center>
-          <p>{{ Final.Teams1.Nom }}</p>
-        </center>
+        <p class="text-center">{{ Final.Teams1.Nom }}</p>
       </v-card>
       <v-card
         :style="
@@ -145,9 +135,7 @@
         width="150"
         elevation="20"
       >
-        <center>
-          <p>{{ Final.Teams2.Nom }}</p>
-        </center>
+        <p class="text-center">{{ Final.Teams2.Nom }}</p>
       </v-card>
     </div>
   </div>
