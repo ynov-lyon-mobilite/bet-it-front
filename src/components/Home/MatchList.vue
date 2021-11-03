@@ -1,6 +1,11 @@
 <template>
   <span>
-    <div>
+     <video class="vh-100 video-paris" autoplay loop playsinline muted>
+<!--      <source src="../assets/landingPage/video.webm" type="video/webm" />-->
+      <source src="../../assets/landingPage/paris.mp4" type="video/mp4" />
+    </video>
+   
+    <div class="tournament">
       <h1>
         LEC 2021
       </h1>
@@ -20,18 +25,18 @@
         >
           <div class="d-flex align-center div-text justify-space-between">
             <div class="col-6 text-center">
-              <v-img :src="match.team1.logo" width="55" class=""></v-img>
+              <v-img :src="match.team1.logo" width="55" height="55" class=""></v-img>
               <p class="content">
                 {{ match.team1.cote }}
               </p>
             </div>
             <div class="line"></div>
             <div class="col-6 text-center">
-              <v-img :src="match.team2.logo" width="55" class=""></v-img>
+              <v-img :src="match.team2.logo" width="55" height="55" class=""></v-img>
               <p class="content">
                 {{ match.team2.cote }}
               </p>
-            </div>
+            </div>  
           </div>
         </v-card>
       </div>
@@ -42,6 +47,24 @@
 
 <style lang="scss" scoped>
 
+
+
+.tournament{
+  z-index: 10;
+  position: relative;
+}
+
+video{
+  object-fit: cover;
+  position: absolute;
+  // width: 50%;
+  opacity: .5;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
 .matches-container {
   padding-left: 100px;
   //padding-top: 150px;
@@ -51,18 +74,18 @@
     font-size: 30px;
   }
   .div-match {
-    transform: rotate(45deg);
-    transform-origin: right;
-    margin-top: 35%;
+    // transform: rotate(45deg);
+    // transform-origin: right;
+    // margin-top: 35%;
     width: 75%;
   }
   .line {
-    height: 11rem;
-    border: 1px solid;
+    height: 4rem;
+    border-right: 1px solid;
   }
 
   .div-text {
-    transform: rotate(-45deg);
+    // transform: rotate(-45deg);
     transform-origin: center;
   }
 
@@ -103,7 +126,7 @@ export default {
             "https://am-a.akamaihd.net/image/?resize=70:&f=http%3A%2F%2Fstatic.lolesports.com%2Fteams%2FSchalke04_FullColor.png",
           cote: 1.8,
           id: 1,
-          name: "Schalke 04"
+          name: "Schalke 0408"
         },
         team2: {
           logo:
