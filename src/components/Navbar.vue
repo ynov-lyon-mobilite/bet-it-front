@@ -1,6 +1,6 @@
 <template>
   <div class="navbar d-flex align-center justify-space-between">
-    <router-link class="logo-link ml-4" to="/">
+    <router-link class="logo-link ml-4" to="/home">
       <img src="../assets/logo/logoSimple.svg" class="logo pa-2" alt="logo" />
     </router-link>
     <div class="navbar-right d-flex align-center">
@@ -90,7 +90,6 @@ export default {
   }
 
   .route-link {
-    cursor: pointer;
     height: 100%;
     .route-link-text {
       color: #b5b2b2;
