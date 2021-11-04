@@ -34,7 +34,8 @@
             elevation="2"
             :disabled="!valid"
             @click.prevent="getAuth()"
-            >Se connecter</v-btn>
+            >Se connecter</v-btn
+          >
         </div>
         <div v-if="success">
           <v-alert type="success" elevation="10"
@@ -60,19 +61,19 @@ export default {
       show1: false,
       password: "password",
       rules: {
-        required: (value) => !!value || "Requis",
-        email: (value) => {
+        required: value => !!value || "Requis",
+        email: value => {
           const pattern = /.+@.+\..+/;
           return pattern.test(value) || "E-mail invalide";
-        },
+        }
       },
       select: null,
       user: {
         email: "",
-        password: "",
+        password: ""
       },
       error: [],
-      success: false,
+      success: false
     };
   },
 
@@ -82,7 +83,7 @@ export default {
     },
     getToken() {
       return this.$store.state.token;
-    },
+    }
   },
 
   methods: {
@@ -99,14 +100,14 @@ export default {
       store
         .dispatch("getAuth", this.user)
         .then(() => (this.success = true))
-        .catch((error) => {
+        .catch(error => {
           this.error = error.response;
         });
     },
 
     redirectToProfil() {
       this.$router.push({ name: "Profile" });
-    },
-  },
+    }
+  }
 };
 </script>

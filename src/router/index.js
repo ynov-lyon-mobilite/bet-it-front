@@ -11,13 +11,12 @@ const routes = [
   {
     path: "/landing",
     name: "Landing",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Landing.vue")
+    component: () => import("../views/Landing.vue")
   },
   {
     path: "/home",
     name: "Home",
-    component: () => import(/* webpackChunkName: "about" */ "../views/Home.vue")
+    component: () => import("../views/Home.vue")
   },
   {
     path: "/profile",
@@ -52,12 +51,12 @@ const routes = [
   {
     path: "/registration",
     name: "Registration",
-    component: () => import("../views/registration.vue")
+    component: () => import("../views/Registration.vue")
   },
   {
-    path: "/connection",
-    name: "Connection",
-    component: () => import("../views/Connection.vue")
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue")
   },
   {
     path: "/room",

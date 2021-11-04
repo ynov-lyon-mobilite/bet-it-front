@@ -1,15 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <v-row v-if="!isLanding">
-        <div style="width: 15vw">
-          <Navbar></Navbar>
-        </div>
-        <div class="pa-10 mb-16" style="width: 85vw">
+      <div v-if="!isLanding">
+        <Navbar></Navbar>
+        <div class="pa-10 ma-16">
           <router-view />
           <Footer></Footer>
         </div>
-      </v-row>
+      </div>
       <Landing v-else></Landing>
     </v-main>
   </v-app>
@@ -18,12 +16,10 @@
 <script>
 import Navbar from "@/components/Navbar";
 import axios from "axios";
-import store from "@/store/index.js";
 import Footer from "@/components/Footer";
 import Landing from "./views/Landing.vue";
 
 axios.defaults.baseURL = "http://localhost:8000/";
-
 
 export default {
   name: "App",
@@ -31,13 +27,13 @@ export default {
   components: {
     Navbar,
     Footer,
-    Landing
+    Landing,
   },
   computed: {
     isLanding() {
       return this.$route.name === "Landing";
-    }
-  }
+    },
+  },
 };
 </script>
 
