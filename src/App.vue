@@ -27,13 +27,13 @@ export default {
   components: {
     Navbar,
     Footer,
-    Landing,
+    Landing
   },
   computed: {
     isLanding() {
       return this.$route.name === "Landing";
-    },
-  },
+    }
+  }
 };
 </script>
 
