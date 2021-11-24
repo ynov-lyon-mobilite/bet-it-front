@@ -3,7 +3,7 @@
     <router-link class="logo-link ml-4" to="/home">
       <img src="../assets/logo/logoSimple.svg" class="logo pa-2" alt="logo" />
     </router-link>
-    <div class="navbar-right d-flex align-center">
+    <div class="navbar-right d-flex align-center mr-4">
       <router-link v-for="(page, i) in pages" :to="page.route" :key="i">
         <div class="route-link d-flex align-center pa-2">
           <v-icon v-text="page.icon" class="mr-2"></v-icon>
@@ -28,12 +28,12 @@ export default {
       return [
         { text: "Accueil", icon: "fas fa-home", route: "/home" },
         { text: "Calendrier", icon: "fas fa-calendar-alt", route: "/calendar" },
-        { text: "Succès", icon: "fas fa-trophy", route: "/success" },
         // { text: "Tournois", icon: "fas fa-sitemap", route: "/addTournament" },
         // { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
         // { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
         ...(this.user.id
           ? [
+              { text: "Succès", icon: "fas fa-trophy", route: "/success" },
               { text: "Mes salons", icon: "fab fa-foursquare", route: "/room" },
               { text: "Compte", icon: "fas fa-user", route: "/profile" }
             ]
@@ -62,7 +62,7 @@ export default {
   z-index: 10;
   height: 64px;
   background-color: #272727;
-  width: 100vw;
+  width: 100%;
 
   .navbar-right {
     height: 100%;

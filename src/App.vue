@@ -3,7 +3,7 @@
     <v-main>
       <div v-if="!isLanding">
         <Navbar></Navbar>
-        <div class="pa-10 ma-16">
+        <div class="pa-10 my-16">
           <router-view />
           <Footer></Footer>
         </div>
