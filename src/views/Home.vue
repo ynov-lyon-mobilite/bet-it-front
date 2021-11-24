@@ -4,18 +4,21 @@
       <BettiesSold></BettiesSold>
     </v-row>
     <MatchList></MatchList>
+    <Card></Card>
   </div>
 </template>
 
 <script>
 import MatchList from '@/components/Home/MatchList';
 import BettiesSold from '@/components/BettiesSold';
+import Card from '@/views/Card';
 
 export default {
   name: 'Home',
   components: {
     BettiesSold,
-    MatchList
+    MatchList,
+    Card
   },
 };
 </script>
@@ -23,7 +26,7 @@ export default {
 <style>
 #title{
     position: relative;
-    z-index: 10;
+    z-index: 1;
 }
 .rounded-60 {
   border-radius: 60px !important;

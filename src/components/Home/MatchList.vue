@@ -83,7 +83,7 @@
 }
 
 .tournament{
-  z-index: 10;
+  z-index: 1;
   position: relative;
 }
 
