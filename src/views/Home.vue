@@ -3,30 +3,46 @@
     <v-row id="title" class="flex-row justify-end pa-4">
       <BettiesSold></BettiesSold>
     </v-row>
-    <MatchList></MatchList>
-    <Card></Card>
+    <MatchList @clicked="sendToCard"></MatchList>
+    <Card ></Card>
+    <BtnCard></BtnCard>
   </div>
 </template>
 
 <script>
-import MatchList from '@/components/Home/MatchList';
-import BettiesSold from '@/components/BettiesSold';
-import Card from '@/views/Card';
+import MatchList from "@/components/Home/MatchList";
+import BettiesSold from "@/components/BettiesSold";
+import Card from "@/views/Card";
+import BtnCard from "@/views/BtnCard";
 
 export default {
-  name: 'Home',
+  data() {
+    return {
+      match,
+    }
+  },
+  name: "Home",
+  methods: {
+    sendToCard(match) {
+      console.log(match);
+    },
+  },
+  addToCard() {
+    
+  },
   components: {
     BettiesSold,
     MatchList,
-    Card
+    Card,
+    BtnCard,
   },
 };
 </script>
 
 <style>
-#title{
-    position: relative;
-    z-index: 1;
+#title {
+  position: relative;
+  z-index: 1;
 }
 .rounded-60 {
   border-radius: 60px !important;

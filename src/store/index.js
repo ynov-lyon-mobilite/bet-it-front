@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     betties: 250,
     user: [],
+    cart: [],
     betHistory: [],
     room: [],
     event: {},
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     addBetties(state, amount) {
       state.user.betties += amount;
     },
+    ADD_TO_CART(state, bet) {
+      state.cart = [...state.cart, bet];
+    }, 
     removeBetties(state, amount) {
       state.user.betties -= amount;
     },
@@ -74,6 +78,9 @@ export default new Vuex.Store({
           commit("setEvent", event);
         }
       });
+    },
+    addToCart({commit}, {bet}) {
+      commit("ADD_TO_CART", bet);
     },
 
     addRoom(context, room) {

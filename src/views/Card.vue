@@ -1,112 +1,75 @@
 <template>
+  <v-card class="mx-auto panier" id="panier" max-width="344">
+    <v-card-title class="title">
+      Panier
+    </v-card-title>
 
-  <!-- Add Scrollable Prop -->
-  <v-dialog scrollable :value="createToggle" @input="onCancel" persistent :fullscreen="$vuetify.breakpoint.xsOnly" :max-width="dialogWidth">
+    <div class="line"></div>
 
-    <v-card>
-      
-      <v-card-title class="pa-0">
-        <v-toolbar flat>
-          <v-toolbar-title>Title</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon class="heading grey--text text--darken-4">close</v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-card-title>
-
-      ...
-
-      <v-card-actions> 
-        <v-btn>Cancel</v-btn> 
-        <v-btn>Save</v-btn>           
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+    <v-card-subtitle class="team-bet" v-for="bet in cart" :key="bet">
+      Team 1 : {{ bet.betTeam.name }}
+    </v-card-subtitle>
+  </v-card>
 </template>
-
 
 <script>
 export default {
-  props: {
-    bet: Object,
+  data: () => ({
+    show: false,
+  }),
+  computed: {
+    cart() {
+      console.log(this.$store.state.cart);
+      // Cart is correctly added
+      return this.$store.state.cart;
+    },
   },
-//   data() {
-//     return {
-//       user: {},
-//       amount: null,
-//       hasBet: false,
-//       errors: {
-//         betInput: false,
-//         bettiesAmount: false,
-//       },
-//       total: {},
-//     };
-//   },
-//   computed: {
-//     getuser() {
-//       return this.$store.state.user;
-//     },
-//     betHistory() {
-//       return this.$store.state.betHistory;
-//     },
-//     hasAlreadyBet() {
-//       return (
-//         this.betHistory.find((bet) => bet.id === this.bet.id) !== undefined
-//       );
-//     },
-//     hasBetOpponent() {
-//       return this.betHistory.find(
-//         (bet) =>
-//           bet.game.id === this.bet.game.id &&
-//           bet.type === this.bet.type &&
-//           bet.team !== this.bet.team
-//       );
-//     },
-//     canBet() {
-//       return !this.hasAlreadyBet && !this.hasBetOpponent;
-//     },
-//   },
-//   methods: {
-//     getAmount() {
-//       const bet = this.betHistory.find((bet) => bet.id === this.bet.id);
-//       if (bet) this.amount = bet.amount;
-//     },
-//     isNumber(evt) {
-//       evt = evt ? evt : window.event;
-//       const charCode = evt.which ? evt.which : evt.keyCode;
-//       if (
-//         charCode > 31 &&
-//         (charCode < 48 || charCode > 57) &&
-//         charCode !== 46
-//       ) {
-//         evt.preventDefault();
-//       } else {
-//         return true;
-//       }
-//     },
-//     wantToBet() {
-//       if (!this.amount || parseFloat(this.amount) === 0)
-//         this.errors.betInput = true;
-//       else if (this.amount > this.getuser.betties)
-//         this.errors.bettiesAmount = true;
-//       else this.hasBet = true;
-//     },
-//     confirmBet() {
-//       this.$store.dispatch({
-//         type: "betAction",
-//         bet: { ...this.bet, amount: parseFloat(this.amount), date: new Date() },
-//       });
-//       this.hasBet = false;
-//       this.$store.state.betties = this.$store.state.betties- this.amount;
-//       // this.$store.dispatch("PutBetties", {
-//       //   betties: this.getuser.betties,
-//       //   id: this.getuser.id,
-//       // });
-//     },
-//   },
-//   mounted() {
-//     this.getAmount();
-//   },
 };
+
+
+// $(function(){
+
+  // jQuery methods go here...
+
+// var card = $("#panier").offset();
+
+//   $(window).scroll(function() {
+//       if ($(window).scrollTop() > card.top) {
+//           $("#panier")
+//         .css("position", "fixed")
+//         .css("top", "3%");
+//     } else {
+//         $("#panier").css("position", "absolute");
+//     }
+//   });
+// });
+
 </script>
+
+<style lang="scss" scoped>
+.panier {
+  position: absolute;
+  top: 414px;
+  right: 3%;
+  min-width: 20%;
+  min-height: 600px;
+  background-color: aliceblue;
+  z-index: 10;
+
+  .team-bet {
+    color: black;
+  }
+
+  .title {
+    justify-content: center;
+    color: black;
+  }
+  .line {
+    justify-content: center;
+    height: 1px;
+    background-color: black;
+    width: 30%;
+    margin: auto;
+  }
+}
+</style>
