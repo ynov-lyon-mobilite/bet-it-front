@@ -21,6 +21,10 @@ export default {
 </script>
 
 <style>
+#title{
+    position: relative;
+    z-index: 10;
+}
 .rounded-60 {
   border-radius: 60px !important;
 }
