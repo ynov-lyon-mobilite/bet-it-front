@@ -11,61 +11,69 @@
       >
         <v-text-field
           v-model="user.firstName"
-          :rules="[rules.required]"
-          label="prénom"
+          :rules="rules.firstName"
+          label="Prénom"
           required
         ></v-text-field>
 
         <v-text-field
           v-model="user.lastName"
-          :rules="[rules.required]"
-          label="nom"
+          :rules="rules.lastName"
+          label="Nom"
           required
         ></v-text-field>
 
         <v-text-field
-          v-model="user.pseudo"
-          :rules="[rules.required]"
-          label="pseudo"
+          v-model="user.userName"
+          :rules="rules.userName"
+          label="Nom d'utilisateur"
           required
         ></v-text-field>
 
         <v-text-field
           v-model="user.email"
-          :rules="[rules.required, rules.email]"
-          label="email"
+          :rules="rules.email"
+          label="Adresse e-mail"
           required
         ></v-text-field>
         <v-text-field
-          v-model="user.PhoneNumber"
-          :counter="8"
-          :error-messages="errors"
-          label="Phone Number"
+          v-model="user.phoneNumber"
+          counter
+          label="Numéro de téléphone"
+          :rules="rules.phoneNumber"
           required
         ></v-text-field>
         <v-text-field
           v-model="user.plainPassword"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.required, rules.min]"
-          :type="show1 ? 'text' : 'password'"
-          name="input-10-1"
+          :rules="rules.password"
+          type="password"
           label="Mot de passe"
-          hint="At least 8 characters"
           counter
-          @click:append="show1 = !show1"
+        ></v-text-field>
+        <v-text-field
+          v-model="user.confirmPassword"
+          :rules="confirmPasswordRules"
+          type="password"
+          label="Confirmer le mot de passe"
+          counter
         ></v-text-field>
         <v-select
-          v-model="user.sexe"
+          v-model="user.gender"
           :items="items"
-          :rules="[rules.required]"
+          :rules="rules.gender"
           label="Sexe"
           required
         ></v-select>
-        <h2 class="text-center ma-5">Date de naissance</h2>
-
-        <v-row justify="center">
+        <div class="d-flex flex-column align-center">
+          <v-text-field
+            v-model="user.birthday"
+            label="Date de naissance"
+            disabled
+            :rules="rules.birthday"
+            required
+          ></v-text-field>
           <v-date-picker v-model="user.birthday"></v-date-picker>
-        </v-row>
+        </div>
 
         <div class="d-flex justify-center">
           <v-btn
@@ -73,14 +81,14 @@
             large
             class="ma-9"
             elevation="2"
-            :disabled="!valid"
-            @click.prevent="createUser()"
+            :disabled="!valid || !allFieldsAreFilled"
+            @click.prevent="validate"
             >S'enregistrer</v-btn
           >
         </div>
         <div v-if="success">
           <v-alert type="success" elevation="10"
-            >Votre compte à bien été créer</v-alert
+            >Votre compte a bien été créé</v-alert
           >
           <v-progress-linear indeterminate color="green"></v-progress-linear>
         </div>
@@ -90,51 +98,70 @@
 </template>
 
 <script>
-import store from "@/store/index.js";
-import axios from "axios";
-axios.defaults.headers.common["Authorization"] =
-  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTg2MDE4NjAsImV4cCI6MTYxODYwNTQ2MCwicm9sZXMiOlsic3RyaW5nIiwiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdEBhemRoLmNvbSJ9.UMASIPyEX6uRSGijpr75BT-REGWs5IXXJuPLnaMoSCSJ3c8BIJbC5B_mdFpEUqBUuJ6WwpXkQGKev5k5ZbtA3ZtdgXPfniFE7e2VJI6PY3fKcycJ2ZFoeupBLsXKzlCDsAhZ1-FbutK41PQ3O64ycPbBaSt7SM7wYAZw2E0pYTP9x1xSR2Suww47rpPFd-8cE2CujEPamSbWKGSVhLGrHxRgNqXs9MqTkIS_F_p7GGFrI2POYELqCo68d3ecLiBr3yyj0VSvPVCX5UShbueMRXhVUt9zg3fFFNb7ElxrgIDH9Dup35L3qwy-qDg13DDt7DB4lIbiE13MweecUpSA4ABD4xlvseSFWit39MheIXFnQluCNXQAwITu3vDBGK92ayKbccvjf20--DD434c1Y3o-f3Sx6pm6pqt0E4WnfVvd5z5A3h0AJkjCygyoBrRAFgC8kMvQzDlsGy9GRvcUfvZkbvIwa_DWco5kYhZZaKAexnlDR1Ls-WWXTL6MFZuoVRVR0TAGLEeG-SMtlx0LvUK6EIHuBPfF-fTWSUfbb783m6tPURov3QYDMPXymPz9Bz23bz42HUvv5TYUF7RRarPDLW8dblACBAczuVWuoTg52m7aFIkAXduwKWBwGbfmZQv66ocU_6P2dnuLFolcrdLBoB5sw75Iqf7p_HJu-qc";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  validateBirthdate,
+  validateConfirmPassword,
+  validateEmail,
+  validateMandatoryField,
+  validateMaxLength,
+  validateMinLength,
+  validatePhoneNumber
+} from "../forms/rules";
+
+// axios.defaults.headers.common["Authorization"] =
+//   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTg2MDE4NjAsImV4cCI6MTYxODYwNTQ2MCwicm9sZXMiOlsic3RyaW5nIiwiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoidGVzdEBhemRoLmNvbSJ9.UMASIPyEX6uRSGijpr75BT-REGWs5IXXJuPLnaMoSCSJ3c8BIJbC5B_mdFpEUqBUuJ6WwpXkQGKev5k5ZbtA3ZtdgXPfniFE7e2VJI6PY3fKcycJ2ZFoeupBLsXKzlCDsAhZ1-FbutK41PQ3O64ycPbBaSt7SM7wYAZw2E0pYTP9x1xSR2Suww47rpPFd-8cE2CujEPamSbWKGSVhLGrHxRgNqXs9MqTkIS_F_p7GGFrI2POYELqCo68d3ecLiBr3yyj0VSvPVCX5UShbueMRXhVUt9zg3fFFNb7ElxrgIDH9Dup35L3qwy-qDg13DDt7DB4lIbiE13MweecUpSA4ABD4xlvseSFWit39MheIXFnQluCNXQAwITu3vDBGK92ayKbccvjf20--DD434c1Y3o-f3Sx6pm6pqt0E4WnfVvd5z5A3h0AJkjCygyoBrRAFgC8kMvQzDlsGy9GRvcUfvZkbvIwa_DWco5kYhZZaKAexnlDR1Ls-WWXTL6MFZuoVRVR0TAGLEeG-SMtlx0LvUK6EIHuBPfF-fTWSUfbb783m6tPURov3QYDMPXymPz9Bz23bz42HUvv5TYUF7RRarPDLW8dblACBAczuVWuoTg52m7aFIkAXduwKWBwGbfmZQv66ocU_6P2dnuLFolcrdLBoB5sw75Iqf7p_HJu-qc";
+
 export default {
-  store: store,
   data() {
     return {
-      birthday: new Date().toISOString().substr(0, 10),
-      valid: false,
+      valid: true,
       items: ["Homme", "Femme", "Autre"],
-      checkbox: false,
-
-      show1: false,
-      password: "Password",
       rules: {
-        required: (value) => !!value || "Requis",
-        min: (v) => v.length >= 8 || "Min 8 characters",
-        emailMatch: () => `The email and password you entered don't match`,
+        firstName: [validateMandatoryField],
+        lastName: [validateMandatoryField],
+        userName: [
+          validateMandatoryField,
+          validateMaxLength(16),
+          validateMinLength(5)
+        ],
+        email: [validateMandatoryField, validateEmail],
+        phoneNumber: [validateMandatoryField, validatePhoneNumber],
+        password: [validateMandatoryField, validateMinLength(5)],
+        gender: [validateMandatoryField],
+        birthday: [validateMandatoryField, validateBirthdate]
       },
-      rules: {
-        required: (value) => !!value || "Requis",
-        email: (value) => {
-          const pattern = /.+@.+\..+/;
-          return pattern.test(value) || "Invalid e-mail";
-        },
-      },
-      select: null,
       user: {
         firstName: "",
         lastName: "",
         email: "",
         plainPassword: "",
-        pseudo: "",
-        PhoneNumber: "",
-        sexe: "",
-        birthday: "",
+        userName: "",
+        phoneNumber: "",
+        gender: "",
+        birthday: ""
       },
-      error: [],
-      success: false,
+      success: false
     };
+  },
+  computed: {
+    allFieldsAreFilled() {
+      return !Object.values(this.user).some(value => !value);
+    },
+    confirmPasswordRules() {
+      return [
+        validateMandatoryField,
+        validateMinLength(5),
+        validateConfirmPassword(this.user.plainPassword)
+      ];
+    }
   },
   methods: {
     validate() {
       this.$refs.form.validate();
+      if (this.valid && this.allFieldsAreFilled) {
+        this.register();
+      }
     },
     reset() {
       this.$refs.form.reset();
@@ -142,20 +169,33 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    createUser() {
-      store
-        .dispatch("addUser", this.user)
-        .then(() => (this.success = true))
-        .catch((error) => {
-          this.error = error.response;
+    async register() {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(
+        auth,
+        this.user.email,
+        this.user.plainPassword
+      )
+        .then(({ user }) => {
+          console.log("user", user);
+          this.success = true;
+          this.$store.dispatch({
+            type: "user/fetchUser",
+            userInfo: {
+              id: user.uid,
+              email: user.email
+            }
+          });
+          localStorage.accessToken = user.accessToken;
+          localStorage.refreshToken = user.refreshToken;
+          setTimeout(() => {
+            this.$router.push({ name: "Home" });
+          }, 3000);
+        })
+        .catch(error => {
+          alert(error.message);
         });
-      this.$router.push({ name: "Profile" });
-    },
-  },
-  computed: {
-    getuser() {
-      return store.state.user;
-    },
-  },
+    }
+  }
 };
 </script>

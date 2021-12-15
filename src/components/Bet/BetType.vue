@@ -88,7 +88,7 @@
 <script>
 export default {
   props: {
-    bet: Object,
+    bet: Object
   },
   data() {
     return {
@@ -97,9 +97,9 @@ export default {
       hasBet: false,
       errors: {
         betInput: false,
-        bettiesAmount: false,
+        bettiesAmount: false
       },
-      total: {},
+      total: {}
     };
   },
   computed: {
@@ -110,13 +110,11 @@ export default {
       return this.$store.state.betHistory;
     },
     hasAlreadyBet() {
-      return (
-        this.betHistory.find((bet) => bet.id === this.bet.id) !== undefined
-      );
+      return this.betHistory.find(bet => bet.id === this.bet.id) !== undefined;
     },
     hasBetOpponent() {
       return this.betHistory.find(
-        (bet) =>
+        bet =>
           bet.game.id === this.bet.game.id &&
           bet.type === this.bet.type &&
           bet.team !== this.bet.team
@@ -124,11 +122,11 @@ export default {
     },
     canBet() {
       return !this.hasAlreadyBet && !this.hasBetOpponent;
-    },
+    }
   },
   methods: {
     getAmount() {
-      const bet = this.betHistory.find((bet) => bet.id === this.bet.id);
+      const bet = this.betHistory.find(bet => bet.id === this.bet.id);
       if (bet) this.amount = bet.amount;
     },
     isNumber(evt) {
@@ -154,19 +152,19 @@ export default {
     confirmBet() {
       this.$store.dispatch({
         type: "betAction",
-        bet: { ...this.bet, amount: parseFloat(this.amount), date: new Date() },
+        bet: { ...this.bet, amount: parseFloat(this.amount), date: new Date() }
       });
       this.hasBet = false;
-      this.$store.state.betties = this.$store.state.betties- this.amount;
+      this.$store.state.betties = this.$store.state.betties - this.amount;
       // this.$store.dispatch("PutBetties", {
       //   betties: this.getuser.betties,
       //   id: this.getuser.id,
       // });
-    },
+    }
   },
   mounted() {
     this.getAmount();
-  },
+  }
 };
 </script>
 
