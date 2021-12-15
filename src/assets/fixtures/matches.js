@@ -25,8 +25,8 @@ export default [
       name: "MSF"
     },
     team2: {
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Excel_Esports_logo.png/220px-Excel_Esports_logo.png",
+      logo: require("@/assets/teams/excel.png")
+      ,
       cote: 2,
       id: 4,
       name: "XL"
@@ -86,8 +86,7 @@ export default [
   },
   {
     team1: {
-      logo:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Excel_Esports_logo.png/220px-Excel_Esports_logo.png",
+      logo: require("@/assets/teams/excel.png"),
       cote: 1.8,
       id: 4,
       name: "XL"

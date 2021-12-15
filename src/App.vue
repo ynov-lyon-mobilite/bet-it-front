@@ -1,10 +1,18 @@
 <template>
   <v-app>
     <v-main>
+     
+
       <div v-if="!isLanding">
         <Navbar></Navbar>
         <div class="pa-10 my-16">
+          <div class="main">
+
           <router-view />
+          <!-- <div v-if="showCard <=1"> -->
+          <Card></Card>
+          </div>
+          <!-- </div> -->
           <Footer></Footer>
         </div>
       </div>
@@ -20,6 +28,7 @@ import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Landing from "./views/Landing.vue";
+import Card from "./views/Card.vue";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 
@@ -29,11 +38,15 @@ export default {
   components: {
     Navbar,
     Footer,
-    Landing
-  },
+    Landing,
+    Card
+},
   computed: {
     isLanding() {
       return this.$route.name === "Landing";
+    },
+    showCard() {
+      return ["Home", "Bet"].indexOf(this.$route.name);
     }
   },
   async mounted() {
@@ -59,6 +72,17 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
 // Utils --------------------------------------------------------------
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
 .vh-100 {
   height: 100vh;
 }
@@ -105,6 +129,9 @@ $body-font: "Roboto";
   font-family: $title-font, cursive !important;
   font-weight: normal;
   font-size: 3rem;
+}
+.main {
+  display: flex;
 }
 
 .font-body {

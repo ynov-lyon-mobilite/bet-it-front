@@ -1,22 +1,23 @@
 <template>
   <div>
-    <v-row id="title" class="flex-row justify-end pa-4">
-    </v-row>
+    <!-- <v-row id="title" class="flex-row justify-end pa-4">
+      <BettiesSold></BettiesSold>
+    </v-row> -->
     <MatchList @clicked="sendToCard"></MatchList>
-    <Card />
+    <!-- <Card></Card> -->
+    <!-- <BtnCard></BtnCard> -->
   </div>
 </template>
 
 <script>
 import MatchList from "@/components/Home/MatchList";
+import BettiesSold from "@/components/BettiesSold";
 import Card from "@/views/Card";
 import BtnCard from "@/views/BtnCard";
-
 export default {
   data() {
     return {
-      match,
-    }
+    };
   },
   name: "Home",
   methods: {
@@ -24,10 +25,9 @@ export default {
       console.log(match);
     },
   },
-  addToCard() {
-    
-  },
+  addToCard() {},
   components: {
+    BettiesSold,
     MatchList,
     Card,
     BtnCard,

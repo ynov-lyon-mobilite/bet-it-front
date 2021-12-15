@@ -3,7 +3,6 @@
     <video class="vh-100 video-paris" autoplay loop playsinline muted>
       <source src="../../assets/landingPage/paris.mp4" type="video/mp4" />
     </video>
-
     <div class="tournament">
       <h1>
         LEC 2021
@@ -32,7 +31,7 @@
               <p class="teamname">
                 {{ match.team1.name }}
               </p>
-              <v-btn class="cotes" @click="addToCard(match.team1, match)">
+              <v-btn class="cotes" @click="addToCard(match.team1, match.team2)">
                 {{ match.team1.cote }}
               </v-btn>
             </div>
@@ -48,9 +47,10 @@
               <p class="teamname">
                 {{ match.team2.name }}
               </p>
-              <v-btn class="cotes" @click="addToCard(match.team2, match)">
+              <v-btn class="cotes" @click="addToCard(match.team2, match.team1)">
                 {{ match.team2.cote }}
               </v-btn>
+              <!-- <v-input class="bet-montant"></v-input>  -->
             </div>
           </div>
         </v-card>
@@ -62,6 +62,16 @@
 <style lang="scss" scoped>
 .card-matches {
   background-color: whitesmoke;
+}
+
+.video-paris {
+  object-fit: cover;
+  position: fixed;
+  opacity: 0.5;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .team-match {
@@ -97,20 +107,10 @@
   position: relative;
 }
 
-video {
-  object-fit: cover;
-  position: absolute;
-  opacity: 0.5;
-  z-index: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
 .matches-container {
   justify-content: center;
   //Adjust container width
-  width: 80%;
+  // width: 80%;
 
   #title {
     transform: rotate(0deg);
@@ -137,18 +137,21 @@ video {
 </style>
 
 <script>
+import { log } from 'console';
 import matches from "../../assets/fixtures/matches";
+import teams from "../../assets/fixtures/matches";
 
 export default {
   name: "MatchList",
   data: () => ({
-    matches
+    matches,
   }),
   methods: {
-    addToCard(betTeam, match) {
+    addToCard(team1, team2) {
+      console.log(matches);
       this.$store.dispatch({
         type: "addToCart",
-        bet: { match, betTeam },
+        bet: { team1, team2 },
       });
     },
   },
