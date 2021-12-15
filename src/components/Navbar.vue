@@ -10,11 +10,20 @@
           <div class="route-link-text">{{ page.text }}</div>
         </div>
       </router-link>
+      <div
+        v-if="user.isAuthentified"
+        class="route-link d-flex align-center pa-2"
+        @click="logout"
+      >
+        <v-icon class="mr-2">fas fa-sign-out-alt</v-icon>
+        <div class="route-link-text">Déconnexion</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getAuth, signOut } from "firebase/auth";
 import store from "../store";
 
 export default {
@@ -22,7 +31,7 @@ export default {
   name: "Navbar",
   computed: {
     user() {
-      return store.state.user;
+      return store.state.user.userInfo;
     },
     pages() {
       return [
@@ -31,7 +40,7 @@ export default {
         // { text: "Tournois", icon: "fas fa-sitemap", route: "/addTournament" },
         // { text: "Jeux", icon: "fas fa-gamepad", route: "/games" },
         // { text: "Classement", icon: "fas fa-medal", route: "/ladder" },
-        ...(this.user.id
+        ...(this.user.isAuthentified
           ? [
               { text: "Succès", icon: "fas fa-trophy", route: "/success" },
               { text: "Mes salons", icon: "fab fa-foursquare", route: "/room" },
@@ -50,6 +59,26 @@ export default {
               }
             ])
       ];
+    },
+    isHome() {
+      return this.$route.name === "Home";
+    }
+  },
+  methods: {
+    async logout() {
+      const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          this.$store.dispatch({
+            type: "user/logout"
+          });
+          if (!this.isHome) {
+            this.$router.push({ name: "Home" });
+          }
+        })
+        .catch(error => {
+          alert(error.message);
+        });
     }
   }
 };
@@ -90,6 +119,7 @@ export default {
   }
 
   .route-link {
+    cursor: pointer;
     height: 100%;
     .route-link-text {
       color: #b5b2b2;
