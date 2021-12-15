@@ -1,8 +1,14 @@
 <template>
   <v-card class="mx-auto panier" id="panier" max-width="344">
-    <v-card-title class="title">
-      Panier
-    </v-card-title>
+    <div>
+      <v-card-title class="title">
+        Panier
+      </v-card-title>
+
+      <div>
+        <BettiesSold></BettiesSold>
+      </div>
+    </div>
 
     <div class="line"></div>
 
@@ -13,6 +19,8 @@
 </template>
 
 <script>
+import BettiesSold from "../components/BettiesSold.vue";
+
 export default {
   data: () => ({
     show: false,
@@ -24,12 +32,12 @@ export default {
       return this.$store.state.cart;
     },
   },
+  components: { BettiesSold },
 };
-
 
 // $(function(){
 
-  // jQuery methods go here...
+// jQuery methods go here...
 
 // var card = $("#panier").offset();
 
@@ -43,7 +51,6 @@ export default {
 //     }
 //   });
 // });
-
 </script>
 
 <style lang="scss" scoped>

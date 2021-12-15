@@ -3,6 +3,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import fantasy from "./fantasy";
+import user from "./user";
 
 import events from "@/assets/fixtures/events";
 
@@ -11,7 +12,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     betties: 250,
-    user: [],
     cart: [],
     betHistory: [],
     room: [],
@@ -21,7 +21,8 @@ export default new Vuex.Store({
   },
 
   modules: {
-    fantasy
+    fantasy,
+    user
   },
 
   mutations: {
@@ -88,7 +89,6 @@ export default new Vuex.Store({
     },
 
     addTeam(context, team) {
-
       context.commit("setTeam", team);
     },
 
@@ -106,7 +106,7 @@ export default new Vuex.Store({
           dispatch("getUserById", response.data.data.id);
         })
 
-        .catch(function (error) {
+        .catch(function(error) {
           return Promise.reject(error);
         });
     },
@@ -117,7 +117,7 @@ export default new Vuex.Store({
         .then(response => {
           context.commit("setUser", response.data);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           return Promise.reject(error);
         });
     },
@@ -139,7 +139,7 @@ export default new Vuex.Store({
         .then(response => {
           context.commit("setUser", response.data);
         })
-        .catch(function (error) {
+        .catch(function(error) {
           return Promise.reject(error);
         });
     },

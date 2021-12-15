@@ -1,17 +1,14 @@
 <template>
   <div>
     <v-row id="title" class="flex-row justify-end pa-4">
-      <BettiesSold></BettiesSold>
     </v-row>
     <MatchList @clicked="sendToCard"></MatchList>
-    <Card ></Card>
-    <BtnCard></BtnCard>
+    <Card />
   </div>
 </template>
 
 <script>
 import MatchList from "@/components/Home/MatchList";
-import BettiesSold from "@/components/BettiesSold";
 import Card from "@/views/Card";
 import BtnCard from "@/views/BtnCard";
 
@@ -31,7 +28,6 @@ export default {
     
   },
   components: {
-    BettiesSold,
     MatchList,
     Card,
     BtnCard,

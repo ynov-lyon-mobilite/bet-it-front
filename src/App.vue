@@ -14,8 +14,10 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
+import { getAuth } from "firebase/auth";
 import axios from "axios";
+
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Landing from "./views/Landing.vue";
 
@@ -32,6 +34,21 @@ export default {
   computed: {
     isLanding() {
       return this.$route.name === "Landing";
+    }
+  },
+  async mounted() {
+    const auth = getAuth();
+    if (auth && auth.currentUser) {
+      const token = await auth.currentUser.getIdToken();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+      console.log("------- CONFIG WITH USER TOKEN -------\n", config);
+      // Backend Token Authorization
+      // https://youtu.be/4Rv6KSIsiMo
+      // this.$axios.get("urlADeterminer",)
     }
   }
 };
