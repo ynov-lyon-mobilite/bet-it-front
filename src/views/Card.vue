@@ -1,9 +1,7 @@
 <template>
   <v-card class="mx-auto panier" id="panier" max-width="344">
     <div class="card-title">
-      <v-card-title class="panier-title">
-        Panier
-      </v-card-title>
+      <v-card-title class="panier-title"> Panier </v-card-title>
 
       <div>
         <BettiesSold></BettiesSold>
@@ -12,16 +10,40 @@
 
     <div class="cart-container" id="cart-container">
       <div class="bets-main">
-        <div class="bet" v-for="bet in cart" :key="bet.id">
-          <div class="bet-container-grid">
-            <div class="bet-container-team1">
-              <img
-                contain
-                :src="bet.team1.logo"
-                width="55"
-                height="55"
-                class=""
-              />
+        <div class="bets-type">
+          <div
+            id="simple"
+            :class="simple ? 'active' : ''"
+            v-on:click="betSimple"
+          >
+            Simple
+          </div>
+          <div
+            id="combine"
+            :class="combine ? 'active' : ''"
+            v-on:click="betCombine"
+          >
+            Combiné
+          </div>
+        </div>
+        <v-card class="bet" v-for="bet in cart" :key="bet.id">
+          <div class="bet-header">
+            <div class="bet-header-showmatch">Fnatic vs Karmine Corp</div>
+            <div class="bet-header-date">06 January, 12:30</div>
+          </div>
+          <div class="bet-body">
+            <div class="bet-body-cote">{{ bet.team1.cote }}</div>
+            <div class="bet-body-desc">
+              <div class="bet-body-desc-winner">{{ bet.team1.name }}</div>
+              <div class="bet-body-desc-type">Win</div>
+            </div>
+            <div class="bet-body-amount">
+              <input class="bet-body-input" placeholder="0" />
+            </div>
+          </div>
+          <!-- <div class="bet-container-grid"> -->
+          <!-- <div class="bet-container-team1">
+             
               <div class="team1-title">
                 {{ bet.team1.name }}
               </div>
@@ -39,11 +61,11 @@
               </div>
             </div>
           </div>
-          <input class="container-input" placeholder="42 " />
+          <input class="container-input" placeholder="0" />
           <img class="bettie" src="../assets/monney/tas.svg" />
-          <div class="bet-type">Gagnant : {{ bet.team1.name }}</div>
-          <div class="line"></div>
-        </div>
+          <div class="bet-type"></div>
+          <div class="line"></div> -->
+        </v-card>
       </div>
 
       <div class="cart-footer" id="cart-footer">
@@ -54,24 +76,71 @@
 </template>
 
 <script>
+// import func from "vue-editor-bridge";
 import BettiesSold from "../components/BettiesSold.vue";
 
 export default {
   data: () => ({
     show: false,
+    simple: true,
+    combine: false
   }),
   computed: {
     cart() {
       console.log(this.$store.state.cart);
       // Cart is correctly added
       return this.$store.state.cart;
-    },
+    }
   },
-  components: { BettiesSold },
+  methods: {
+    betSimple() {
+      if (this.simple == true) {
+        console.log(this.$el.querySelector("#simple"));
+        console.log(this.$el.querySelector("#combine"));
+        this.combine = false;
+      } else {
+        console.log(this.$el.querySelector("#simple"));
+        console.log(this.$el.querySelector("#combine"));
+        this.simple = true;
+        this.combine = false;
+      }
+    },
+    betCombine() {
+      if (this.combine == true) {
+        console.log(this.$el.querySelector("#simple"));
+        console.log(this.$el.querySelector("#combine"));
+        this.simple = false;
+      } else {
+        console.log(this.$el.querySelector("#simple"));
+        console.log(this.$el.querySelector("#combine"));
+        this.combine = true;
+        this.simple = false;
+      }
+    }
+  },
+  components: { BettiesSold }
 };
 </script>
 
 <style lang="scss" scoped>
+.bets-type {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  div {
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    cursor: grab;
+    border-top: 2px solid transparent;
+    color: rgb(129, 129, 129);
+    &.active {
+      border-top: 2px solid lightgrey;
+      color: rgb(223, 223, 223);
+    }
+  }
+}
+
 .bet-container-grid {
   position: relative;
   display: grid;
@@ -126,7 +195,7 @@ export default {
 
 .bets-main {
   position: relative;
-  padding: 0px 15px;
+  padding: 15px;
 }
 
 .bet {
