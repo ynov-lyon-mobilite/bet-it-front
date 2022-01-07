@@ -4,10 +4,8 @@
       <source src="../../assets/landingPage/paris.mp4" type="video/mp4" />
     </video>
     <div class="tournament">
-      <h1>
-        LEC 2021
-      </h1>
-      <p>21/04 | 06/05</p>
+      <h1>LEC 2022</h1>
+      <p>10/01/2022 – 09/08/2022</p>
     </div>
     <v-row class="matches-container">
       <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
@@ -18,7 +16,13 @@
           width="220"
         >
           <div
-            class="d-flex align-center div-text team-match justify-space-between"
+            class="
+              d-flex
+              align-center
+              div-text
+              team-match
+              justify-space-between
+            "
           >
             <div class="col-6 equipe text-center">
               <v-img
@@ -137,23 +141,23 @@
 </style>
 
 <script>
-import { log } from 'console';
+// import { log } from "console";
 import matches from "../../assets/fixtures/matches";
-import teams from "../../assets/fixtures/matches";
+// import teams from "../../assets/fixtures/matches";
 
 export default {
   name: "MatchList",
   data: () => ({
-    matches,
+    matches
   }),
   methods: {
     addToCard(team1, team2) {
-      console.log(matches);
+      // console.log(matches);
       this.$store.dispatch({
         type: "addToCart",
-        bet: { team1, team2 },
+        bet: { team1, team2 }
       });
-    },
-  },
+    }
+  }
 };
 </script>

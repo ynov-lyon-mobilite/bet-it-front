@@ -4,7 +4,6 @@
       <BettiesSold></BettiesSold>
     </v-row> -->
     <MatchList @clicked="sendToCard"></MatchList>
-    <!-- <Card></Card> -->
     <!-- <BtnCard></BtnCard> -->
   </div>
 </template>
@@ -12,26 +11,23 @@
 <script>
 import MatchList from "@/components/Home/MatchList";
 import BettiesSold from "@/components/BettiesSold";
-import Card from "@/views/Card";
 import BtnCard from "@/views/BtnCard";
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   name: "Home",
   methods: {
     sendToCard(match) {
       console.log(match);
-    },
+    }
   },
   addToCard() {},
   components: {
     BettiesSold,
     MatchList,
-    Card,
-    BtnCard,
-  },
+    BtnCard
+  }
 };
 </script>
 

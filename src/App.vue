@@ -1,18 +1,15 @@
 <template>
   <v-app>
     <v-main>
-     
-
       <div v-if="!isLanding">
         <Navbar></Navbar>
         <div class="pa-10 my-16">
           <div class="main">
-
-          <router-view />
-          <!-- <div v-if="showCard <=1"> -->
-          <Card></Card>
+            <router-view />
+            <div class="card" v-if="showCard">
+              <Card></Card>
+            </div>
           </div>
-          <!-- </div> -->
           <Footer></Footer>
         </div>
       </div>
@@ -40,13 +37,13 @@ export default {
     Footer,
     Landing,
     Card
-},
+  },
   computed: {
     isLanding() {
       return this.$route.name === "Landing";
     },
     showCard() {
-      return ["Home", "Bet"].indexOf(this.$route.name);
+      return ["Home", "Bet"].indexOf(this.$route.name) > -1;
     }
   },
   async mounted() {
@@ -73,14 +70,16 @@ export default {
 
 // Utils --------------------------------------------------------------
 html {
-    box-sizing: border-box;
-    font-size: 62.5%;
+  box-sizing: border-box;
+  font-size: 62.5%;
 }
 
-*, *:before, *:after {
-    box-sizing: inherit;
-    margin: 0;
-    padding: 0;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
 }
 
 .vh-100 {
@@ -144,5 +143,12 @@ $body-font: "Roboto";
 //Important for page with no need scroll --------------------------------
 html {
   overflow-y: auto !important;
+}
+
+// Desktop > 1024
+@media screen and (min-width: 1024px) {
+  .card {
+    min-width: 350px;
+  }
 }
 </style>
