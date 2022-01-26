@@ -60,6 +60,64 @@
         </v-card>
       </div>
     </v-row>
+
+    <div class="tournament">
+      <h1>Worlds 2022</h1>
+      <p>10/10/2022 – 07/11/2022</p>
+    </div>
+    <v-row class="matches-container">
+      <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
+        <v-card
+          v-for="match in matches"
+          :key="match.id"
+          class="ma-3 card-matches"
+          width="220"
+        >
+          <div
+            class="
+              d-flex
+              align-center
+              div-text
+              team-match
+              justify-space-between
+            "
+          >
+            <div class="col-6 equipe text-center">
+              <v-img
+                contain
+                :src="match.team1.logo"
+                width="55"
+                height="55"
+                class="mx-auto img-team"
+              ></v-img>
+              <p class="teamname">
+                {{ match.team1.name }}
+              </p>
+              <v-btn class="cotes" @click="addToCard(match.team1, match.team2)">
+                {{ match.team1.cote }}
+              </v-btn>
+            </div>
+            <div class="line"></div>
+            <div class="col-6 equipe text-center">
+              <v-img
+                contain
+                :src="match.team2.logo"
+                width="55"
+                height="55"
+                class="mx-auto image-equipe"
+              ></v-img>
+              <p class="teamname">
+                {{ match.team2.name }}
+              </p>
+              <v-btn class="cotes" @click="addToCard(match.team2, match.team1)">
+                {{ match.team2.cote }}
+              </v-btn>
+              <!-- <v-input class="bet-montant"></v-input>  -->
+            </div>
+          </div>
+        </v-card>
+      </div>
+    </v-row>
   </span>
 </template>
 
@@ -148,7 +206,8 @@ import matches from "../../assets/fixtures/matches";
 export default {
   name: "MatchList",
   data: () => ({
-    matches
+    matches,
+    value: 0
   }),
   methods: {
     addToCard(team1, team2) {

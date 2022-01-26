@@ -27,37 +27,45 @@
           </div>
         </div>
         <div class="bets-container">
-          <v-card class="bet" v-for="bet in cart" :key="bet.id">
-            <div class="bet-header">
-              <div class="bet-header-showmatch">
-                {{ bet.team1.namefull }} vs {{ bet.team2.namefull }}
-              </div>
-              <div class="bet-header-date">06 January, 12:30</div>
-            </div>
-            <div class="bet-body">
-              <div class="bet-body-cote">{{ bet.team1.cote }}</div>
-              <div class="bet-body-desc">
-                <div class="bet-body-desc-winner">{{ bet.team1.name }}</div>
-                <div class="bet-body-desc-type">Win</div>
-              </div>
-              <div class="bet-body-amount">
-                <input class="bet-body-input" placeholder="0" />
-                <img class="bettie" src="../assets/monney/tas.svg" />
-              </div>
-              <div class="bet-body-delete" :click="removeToCard">X</div>
-            </div>
+          <v-card>
+            <OneBet
+              class="bet"
+              v-for="(bet, idx) in cart"
+              :id="idx"
+              :key="bet.id"
+              :bet="bet"
+              :simple="simple"
+              @input="getAmount"
+            ></OneBet>
           </v-card>
         </div>
       </div>
     </div>
     <div class="card-footer" id="card-footer">
       <div class="card-footer-total">
-        <div class="card-footer-total-text">Mise totale :</div>
-        <div class="card-footer-total-amount">0</div>
+        <div class="card-footer-simple" v-if="simple">
+          <div class="card-footer-total-text">Mise totale :</div>
+          <div class="card-footer-total-amount">
+            {{ this.betAmount }}
+          </div>
+        </div>
+        <div v-else class="card-footer-total-amount">
+          <v-text-field
+            v-model="betAmountCombine"
+            @input="getAmount"
+            label="Mise :"
+            solo
+          ></v-text-field>
+        </div>
       </div>
       <div class="card-footer-gain">
         <div class="card-footer-gain-text">Gain potentiel :</div>
-        <div class="card-footer-gain-amount">0</div>
+        <div v-if="simple" class="card-footer-gain-amount">
+          {{ this.potentialGain }}
+        </div>
+        <div v-else class="card-footer-gain-amount">
+          {{ this.potentialGainCombine }}
+        </div>
       </div>
       <button type="button" class="card-footer-btn">Parier</button>
     </div>
@@ -67,23 +75,37 @@
 <script>
 // import func from "vue-editor-bridge";
 import BettiesSold from "../components/BettiesSold.vue";
+import OneBet from "@/views/OneBet";
+// import { log } from "console";
 
 export default {
   data: () => ({
-    betAmount: null,
+    betAmount: 0,
+    betAmountCombine: 0,
     show: false,
     simple: true,
-    combine: false
+    combine: false,
+    potentialGain: 0,
+    potentialGainCombine: 0,
+    multCote: 0,
+    nbBet: []
   }),
   computed: {
     cart() {
-      console.log(this.$store.state.cart);
       // Cart is correctly added
       return this.$store.state.cart;
+    },
+    betCount() {
+      return this.cart.length;
     }
-    // gain() {
-    //   return this.betAmount * this.bet.team1.cote;
-    // }
+  },
+  watch: {
+    betCount(newCount) {
+      this.nbBet[newCount - 1] = {
+        amount: 0,
+        cote: this.cart[newCount - 1].team1.cote
+      };
+    }
   },
   methods: {
     betSimple() {
@@ -102,14 +124,46 @@ export default {
         this.simple = false;
       }
     },
-    removeToCard(team1, team2) {
+    removeToCart(team1, team2) {
       this.$store.dispatch({
-        type: "addToCart",
+        type: "removeToCart",
         bet: { team1, team2 }
       });
+    },
+
+    getAmount(data) {
+      this.nbBet[data.id] = {
+        amount: parseInt(data.value, 10) || 0,
+        cote: data.cote
+      };
+
+      if (this.simple) {
+        this.setTotalAmount();
+        this.setPotentialAmount();
+      } else {
+        console.log("ici");
+        this.setPotentialAmountCombine();
+      }
+    },
+    setTotalAmount() {
+      this.betAmount = this.nbBet.reduce((sum, { amount }) => {
+        return sum + amount;
+      }, 0);
+    },
+    setPotentialAmount() {
+      this.potentialGain = this.nbBet.reduce((sum, { amount, cote }) => {
+        return sum + amount * cote;
+      }, 0);
+    },
+    setPotentialAmountCombine() {
+      this.multCote = this.nbBet.reduce((sum, { cote }) => {
+        return sum * cote;
+      }, 1);
+      this.betAmountCombine = parseInt(this.betAmountCombine, 10);
+      this.potentialGainCombine = this.betAmountCombine * this.multCote;
     }
   },
-  components: { BettiesSold }
+  components: { BettiesSold, OneBet }
 };
 </script>
 
@@ -214,77 +268,7 @@ export default {
           background-color: rgba(255, 255, 255, 0.9);
           height: 70px;
           margin-bottom: 10px;
-          .bet-header {
-            padding: 5px;
-            display: flex;
-            justify-content: space-between;
-            .bet-header-showmatch,
-            .bet-header-date {
-              font-size: 11px;
-              color: grey;
-            }
-          }
-          .bet-body {
-            display: flex;
-            padding: 0px 10px;
-            align-items: center;
-            justify-content: flex-start;
-            .bet-body-cote {
-              border-radius: 5px;
-              padding: 3px;
-              width: 48px;
-              height: 100%;
-              display: flex;
-              text-align: center;
-              background-color: #48a8e7;
-              align-items: center;
-              justify-content: center;
-            }
-            .bet-body-desc {
-              margin-left: 10px;
-              display: flex;
-              width: 120px;
-              flex-direction: column;
-              .bet-body-desc-winner {
-                font-size: 16px;
-                color: black;
-                font-weight: bold;
-              }
-              .bet-body-desc-type {
-                margin-top: -5px;
-                font-size: 12px;
-                color: grey;
-              }
-            }
-            .bet-body-amount {
-              position: relative;
-              .bet-body-input {
-                width: 80px;
-                background-color: transparent;
-                border: 1px solid lightgray;
-                text-align: left;
-                border-radius: 5px;
-                padding-left: 5px;
-                color: grey;
-                &:active,
-                &:focus-visible,
-                &:focus {
-                  outline: none;
-                  border: 1px solid grey;
-                }
-              }
-              .bettie {
-                position: absolute;
-                width: 25px;
-                top: 9px;
-                right: 3px;
-              }
-            }
-            .bet-body-delete {
-              margin-left: auto;
-              color: black;
-            }
-          }
+          border-radius: 6px;
         }
       }
     }
@@ -297,7 +281,13 @@ export default {
         padding-top: 10px;
         display: flex;
         justify-content: space-between;
+        .card-footer-simple {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        }
       }
+
       .card-footer-gain {
         display: flex;
         justify-content: space-between;

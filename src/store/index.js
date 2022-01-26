@@ -35,6 +35,9 @@ export default new Vuex.Store({
     REMOVE_TO_CART(state, bet) {
       state.cart.splice(state.cart.indexOf(bet), 1);
     },
+    ADD_VALUE_TO_BET(state, bet) {
+      state.cart = [...state.cart, bet];
+    },
     removeBetties(state, amount) {
       state.user.betties -= amount;
     },
@@ -44,7 +47,6 @@ export default new Vuex.Store({
     addBetToHistory(state, bet) {
       state.betHistory = [...state.betHistory, bet];
     },
-
     setEvent(state, event) {
       state.event = event;
     },
@@ -54,18 +56,15 @@ export default new Vuex.Store({
     setToken(state, token) {
       state.token = token;
     },
-
     setRoom(state, room) {
       state.rooms = [...state.rooms, room];
     },
-
     setTeam(state, team) {
       state.teams = [...state.teams, team];
     },
-
     setFantasyTeam(state, team) {
       state.fantasyTeam = team;
-    },
+    }
   },
 
   actions: {
@@ -89,6 +88,9 @@ export default new Vuex.Store({
     removeToCart({ commit }, { bet }) {
       commit('REMOVE_TO_CART', bet);
     },
+    addBetValue({ commit }, { bet }) {
+      commit('ADD_VALUE_TO_BET', bet);
+    },
 
     addRoom(context, room) {
       context.commit('setRoom', room);
@@ -97,7 +99,6 @@ export default new Vuex.Store({
     addTeam(context, team) {
       context.commit('setTeam', team);
     },
-
     async getAuth({ commit, dispatch }, user) {
       await axios
         .post('/api/auth', {
@@ -112,18 +113,17 @@ export default new Vuex.Store({
           dispatch('getUserById', response.data.data.id);
         })
 
-        .catch(function(error) {
+        .catch(function (error) {
           return Promise.reject(error);
         });
     },
-
     async getUserById(context, id) {
       await axios
         .get('api/users/' + id)
         .then((response) => {
           context.commit('setUser', response.data);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           return Promise.reject(error);
         });
     },
@@ -145,11 +145,10 @@ export default new Vuex.Store({
         .then((response) => {
           context.commit('setUser', response.data);
         })
-        .catch(function(error) {
+        .catch(function (error) {
           return Promise.reject(error);
         });
     },
-
     async PutBetties(context, user) {
       await axios
         .put('/api/users/' + user.id, {
@@ -159,6 +158,6 @@ export default new Vuex.Store({
         .then((response) => {
           context.commit('setUser', response.data);
         });
-    },
-  },
+    }
+  }
 });
