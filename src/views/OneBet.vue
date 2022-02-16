@@ -12,7 +12,7 @@
         <div class="bet-body-desc-winner">{{ bet.team1.name }}</div>
         <div class="bet-body-desc-type">Win</div>
       </div>
-      <div v-if="simple" class="bet-body-amount">
+      <div v-if="isBetSimple" class="bet-body-amount">
         <input
           class="bet-body-input"
           v-model.number="betAmount"
@@ -27,7 +27,7 @@
         />
         <img class="bettie" src="../assets/monney/tas.svg" />
       </div>
-      <div class="bet-body-delete" :click="removeToCart">X</div>
+      <div class="bet-body-delete" @click="removeToCart(id)">X</div>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
   props: {
     bet: Object,
     id: Number,
-    simple: Boolean
+    isBetSimple: Boolean
   },
   data: () => ({
     betAmount: 0,
@@ -47,16 +47,18 @@ export default {
     gainsTemp: 0,
     gainsToSend: 0,
     show: true,
-    simple: true,
     combine: false
   }),
   computed: {},
   methods: {
-    removeToCart(team1, team2) {
+    removeToCart(id) {
+      console.log(id);
       this.$store.dispatch({
         type: "removeToCart",
-        bet: { team1, team2 }
+        id
       });
+
+      this.$emit("clicked", "deleted");
     },
     addBetValue(bet, value) {
       this.$store.dispatch({

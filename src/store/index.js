@@ -32,8 +32,8 @@ export default new Vuex.Store({
     ADD_TO_CART(state, bet) {
       state.cart = [...state.cart, bet];
     },
-    REMOVE_TO_CART(state, bet) {
-      state.cart.splice(state.cart.indexOf(bet), 1);
+    REMOVE_TO_CART(state, id) {
+      state.cart.splice(id, 1);
     },
     ADD_VALUE_TO_BET(state, bet) {
       state.cart = [...state.cart, bet];
@@ -85,8 +85,8 @@ export default new Vuex.Store({
     addToCart({ commit }, { bet }) {
       commit('ADD_TO_CART', bet);
     },
-    removeToCart({ commit }, { bet }) {
-      commit('REMOVE_TO_CART', bet);
+    removeToCart({ commit }, { id }) {
+      commit('REMOVE_TO_CART', id);
     },
     addBetValue({ commit }, { bet }) {
       commit('ADD_VALUE_TO_BET', bet);

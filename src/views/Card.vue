@@ -13,14 +13,14 @@
         <div class="bets-type">
           <div
             id="simple"
-            :class="simple ? 'active' : ''"
+            :class="isBetSimple ? 'active' : ''"
             v-on:click="betSimple"
           >
             Simple
           </div>
           <div
             id="combine"
-            :class="combine ? 'active' : ''"
+            :class="isBetCombine ? 'active' : ''"
             v-on:click="betCombine"
           >
             Combiné
@@ -34,8 +34,9 @@
               :id="idx"
               :key="bet.id"
               :bet="bet"
-              :simple="simple"
+              :isBetSimple="isBetSimple"
               @input="getAmount"
+              @clicked="deleteChild"
             ></OneBet>
           </v-card>
         </div>
@@ -43,28 +44,35 @@
     </div>
     <div class="card-footer" id="card-footer">
       <div class="card-footer-total">
-        <div class="card-footer-simple" v-if="simple">
+        <div class="card-footer-simple" v-if="isBetSimple">
           <div class="card-footer-total-text">Mise totale :</div>
           <div class="card-footer-total-amount">
             {{ this.betAmount }}
+            <img class="bettie" src="../assets/monney/tas.svg" />
           </div>
         </div>
-        <div v-else class="card-footer-total-amount">
-          <v-text-field
-            v-model="betAmountCombine"
-            @input="getAmount"
-            label="Mise :"
-            solo
-          ></v-text-field>
+        <div v-else class="card-footer-total-amount-combine">
+          <div class="card-footer-total-text">Mise totale :</div>
+          <div class="card-footer-total-amount">
+            <v-text-field
+              v-model="betAmountCombine"
+              @input="getAmount"
+              label="Mise :"
+              solo
+            ></v-text-field>
+            <img class="bettie" src="../assets/monney/tas.svg" />
+          </div>
         </div>
       </div>
       <div class="card-footer-gain">
         <div class="card-footer-gain-text">Gain potentiel :</div>
-        <div v-if="simple" class="card-footer-gain-amount">
+        <div v-if="isBetSimple" class="card-footer-gain-amount">
           {{ this.potentialGain }}
+          <img class="bettie" src="../assets/monney/tas.svg" />
         </div>
         <div v-else class="card-footer-gain-amount">
           {{ this.potentialGainCombine }}
+          <img class="bettie" src="../assets/monney/tas.svg" />
         </div>
       </div>
       <button type="button" class="card-footer-btn">Parier</button>
@@ -83,8 +91,8 @@ export default {
     betAmount: 0,
     betAmountCombine: 0,
     show: false,
-    simple: true,
-    combine: false,
+    isBetSimple: true,
+    isBetCombine: false,
     potentialGain: 0,
     potentialGainCombine: 0,
     multCote: 0,
@@ -109,19 +117,19 @@ export default {
   },
   methods: {
     betSimple() {
-      if (this.simple == true) {
-        this.combine = false;
+      if (this.isBetSimple == true) {
+        this.isBetCombine = false;
       } else {
-        this.simple = true;
-        this.combine = false;
+        this.isBetSimple = true;
+        this.isBetCombine = false;
       }
     },
     betCombine() {
-      if (this.combine == true) {
-        this.simple = false;
+      if (this.isBetCombine == true) {
+        this.isBetSimple = false;
       } else {
-        this.combine = true;
-        this.simple = false;
+        this.isBetCombine = true;
+        this.isBetSimple = false;
       }
     },
     removeToCart(team1, team2) {
@@ -137,7 +145,7 @@ export default {
         cote: data.cote
       };
 
-      if (this.simple) {
+      if (this.isBetSimple) {
         this.setTotalAmount();
         this.setPotentialAmount();
       } else {
@@ -161,6 +169,9 @@ export default {
       }, 1);
       this.betAmountCombine = parseInt(this.betAmountCombine, 10);
       this.potentialGainCombine = this.betAmountCombine * this.multCote;
+    },
+    deleteChild() {
+      this.getAmount(this.data);
     }
   },
   components: { BettiesSold, OneBet }
@@ -185,6 +196,12 @@ export default {
       color: rgb(223, 223, 223);
     }
   }
+}
+.bettie {
+  position: absolute;
+  width: 25px;
+  top: 6px;
+  right: -30px;
 }
 
 /* width */
@@ -218,6 +235,7 @@ export default {
     var(--v-secondary-base)
   );
 }
+
 .card {
   .panier {
     position: sticky;
@@ -281,10 +299,45 @@ export default {
         padding-top: 10px;
         display: flex;
         justify-content: space-between;
+
         .card-footer-simple {
           display: flex;
           justify-content: space-between;
           width: 100%;
+        }
+        .card-footer-total-amount {
+          margin-right: 30px;
+          position: relative;
+          .v-input {
+            width: 100px;
+            height: 23px;
+          }
+        }
+        .card-footer-total-amount-combine {
+          position: relative;
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+
+          .v-input__slot {
+            box-shadow: none;
+            border: 1px solid white;
+          }
+
+          .card-footer-total-amount {
+            .v-input {
+              overflow: hidden;
+              .v-input__control {
+                min-height: 200px;
+                .v-text-field__details {
+                  display: none !important;
+                }
+              }
+            }
+            input {
+              text-align: left;
+            }
+          }
         }
       }
 
@@ -292,6 +345,10 @@ export default {
         display: flex;
         justify-content: space-between;
         color: #48a8e7;
+        .card-footer-gain-amount {
+          margin-right: 30px;
+          position: relative;
+        }
       }
       .card-footer-btn {
         margin-top: 15px;
