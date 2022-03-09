@@ -211,10 +211,9 @@ export default {
   }),
   methods: {
     addToCard(team1, team2) {
-      // console.log(matches);
       this.$store.dispatch({
         type: "addToCart",
-        bet: { team1, team2 }
+        bet: { team1, team2, amount:0 },
       });
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto panier" id="panier" max-width="344">
+  <v-card class="mx-auto panier" id="panier" width="350">
     <div class="card-title">
       <v-card-title class="panier-title"> Panier </v-card-title>
 
@@ -35,7 +35,8 @@
               :key="bet.id"
               :bet="bet"
               :isBetSimple="isBetSimple"
-              @input="getAmount"
+              @input="setAmount"
+              :getAmount="getAmount"
               @clicked="deleteChild"
             ></OneBet>
           </v-card>
@@ -47,31 +48,36 @@
         <div class="card-footer-simple" v-if="isBetSimple">
           <div class="card-footer-total-text">Mise totale :</div>
           <div class="card-footer-total-amount">
-            {{ this.betAmount }}
+            {{ totalAmount }}
             <img class="bettie" src="../assets/monney/tas.svg" />
           </div>
         </div>
         <div v-else class="card-footer-total-amount-combine">
           <div class="card-footer-total-text">Mise totale :</div>
+
           <div class="card-footer-total-amount">
             <v-text-field
               v-model="betAmountCombine"
               @input="getAmount"
-              label="Mise :"
-              solo
+              height="20"
             ></v-text-field>
             <img class="bettie" src="../assets/monney/tas.svg" />
           </div>
         </div>
       </div>
+      <div v-if="!isBetSimple" class="card-footer-cote">Côte total : {{ totalOdds }}</div>
       <div class="card-footer-gain">
         <div class="card-footer-gain-text">Gain potentiel :</div>
         <div v-if="isBetSimple" class="card-footer-gain-amount">
-          {{ this.potentialGain }}
-          <img class="bettie" src="../assets/monney/tas.svg" />
+          {{ this.totalPotentialGain }}
+          <img
+            v-if="this.totalPotentialGain"
+            class="bettie"
+            src="../assets/monney/tas.svg"
+          />
         </div>
         <div v-else class="card-footer-gain-amount">
-          {{ this.potentialGainCombine }}
+          {{ totalPotentialGainCombine }}
           <img class="bettie" src="../assets/monney/tas.svg" />
         </div>
       </div>
@@ -96,33 +102,74 @@ export default {
     potentialGain: 0,
     potentialGainCombine: 0,
     multCote: 0,
-    nbBet: []
+    nbBet: [],
   }),
   computed: {
     cart() {
       // Cart is correctly added
       return this.$store.state.cart;
     },
+    totalAmount() {
+      return this.$store.state.cart.reduce(
+        (total, bet) => total + bet.amount,
+        0
+      );
+    },
+
+    totalOdds() {
+      return this.$store.state.cart.reduce(
+        (total, bet) => total * bet.team1.cote,
+        1
+      );
+    },
+    totalPotentialGain() {
+      return this.$store.state.cart.reduce(
+        (total, bet) => total + bet.amount * bet.team1.cote,
+        0
+      );
+    },
+    totalPotentialGainCombine() {
+      return this.totalOdds * this.totalAmount;
+    },
     betCount() {
       return this.cart.length;
-    }
+    },
   },
   watch: {
+    betAmountCombine(newAmount) {
+      if (isNaN(newAmount)) {
+        this.betAmountCombine = 0;
+      }
+    },
+    betAmount(betId) {
+      if (isNaN(newAmount)) {
+        this.betAmountCombine = 0;
+      }
+    },
+    potentialGainCombine() {
+      return this.data.potentialGainCombine;
+    },
     betCount(newCount) {
       this.nbBet[newCount - 1] = {
         amount: 0,
-        cote: this.cart[newCount - 1].team1.cote
+        cote: this.cart[newCount - 1].team1.cote,
       };
-    }
+    },
+    cart() {
+      console.log("cart watch");
+    },
   },
   methods: {
     betSimple() {
+
       if (this.isBetSimple == true) {
         this.isBetCombine = false;
       } else {
         this.isBetSimple = true;
         this.isBetCombine = false;
       }
+
+      
     },
     betCombine() {
       if (this.isBetCombine == true) {
@@ -135,46 +182,23 @@ export default {
     removeToCart(team1, team2) {
       this.$store.dispatch({
         type: "removeToCart",
-        bet: { team1, team2 }
+        bet: { team1, team2 },
+      });
+    },
+    setAmount(data) {
+      this.$store.dispatch({
+        type: "setAmount",
+        amount: parseInt(data.value, 10) || 0,
+        betId: data.id,
       });
     },
 
-    getAmount(data) {
-      this.nbBet[data.id] = {
-        amount: parseInt(data.value, 10) || 0,
-        cote: data.cote
-      };
-
-      if (this.isBetSimple) {
-        this.setTotalAmount();
-        this.setPotentialAmount();
-      } else {
-        console.log("ici");
-        this.setPotentialAmountCombine();
-      }
+    deleteChild(event) {
+      console.log(event);
+      this.nbBet.splice(event, 1);
     },
-    setTotalAmount() {
-      this.betAmount = this.nbBet.reduce((sum, { amount }) => {
-        return sum + amount;
-      }, 0);
-    },
-    setPotentialAmount() {
-      this.potentialGain = this.nbBet.reduce((sum, { amount, cote }) => {
-        return sum + amount * cote;
-      }, 0);
-    },
-    setPotentialAmountCombine() {
-      this.multCote = this.nbBet.reduce((sum, { cote }) => {
-        return sum * cote;
-      }, 1);
-      this.betAmountCombine = parseInt(this.betAmountCombine, 10);
-      this.potentialGainCombine = this.betAmountCombine * this.multCote;
-    },
-    deleteChild() {
-      this.getAmount(this.data);
-    }
   },
-  components: { BettiesSold, OneBet }
+  components: { BettiesSold, OneBet },
 };
 </script>
 
@@ -279,7 +303,7 @@ export default {
       .bets-container {
         overflow: scroll;
         overflow-x: hidden;
-        max-height: 370px;
+        height: 288px;
         padding-right: 5px;
 
         .bet {
@@ -311,6 +335,11 @@ export default {
           .v-input {
             width: 100px;
             height: 23px;
+            padding-top: 0px;
+
+            .v-input__control {
+              min-height: 20px;
+            }
           }
         }
         .card-footer-total-amount-combine {
