@@ -4,7 +4,12 @@
       <div v-if="!isLanding">
         <Navbar></Navbar>
         <div class="pa-10 my-16">
-          <router-view />
+          <div class="main">
+            <router-view />
+            <div class="card" v-if="showCard">
+              <Card></Card>
+            </div>
+          </div>
           <Footer></Footer>
         </div>
       </div>
@@ -20,6 +25,7 @@ import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Landing from "./views/Landing.vue";
+import Card from "./views/Card.vue";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 
@@ -29,11 +35,15 @@ export default {
   components: {
     Navbar,
     Footer,
-    Landing
+    Landing,
+    Card
   },
   computed: {
     isLanding() {
       return this.$route.name === "Landing";
+    },
+    showCard() {
+      return ["Home", "Bet"].indexOf(this.$route.name) > -1;
     }
   },
   async mounted() {
@@ -59,6 +69,19 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
 // Utils --------------------------------------------------------------
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
 .vh-100 {
   height: 100vh;
 }
@@ -106,6 +129,9 @@ $body-font: "Roboto";
   font-weight: normal;
   font-size: 3rem;
 }
+.main {
+  display: flex;
+}
 
 .font-body {
   font-family: $title-font !important;
@@ -117,5 +143,12 @@ $body-font: "Roboto";
 //Important for page with no need scroll --------------------------------
 html {
   overflow-y: auto !important;
+}
+
+// Desktop > 1024
+@media screen and (min-width: 1024px) {
+  .card {
+    min-width: 350px;
+  }
 }
 </style>
