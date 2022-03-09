@@ -23,13 +23,11 @@
             class="d-flex align-center div-text team-match justify-space-between"
           >
             <div class="col-6 equipe text-center">
-              <v-img
-                contain
+              <img
                 :src="match.team1.logo"
-                width="55"
-                height="55"
-                class="mx-auto img-team"
-              ></v-img>
+                @error="setImagePlaceholder"
+                class="mx-auto"
+              />
               <p class="teamname">
                 {{ match.team1.name }}
               </p>
@@ -39,13 +37,11 @@
             </div>
             <div class="line"></div>
             <div class="col-6 equipe text-center">
-              <v-img
-                contain
+              <img
                 :src="match.team2.logo"
-                width="55"
-                height="55"
-                class="mx-auto image-equipe"
-              ></v-img>
+                @error="setImagePlaceholder"
+                class="mx-auto"
+              />
               <p class="teamname">
                 {{ match.team2.name }}
               </p>
@@ -61,6 +57,11 @@
 </template>
 
 <style lang="scss" scoped>
+img {
+  width: 55px;
+  height: 55px;
+}
+
 .card-matches {
   background-color: whitesmoke;
 }
@@ -137,11 +138,18 @@ video {
 
 <script>
 import matches from "../../assets/fixtures/matches";
+import { teamLogoPlaceholder } from "@/assets/placeholder";
 
 export default {
   name: "MatchList",
   data: () => ({
-    matches
-  })
+    matches,
+    teamLogoPlaceholder
+  }),
+  methods: {
+    setImagePlaceholder(event) {
+      event.target.src = teamLogoPlaceholder;
+    }
+  }
 };
 </script>

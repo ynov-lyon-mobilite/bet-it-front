@@ -1,87 +1,35 @@
 <template>
-  <div
-    class="bet-type d-flex flex-wrap-reverse justify-space-around align-center pa-4"
-  >
-    <div class="d-flex flex-column justify-center">
-      <div class="bet-label text-h5 text-center">{{ bet.type }}</div>
-      <v-btn
-        :class="!canBet && 'disabled'"
-        @click="wantToBet"
-        :disabled="!canBet"
-        >Parier
-      </v-btn>
-      <v-dialog v-model="errors.bettiesAmount" max-width="400">
-        <v-card>
-          <v-card-text class="d-flex justify-center pa-4">
-            Vous n'avez pas assez de betties.
-          </v-card-text>
-
-          <v-divider></v-divider>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="secondary" text @click="errors.bettiesAmount = false">
-              OK
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <v-dialog v-model="errors.betInput" max-width="400">
-        <v-card>
-          <v-card-text class="d-flex justify-center pa-4">
-            Veuillez miser une somme valide.
-          </v-card-text>
-
-          <v-divider></v-divider>
-
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="secondary" text @click="errors.betInput = false">
-              OK
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <v-dialog v-model="hasBet" persistent max-width="400">
-        <v-card>
-          <v-card-title class="headline"> Récapitulatif du pari </v-card-title>
-          <v-card-text class="text-center">
-            <p>{{ `${bet.team.name} - ${bet.type}` }}</p>
-            <p>
-              {{ `Gains potentiels : ${Math.ceil(bet.odd * amount)} betties` }}
-            </p>
-            <p>{{ `Betties restant : ${getuser.betties - amount}` }}</p>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="secondary" text @click="confirmBet">
-              Confirmer
-            </v-btn>
-
-            <v-btn color="secondary" text @click="hasBet = false">
-              Annuler
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </div>
-    <div class="d-flex flex-column align-center px-10">
-      <div class="d-flex justify-center align-center circle logo-wrapper pa-3">
-        <v-img :src="bet.team.logo"></v-img>
+  <div class="col-12 col-md-6">
+    <v-card class="bet-type">
+      <v-card-title class="card-title">
+        {{ bet.type }}
+      </v-card-title>
+      <div class="pa-4 d-flex flex-wrap justify-space-between">
+        <div
+          class="d-flex justify-space-between justify-md-center col-12 col-md-6"
+        >
+          <div class="text-h6">
+            {{ bet.teamA.name }}
+          </div>
+          <v-btn class="ml-md-3">
+            {{ bet.teamA.odd }}
+          </v-btn>
+        </div>
+        <div
+          class="d-flex justify-space-between justify-md-center col-12 col-md-6"
+        >
+          <v-btn v-if="isMdUp" class="mr-3">
+            {{ bet.teamB.odd }}
+          </v-btn>
+          <div class="text-h6">
+            {{ bet.teamB.name }}
+          </div>
+          <v-btn v-if="!isMdUp">
+            {{ bet.teamB.odd }}
+          </v-btn>
+        </div>
       </div>
-      <div class="text-h6">{{ bet.odd }}</div>
-    </div>
-    <v-text-field
-      @keypress="isNumber($event)"
-      v-model="amount"
-      outlined
-      class="mt-10"
-      label="Mise"
-      color="black"
-      clearable
-      :disabled="!canBet"
-      dense
-    ></v-text-field>
+    </v-card>
   </div>
 </template>
 
@@ -92,7 +40,6 @@ export default {
   },
   data() {
     return {
-      user: {},
       amount: null,
       hasBet: false,
       errors: {
@@ -103,7 +50,10 @@ export default {
     };
   },
   computed: {
-    getuser() {
+    isMdUp() {
+      return this.$vuetify.breakpoint.mdAndUp;
+    },
+    user() {
       return this.$store.state.user;
     },
     betHistory() {
@@ -145,7 +95,7 @@ export default {
     wantToBet() {
       if (!this.amount || parseFloat(this.amount) === 0)
         this.errors.betInput = true;
-      else if (this.amount > this.getuser.betties)
+      else if (this.amount > this.user.betties)
         this.errors.bettiesAmount = true;
       else this.hasBet = true;
     },
@@ -157,8 +107,8 @@ export default {
       this.hasBet = false;
       this.$store.state.betties = this.$store.state.betties - this.amount;
       // this.$store.dispatch("PutBetties", {
-      //   betties: this.getuser.betties,
-      //   id: this.getuser.id,
+      //   betties: this.user.betties,
+      //   id: this.user.id,
       // });
     }
   },
@@ -170,14 +120,13 @@ export default {
 
 <style lang="scss" scoped>
 .bet-type {
-  border-bottom: 1px solid silver;
-  &:last-of-type {
-    border-bottom: none;
-  }
+  background: #303030 !important;
+
   .bet-label {
     width: 150px;
   }
-  .v-btn {
+  .v-btn,
+  .card-title {
     background: linear-gradient(
       0.25turn,
       var(--v-darkPurple-base),

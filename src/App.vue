@@ -3,8 +3,10 @@
     <v-main>
       <div v-if="!isLanding">
         <Navbar></Navbar>
-        <div class="pa-10 my-16">
-          <router-view />
+        <div class="my-16">
+          <div class="view">
+            <router-view />
+          </div>
           <Footer></Footer>
         </div>
       </div>
@@ -45,6 +47,7 @@ export default {
           Authorization: `Bearer ${token}`
         }
       };
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       console.log("------- CONFIG WITH USER TOKEN -------\n", config);
       // Backend Token Authorization
       // https://youtu.be/4Rv6KSIsiMo
@@ -117,5 +120,9 @@ $body-font: "Roboto";
 //Important for page with no need scroll --------------------------------
 html {
   overflow-y: auto !important;
+}
+
+.view {
+  margin-bottom: 230px;
 }
 </style>

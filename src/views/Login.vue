@@ -94,7 +94,10 @@ export default {
             }
           });
           setTimeout(() => {
-            this.$router.push({ name: "Home" });
+            const routeToRedirectTo = this.$route.query.redirect;
+            this.$router.push({
+              path: routeToRedirectTo ? routeToRedirectTo : "/home"
+            });
           }, 3000);
         })
         .catch(error => {

@@ -1,30 +1,21 @@
 <template>
-  <div>
-    <v-row id="title" class="flex-row justify-end pa-4">
-      <BettiesSold></BettiesSold>
-    </v-row>
+  <div class="pa-10">
     <MatchList></MatchList>
   </div>
 </template>
 
 <script>
-import MatchList from '@/components/Home/MatchList';
-import BettiesSold from '@/components/BettiesSold';
+import MatchList from "@/components/Home/MatchList";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    BettiesSold,
     MatchList
-  },
+  }
 };
 </script>
 
 <style>
-#title{
-    position: relative;
-    z-index: 10;
-}
 .rounded-60 {
   border-radius: 60px !important;
 }

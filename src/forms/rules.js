@@ -11,6 +11,14 @@ export const validateEmail = value => {
   return pattern.test(value) || "E-mail invalide";
 };
 
+export const validatePassword = value => {
+  const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  return (
+    pattern.test(value) ||
+    "Votre mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et un 1 caractère spécial"
+  );
+};
+
 export const validateConfirmPassword = password => value =>
   (value && value === password) || "Les mots de passe ne sont pas identiques";
 

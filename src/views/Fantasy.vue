@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pa-10">
     <RoomInfos />
     <div class="d-flex flex-column align-center">
       <v-card color="#1e1e1e" class="my-8" width="700">

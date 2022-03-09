@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -21,17 +22,20 @@ const routes = [
   {
     path: "/profile",
     name: "Profile",
-    component: () => import("../views/Profile.vue")
+    component: () => import("../views/Profile.vue"),
+    meta: { requiresAuth: true }
   },
   {
     path: "/success",
     name: "Success",
-    component: () => import("../views/Success.vue")
+    component: () => import("../views/Success.vue"),
+    meta: { requiresAuth: true }
   },
   {
     path: "/bet/:id",
     name: "Bet",
-    component: () => import("../views/Bet.vue")
+    component: () => import("../views/Bet.vue"),
+    meta: { requiresAuth: true }
   },
   {
     path: "/calendar",
@@ -46,7 +50,8 @@ const routes = [
   {
     path: "/games",
     name: "Games",
-    component: () => import("../views/Game.vue")
+    component: () => import("../views/Game.vue"),
+    meta: { requiresAuth: true }
   },
   {
     path: "/registration",
@@ -66,10 +71,11 @@ const routes = [
   {
     path: "/addRoom",
     name: "AddRoom",
-    component: () => import("../views/AddRoom.vue")
+    component: () => import("../views/AddRoom.vue"),
+    meta: { requiresAuth: true }
   },
   {
-    path: "/addTournament",
+    path: "/add-tournament",
     name: "AddTournament",
     component: () => import("../views/AddTournaments.vue")
   },
@@ -77,6 +83,11 @@ const routes = [
     path: "/fantasy",
     name: "Fantasy",
     component: () => import("../views/Fantasy.vue")
+  },
+  {
+    path: "/not-connected",
+    name: "NotConnected",
+    component: () => import("../views/NotConnected.vue")
   }
 ];
 
@@ -84,6 +95,24 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const { isAuthentified } = store.state.user.userInfo;
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!isAuthentified) {
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
 });
 
 export default router;
