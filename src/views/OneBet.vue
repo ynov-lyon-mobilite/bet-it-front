@@ -1,4 +1,4 @@
- <template>
+<template>
   <div>
     <div class="bet-header">
       <div class="bet-header-showmatch">
@@ -16,6 +16,7 @@
         <input
           class="bet-body-input"
           v-model.number="betAmount"
+          type="number"
           @input="
             $emit('input', {
               value: $event.target.value,
@@ -37,7 +38,7 @@ export default {
   props: {
     bet: Object,
     id: Number,
-    isBetSimple: Boolean
+    isBetSimple: Boolean,
   },
   data: () => ({
     betAmount: 0,
@@ -47,26 +48,26 @@ export default {
     gainsTemp: 0,
     gainsToSend: 0,
     show: true,
-    combine: false
+    combine: false,
   }),
   computed: {},
   methods: {
     removeToCart(id) {
-      console.log(id);
       this.$store.dispatch({
         type: "removeToCart",
-        id
+        id,
       });
 
-      this.$emit("clicked", "deleted");
+      this.$emit("clicked", id);
     },
     addBetValue(bet, value) {
       this.$store.dispatch({
         type: "addToCart",
-        bet: { ...bet, value }
+        bet: { ...bet, value },
       });
-    }
-  }
+    },
+    
+  },
 };
 </script>
 
@@ -86,6 +87,12 @@ export default {
   padding: 0px 10px;
   align-items: center;
   justify-content: flex-start;
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   .bet-body-cote {
     border-radius: 5px;
     padding: 3px;
