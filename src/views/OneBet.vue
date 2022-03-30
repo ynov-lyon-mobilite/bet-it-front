@@ -14,6 +14,7 @@
       </div>
       <div v-if="isBetSimple" class="bet-body-amount">
         <input
+          v-if="isStep1"
           class="bet-body-input"
           v-model.number="betAmount"
           type="number"
@@ -26,9 +27,12 @@
           "
           placeholder="0"
         />
+        <div v-if="!isStep1" class="bet-body-input">
+          {{ bet.amount }}
+        </div>
         <img class="bettie" src="../assets/monney/tas.svg" />
+        <div class="bet-body-delete" @click="removeToCart(id)"><img src="../assets/icons/cross.png" width="20px"></div>
       </div>
-      <div class="bet-body-delete" @click="removeToCart(id)">X</div>
     </div>
   </div>
 </template>
@@ -39,6 +43,7 @@ export default {
     bet: Object,
     id: Number,
     isBetSimple: Boolean,
+    isStep1: Boolean,
   },
   data: () => ({
     betAmount: 0,
@@ -66,87 +71,113 @@ export default {
         bet: { ...bet, value },
       });
     },
-    
   },
 };
 </script>
 
 <style lang="scss">
-.bet-header {
-  padding: 5px;
-  display: flex;
-  justify-content: space-between;
-  .bet-header-showmatch,
-  .bet-header-date {
-    font-size: 11px;
-    color: grey;
-  }
-}
-.bet-body {
-  display: flex;
-  padding: 0px 10px;
-  align-items: center;
-  justify-content: flex-start;
-
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  .bet-body-cote {
-    border-radius: 5px;
-    padding: 3px;
-    width: 48px;
-    height: 100%;
+.bet {
+  .bet-header {
+    padding: 5px;
     display: flex;
-    text-align: center;
-    background-color: #48a8e7;
+    justify-content: space-between;
+    .bet-header-showmatch,
+    .bet-header-date {
+      font-size: 11px;
+      color: grey;
+    }
+  }
+  .bet-body {
+    display: flex;
+    padding: 0px 10px;
     align-items: center;
-    justify-content: center;
-  }
-  .bet-body-desc {
-    margin-left: 10px;
-    display: flex;
-    width: 120px;
-    flex-direction: column;
-    .bet-body-desc-winner {
-      font-size: 16px;
-      color: black;
-      font-weight: bold;
+    justify-content: flex-start;
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
-    .bet-body-desc-type {
-      margin-top: -5px;
-      font-size: 12px;
-      color: grey;
-    }
-  }
-  .bet-body-amount {
-    position: relative;
-    .bet-body-input {
-      width: 80px;
-      background-color: transparent;
-      border: 1px solid lightgray;
-      text-align: left;
+    .bet-body-cote {
       border-radius: 5px;
-      padding-left: 5px;
-      color: grey;
-      &:active,
-      &:focus-visible,
-      &:focus {
-        outline: none;
-        border: 1px solid grey;
+      padding: 3px;
+      width: 48px;
+      height: 100%;
+      display: flex;
+      text-align: center;
+      background-color: #48a8e7;
+      align-items: center;
+      justify-content: center;
+    }
+    .bet-body-desc {
+      margin-left: 10px;
+      display: flex;
+      width: 120px;
+      flex-direction: column;
+      .bet-body-desc-winner {
+        font-size: 16px;
+        color: black;
+        font-weight: bold;
+      }
+      .bet-body-desc-type {
+        margin-top: -5px;
+        font-size: 12px;
+        color: grey;
+      }
+    }
+    .bet-body-amount {
+      position: relative;
+      display: flex;
+
+      .bet-body-input {
+        width: 80px;
+        background-color: transparent;
+        border: 1px solid lightgray;
+        text-align: left;
+        border-radius: 5px;
+        font-size: 13px;
+        padding-left: 5px;
+        color: grey;
+        &:active,
+        &:focus-visible,
+        &:focus {
+          outline: none;
+          border: 1px solid grey;
+        }
       }
     }
     .bettie {
-      position: absolute;
+      position: relative;
       width: 25px;
-      top: 9px;
-      right: 3px;
+      top: 0px;
+      right: 30px;
+    }
+    .bet-body-delete {
+      margin-left: auto;
+      color: black;
+      cursor: pointer;
     }
   }
-  .bet-body-delete {
-    margin-left: auto;
-    color: black;
+  &.step2 {
+    opacity: 0.85;
+    cursor: not-allowed;
+    .bet-body-input {
+      border: none !important;
+    }
+    .bet-body-amount {
+      width: auto;
+      margin-left: auto;
+      input {
+        border: 0;
+        outline: 0;
+        &:focus {
+          outline: none !important;
+        }
+      }
+    }
+    .bet-body-delete {
+      display: none;
+    }
   }
 }
 </style>

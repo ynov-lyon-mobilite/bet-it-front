@@ -9,7 +9,30 @@
     </div>
 
     <div class="card-container" id="card-container">
-      <div class="bets-main">
+      <div class="bets-status">
+        <div
+          id="bets-step1"
+          :class="`bets-status-step1 ${isStep1 && 'active'}`"
+          v-on:click="goToStep1"
+        >
+          En attente
+        </div>
+        <div
+          id="bets-step2"
+          :class="`bets-status-step2 ${isStep2 && 'active'}`"
+          v-on:click="goToStep2"
+        >
+          En cours
+        </div>
+        <div
+          id="bets-step3"
+          :class="`bets-status-step3 ${isStep3 && 'active'}`"
+          v-on:click="goToStep3"
+        >
+          Historique
+        </div>
+      </div>
+      <div :class="`bets-main step1 ${isStep1 && 'active'}`">
         <div class="bets-type">
           <div
             id="simple"
@@ -35,15 +58,32 @@
               :key="bet.id"
               :bet="bet"
               :isBetSimple="isBetSimple"
+              :isStep1="isStep1"
               @input="setAmount"
-              :getAmount="getAmount"
+              @clicked="deleteChild"
+            ></OneBet>
+          </v-card>
+        </div>
+      </div>
+      <div :class="`bets-main step2 ${isStep2 && 'active'}`">
+        <div class="bets-container">
+          <v-card>
+            <OneBet
+              class="bet step2"
+              v-for="(bet, idx) in pendingBet"
+              :id="idx"
+              :key="bet.id"
+              :bet="bet"
+              :isBetSimple="isBetSimple"
+              :isStep1="isStep1"
+              :amout="bet.amout"
               @clicked="deleteChild"
             ></OneBet>
           </v-card>
         </div>
       </div>
     </div>
-    <div class="card-footer" id="card-footer">
+    <div :class="`card-footer ${isStep1 && 'active'}`" id="card-footer">
       <div class="card-footer-total">
         <div class="card-footer-simple" v-if="isBetSimple">
           <div class="card-footer-total-text">Mise totale :</div>
@@ -56,16 +96,16 @@
           <div class="card-footer-total-text">Mise totale :</div>
 
           <div class="card-footer-total-amount">
-            <v-text-field
-              v-model="betAmountCombine"
-              @input="getAmount"
-              height="20"
-            ></v-text-field>
+            <v-text-field v-model="betAmountCombine" height="20"></v-text-field>
             <img class="bettie" src="../assets/monney/tas.svg" />
           </div>
         </div>
       </div>
-      <div v-if="!isBetSimple" class="card-footer-cote">Côte total : {{ totalOdds }}</div>
+      <div v-if="!isBetSimple" class="card-footer-cote">
+        <span>Côte total :</span>
+        <span>{{ totalOdds }}</span>
+      </div>
+
       <div class="card-footer-gain">
         <div class="card-footer-gain-text">Gain potentiel :</div>
         <div v-if="isBetSimple" class="card-footer-gain-amount">
@@ -81,16 +121,16 @@
           <img class="bettie" src="../assets/monney/tas.svg" />
         </div>
       </div>
-      <button type="button" class="card-footer-btn">Parier</button>
+      <button type="button" class="card-footer-btn" v-on:click="saveBets">
+        Parier
+      </button>
     </div>
   </v-card>
 </template>
 
 <script>
-// import func from "vue-editor-bridge";
 import BettiesSold from "../components/BettiesSold.vue";
 import OneBet from "@/views/OneBet";
-// import { log } from "console";
 
 export default {
   data: () => ({
@@ -99,37 +139,33 @@ export default {
     show: false,
     isBetSimple: true,
     isBetCombine: false,
+    isStep1: true,
+    isStep2: false,
+    isStep3: false,
     potentialGain: 0,
     potentialGainCombine: 0,
     multCote: 0,
     nbBet: [],
+    pendingBet: [],
   }),
   computed: {
     cart() {
-      // Cart is correctly added
       return this.$store.state.cart;
     },
     totalAmount() {
-      return this.$store.state.cart.reduce(
-        (total, bet) => total + bet.amount,
-        0
-      );
+      return this.cart.reduce((total, bet) => total + bet.amount, 0);
     },
-
     totalOdds() {
-      return this.$store.state.cart.reduce(
-        (total, bet) => total * bet.team1.cote,
-        1
-      );
+      return this.cart.reduce((total, bet) => total * bet.team1.cote, 1);
     },
     totalPotentialGain() {
-      return this.$store.state.cart.reduce(
+      return this.cart.reduce(
         (total, bet) => total + bet.amount * bet.team1.cote,
         0
       );
     },
     totalPotentialGainCombine() {
-      return this.totalOdds * this.totalAmount;
+      return this.totalOdds * this.betAmountCombine;
     },
     betCount() {
       return this.cart.length;
@@ -161,15 +197,12 @@ export default {
   },
   methods: {
     betSimple() {
-
       if (this.isBetSimple == true) {
         this.isBetCombine = false;
       } else {
         this.isBetSimple = true;
         this.isBetCombine = false;
       }
-
-      
     },
     betCombine() {
       if (this.isBetCombine == true) {
@@ -197,6 +230,38 @@ export default {
       console.log(event);
       this.nbBet.splice(event, 1);
     },
+    goToStep1() {
+      this.isStep1 = true;
+      this.isStep2 = false;
+      this.isStep3 = false;
+    },
+    goToStep2() {
+      this.isStep2 = true;
+      this.isStep1 = false;
+      this.isStep3 = false;
+    },
+    goToStep3() {
+      this.isStep3 = true;
+      this.isStep1 = false;
+      this.isStep2 = false;
+    },
+    removeAllInArray(array) {
+      array.length = 0;
+    },
+    // setTotalAmount(data){
+    //   return this.data.totalAmount = data;
+    // },
+    resetData() {
+      this.totalAmount = 0;
+      this.totalOdds = 0;
+      this.totalPotentialGain = 0;
+      this.totalPotentialGainCombine = 0;
+    },
+    saveBets() {
+      this.pendingBet = [...this.cart, ...this.pendingBet];
+      this.resetData();
+      this.removeAllInArray(this.cart);
+    },
   },
   components: { BettiesSold, OneBet },
 };
@@ -208,17 +273,52 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   margin-bottom: 10px;
+  border: 1px solid grey;
+  border-radius: 25px;
+  font-size: 12px;
+  div {
+    &.active {
+      color: white !important;
+    }
+  }
+
+  #combine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: -1;
+      background: linear-gradient(
+        0.5turn,
+        var(--v-darkPurple-base),
+        var(--v-info-base),
+        var(--v-secondary-base)
+      );
+      padding: 4px 0px;
+      border-radius: 25px;
+      position: absolute;
+      transform: translate(-160px);
+      transition: 0.3s ease-out;
+    }
+    &.active {
+      &:before {
+        transform: translate(0px);
+        transition: 0.3s ease-out;
+      }
+    }
+  }
   div {
     width: 100%;
+    padding: 4px 0px;
     text-align: center;
-    padding-top: 10px;
-    cursor: grab;
-    border-top: 2px solid transparent;
+    position: relative;
+    cursor: pointer;
     color: rgb(129, 129, 129);
-    &.active {
-      border-top: 2px solid lightgrey;
-      color: rgb(223, 223, 223);
-    }
+    transition: 0.3s ease-out;
   }
 }
 .bettie {
@@ -296,9 +396,34 @@ export default {
     .card-container {
       overflow: hidden;
       height: 100%;
+
+      .bets-status {
+        padding: 0px 5px;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        font-size: 12px;
+        div {
+          padding: 4px 10px;
+          width: 100%;
+          text-align: center;
+          border-bottom: 2px solid rgba(255, 255, 255, 0);
+          color: #818181;
+          &.active {
+            border-bottom: 2px solid lightgrey;
+            color: #dfdfdf;
+          }
+        }
+      }
       .bets-main {
         height: inherit;
         padding: 15px 15px 0px 15px;
+
+        &.step1 {
+          &.false {
+            display: none;
+          }
+        }
       }
       .bets-container {
         overflow: scroll;
@@ -318,6 +443,14 @@ export default {
     .card-footer {
       margin-top: auto;
       padding: 10px;
+      font-size: 14px;
+      &.false {
+        display: none;
+      }
+      .card-footer-cote {
+        display: flex;
+        justify-content: space-between;
+      }
       .card-footer-total {
         border-top: 2px solid lightgrey;
         padding-top: 10px;
