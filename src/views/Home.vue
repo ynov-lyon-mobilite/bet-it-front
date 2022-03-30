@@ -1,17 +1,12 @@
 <template>
-  <div>
-    <!-- <v-row id="title" class="flex-row justify-end pa-4">
-      <BettiesSold></BettiesSold>
-    </v-row> -->
-    <MatchList @clicked="sendToCard"></MatchList>
-    <!-- <BtnCard></BtnCard> -->
+  <div class="pa-10">
+    <MatchList @clicked="sendToCard" />
   </div>
 </template>
 
 <script>
 import MatchList from "@/components/Home/MatchList";
-import BettiesSold from "@/components/BettiesSold";
-import BtnCard from "@/views/BtnCard";
+
 export default {
   data() {
     return {};
@@ -24,9 +19,7 @@ export default {
   },
   addToCard() {},
   components: {
-    BettiesSold,
-    MatchList,
-    BtnCard
+    MatchList
   }
 };
 </script>
@@ -36,6 +29,7 @@ export default {
   position: relative;
   z-index: 1;
 }
+
 .rounded-60 {
   border-radius: 60px !important;
 }

@@ -1,33 +1,26 @@
 <template>
   <v-container>
-    <div v-if="user.isAuthentified">
-      <SuccessCategory
-        label="Paris"
-        :successList="categories.bet"
-        :progress="wonBet"
-      />
-      <SuccessCategory
-        label="Anniversaires"
-        :successList="categories.birthday"
-        :progress="month"
-      />
-    </div>
-    <div v-else>
-      <NotConnected></NotConnected>
-    </div>
+    <SuccessCategory
+      label="Paris"
+      :successList="categories.bet"
+      :progress="wonBet"
+    />
+    <SuccessCategory
+      label="Anniversaires"
+      :successList="categories.birthday"
+      :progress="month"
+    />
   </v-container>
 </template>
 
 <script>
 import SuccessCategory from "@/components/Success/SuccessCategory.vue";
-import NotConnected from "@/components/NotConnected.vue";
 
 import success from "../assets/fixtures/success";
 
 export default {
   components: {
-    SuccessCategory,
-    NotConnected
+    SuccessCategory
   },
   data: () => ({
     month: 1,

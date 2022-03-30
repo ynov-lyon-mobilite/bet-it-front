@@ -13,7 +13,7 @@ export default new Vuetify({
     themes: {
       dark: {
         // logo colors
-       // primary: "#7634C0",
+        // primary: "#7634C0",
         primary: "#c616ff",
         accent: "#a141f8",
         info: "#6c7eee",
@@ -23,8 +23,8 @@ export default new Vuetify({
         error: "#FF5252",
         //custom
         warning: "#a141f8",
-        darkPurple: "#7634c0",
-      },
+        darkPurple: "#7634c0"
+      }
     }
   },
   icons: {

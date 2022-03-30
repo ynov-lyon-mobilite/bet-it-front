@@ -37,13 +37,6 @@
           required
         ></v-text-field>
         <v-text-field
-          v-model="user.phoneNumber"
-          counter
-          label="Numéro de téléphone"
-          :rules="rules.phoneNumber"
-          required
-        ></v-text-field>
-        <v-text-field
           v-model="user.plainPassword"
           :rules="rules.password"
           type="password"
@@ -99,6 +92,9 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+
 import {
   validateBirthdate,
   validateConfirmPassword,
@@ -106,7 +102,7 @@ import {
   validateMandatoryField,
   validateMaxLength,
   validateMinLength,
-  validatePhoneNumber
+  validatePassword
 } from "../forms/rules";
 //ntm
 // axios.defaults.headers.common["Authorization"] =
@@ -126,8 +122,7 @@ export default {
           validateMinLength(5)
         ],
         email: [validateMandatoryField, validateEmail],
-        phoneNumber: [validateMandatoryField, validatePhoneNumber],
-        password: [validateMandatoryField, validateMinLength(5)],
+        password: [validatePassword],
         gender: [validateMandatoryField],
         birthday: [validateMandatoryField, validateBirthdate]
       },
@@ -137,7 +132,6 @@ export default {
         email: "",
         plainPassword: "",
         userName: "",
-        phoneNumber: "",
         gender: "",
         birthday: ""
       },
@@ -176,8 +170,7 @@ export default {
         this.user.email,
         this.user.plainPassword
       )
-        .then(({ user }) => {
-          console.log("user", user);
+        .then(async ({ user }) => {
           this.success = true;
           this.$store.dispatch({
             type: "user/fetchUser",
@@ -185,6 +178,15 @@ export default {
               id: user.uid,
               email: user.email
             }
+          });
+          const db = getFirestore();
+          await setDoc(doc(db, "users", user.uid), {
+            name: this.user.lastName,
+            surname: this.user.firstName,
+            mailAddress: this.user.email,
+            gender: this.user.gender,
+            nickname: this.user.userName,
+            dateOfBirth: this.user.birthday
           });
           localStorage.accessToken = user.accessToken;
           localStorage.refreshToken = user.refreshToken;

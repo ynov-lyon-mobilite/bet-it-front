@@ -14,6 +14,7 @@
           :key="match.id"
           class="ma-3 card-matches"
           width="220"
+          @click="goToBetDetails(match.id)"
         >
           <div
             class="
@@ -72,6 +73,7 @@
           :key="match.id"
           class="ma-3 card-matches"
           width="220"
+          @click="goToBetDetails(match.id)"
         >
           <div
             class="
@@ -83,13 +85,11 @@
             "
           >
             <div class="col-6 equipe text-center">
-              <v-img
-                contain
+              <img
                 :src="match.team1.logo"
-                width="55"
-                height="55"
-                class="mx-auto img-team"
-              ></v-img>
+                @error="setImagePlaceholder"
+                class="mx-auto"
+              />
               <p class="teamname">
                 {{ match.team1.name }}
               </p>
@@ -99,13 +99,11 @@
             </div>
             <div class="line"></div>
             <div class="col-6 equipe text-center">
-              <v-img
-                contain
+              <img
                 :src="match.team2.logo"
-                width="55"
-                height="55"
-                class="mx-auto image-equipe"
-              ></v-img>
+                @error="setImagePlaceholder"
+                class="mx-auto"
+              />
               <p class="teamname">
                 {{ match.team2.name }}
               </p>
@@ -122,6 +120,11 @@
 </template>
 
 <style lang="scss" scoped>
+img {
+  width: 55px;
+  height: 55px;
+}
+
 .card-matches {
   background-color: whitesmoke;
 }
@@ -199,22 +202,27 @@
 </style>
 
 <script>
-// import { log } from "console";
 import matches from "../../assets/fixtures/matches";
-// import teams from "../../assets/fixtures/matches";
+import { teamLogoPlaceholder } from "@/assets/placeholder";
 
 export default {
   name: "MatchList",
   data: () => ({
     matches,
-    value: 0
+    teamLogoPlaceholder
   }),
   methods: {
+    setImagePlaceholder(event) {
+      event.target.src = teamLogoPlaceholder;
+    },
     addToCard(team1, team2) {
       this.$store.dispatch({
         type: "addToCart",
-        bet: { team1, team2, amount:0 },
+        bet: { team1, team2, amount: 0 }
       });
+    },
+    goToBetDetails(matchId) {
+      this.$router.push({ name: "Bet", params: { id: matchId } });
     }
   }
 };
