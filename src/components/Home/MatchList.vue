@@ -14,6 +14,7 @@
           :key="match.id"
           class="ma-3 card-matches"
           width="220"
+          @click="goToBetDetails(match.id)"
         >
           <div
             class="
@@ -72,6 +73,7 @@
           :key="match.id"
           class="ma-3 card-matches"
           width="220"
+          @click="goToBetDetails(match.id)"
         >
           <div
             class="
@@ -218,6 +220,9 @@ export default {
         type: "addToCart",
         bet: { team1, team2, amount: 0 }
       });
+    },
+    goToBetDetails(matchId) {
+      this.$router.push({ name: "Bet", params: { id: matchId } });
     }
   }
 };
