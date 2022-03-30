@@ -1,6 +1,6 @@
 <template>
   <div class="pa-10">
-    <MatchList></MatchList>
+    <MatchList @clicked="sendToCard" />
   </div>
 </template>
 
@@ -8,7 +8,16 @@
 import MatchList from "@/components/Home/MatchList";
 
 export default {
+  data() {
+    return {};
+  },
   name: "Home",
+  methods: {
+    sendToCard(match) {
+      console.log(match);
+    }
+  },
+  addToCard() {},
   components: {
     MatchList
   }
@@ -16,6 +25,11 @@ export default {
 </script>
 
 <style>
+#title {
+  position: relative;
+  z-index: 1;
+}
+
 .rounded-60 {
   border-radius: 60px !important;
 }
