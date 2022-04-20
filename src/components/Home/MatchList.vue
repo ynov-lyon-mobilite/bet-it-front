@@ -4,8 +4,7 @@
       <source src="../../assets/landingPage/paris.mp4" type="video/mp4" />
     </video>
     <div class="tournament">
-      <h1>LEC 2022</h1>
-      <p>10/01/2022 – 09/08/2022</p>
+      <h1>Match de la journée</h1>
     </div>
     <v-row class="matches-container">
       <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
