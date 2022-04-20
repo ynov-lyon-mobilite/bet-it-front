@@ -36,7 +36,10 @@
               <p class="teamname">
                 {{ match.team1.name }}
               </p>
-              <v-btn class="cotes" @click.stop="addToCard(match.team1, match.team2)">
+              <v-btn
+                class="cotes"
+                @click.stop="addToCard(match.team1, match.team2)"
+              >
                 {{ match.team1.cote }}
               </v-btn>
             </div>
@@ -52,7 +55,10 @@
               <p class="teamname">
                 {{ match.team2.name }}
               </p>
-              <v-btn class="cotes" @click.stop="addToCard(match.team2, match.team1)">
+              <v-btn
+                class="cotes"
+                @click.stop="addToCard(match.team2, match.team1)"
+              >
                 {{ match.team2.cote }}
               </v-btn>
               <!-- <v-input class="bet-montant"></v-input>  -->
@@ -93,7 +99,10 @@
               <p class="teamname">
                 {{ match.team1.name }}
               </p>
-              <v-btn class="cotes" @click.stop="addToCard(match.team1, match.team2)">
+              <v-btn
+                class="cotes"
+                @click.stop="addToCard(match.team1, match.team2)"
+              >
                 {{ match.team1.cote }}
               </v-btn>
             </div>
@@ -107,7 +116,10 @@
               <p class="teamname">
                 {{ match.team2.name }}
               </p>
-              <v-btn class="cotes" @click.stop="addToCard(match.team2, match.team1)">
+              <v-btn
+                class="cotes"
+                @click.stop="addToCard(match.team2, match.team1)"
+              >
                 {{ match.team2.cote }}
               </v-btn>
               <!-- <v-input class="bet-montant"></v-input>  -->
@@ -209,7 +221,7 @@ export default {
   name: "MatchList",
   data: () => ({
     matches,
-    teamLogoPlaceholder
+    teamLogoPlaceholder,
   }),
   methods: {
     setImagePlaceholder(event) {
@@ -218,13 +230,12 @@ export default {
     addToCard(team1, team2) {
       this.$store.dispatch({
         type: "addToCart",
-        bet: { team1, team2, amount: 0 }
+        bet: { team1, team2, amount: 0 },
       });
-      
     },
     goToBetDetails(matchId) {
       this.$router.push({ name: "Bet", params: { id: matchId } });
-    }
-  }
+    },
+  },
 };
 </script>

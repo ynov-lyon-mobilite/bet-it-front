@@ -1,5 +1,8 @@
 <template>
   <v-card class="mx-auto panier" id="panier" width="350">
+    <v-alert v-if="alertStatus == 'success'" dismissible type="success">Votre paris à été enregistrer avec succès.</v-alert>
+    <v-alert v-if="alertStatus == 'error'" id="error" dismissible type="error">Vous n'avez pas assez de Beties pour parier</v-alert>
+
     <div class="card-title">
       <v-card-title class="panier-title"> Panier </v-card-title>
 
@@ -131,6 +134,7 @@
 <script>
 import BettiesSold from "../components/BettiesSold.vue";
 import OneBet from "@/views/OneBet";
+import { log } from 'console';
 
 export default {
   data: () => ({
@@ -147,10 +151,14 @@ export default {
     multCote: 0,
     nbBet: [],
     pendingBet: [],
+    alertStatus: ''
   }),
   computed: {
     cart() {
       return this.$store.state.cart;
+    },
+    betties() {
+      return this.$store.state.user.userInfo.data.betties;
     },
     totalAmount() {
       return this.cart.reduce((total, bet) => total + bet.amount, 0);
@@ -258,9 +266,19 @@ export default {
       this.totalPotentialGainCombine = 0;
     },
     saveBets() {
-      this.pendingBet = [...this.cart, ...this.pendingBet];
-      this.resetData();
-      this.removeAllInArray(this.cart);
+      console.log(this.betties);
+      if (this.totalAmount <= this.betties) {
+        console.log('Bet Saved');
+        this.pendingBet = [...this.cart, ...this.pendingBet];
+        this.resetData();
+        this.removeAllInArray(this.cart);
+        this.alertStatus = 'success'
+      }else{
+        console.log('Not enough Betties');
+        this.alertStatus = 'error'
+        
+      }
+      
     },
   },
   components: { BettiesSold, OneBet },
@@ -268,6 +286,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.v-alert{
+  position: fixed;
+  left: 25px;
+  bottom: 25px;
+  width: auto;
+  z-index: 2;
+  opacity: 1;
+}
 .bets-type {
   display: flex;
   flex-direction: row;
