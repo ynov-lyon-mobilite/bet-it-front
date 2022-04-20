@@ -2,14 +2,14 @@
   <div>
     <div class="bet-header">
       <div class="bet-header-showmatch">
-        {{ bet.team1.namefull }} vs {{ bet.team2.namefull }}
+        {{ bet.team1.team_name }} vs {{ bet.team2.team_name }}
       </div>
       <div class="bet-header-date">06 January, 12:30</div>
     </div>
     <div class="bet-body">
-      <div class="bet-body-cote">{{ bet.team1.cote }}</div>
+      <div class="bet-body-cote"> 2 </div>
       <div class="bet-body-desc">
-        <div class="bet-body-desc-winner">{{ bet.team1.name }}</div>
+        <div class="bet-body-desc-winner">{{ bet.team1.code }}</div>
         <div class="bet-body-desc-type">Win</div>
       </div>
       <div v-if="isBetSimple" class="bet-body-amount">
