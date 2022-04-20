@@ -30,7 +30,7 @@ export default {
   name: "BettiesSold",
   computed: {
     betties() {
-      return this.$store.state.user.userInfo.data.betties;
+      return this.$store.getters["user/betties"];
     }
   }
 };

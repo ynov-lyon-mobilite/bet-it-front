@@ -34,15 +34,16 @@ const auth = getAuth();
 onAuthStateChanged(auth, async user => {
   if (!app) {
     const db = getFirestore();
-    const userSnap = await getDoc(doc(db, "users", user.uid));
+    const userSnap = user ? await getDoc(doc(db, "users", user.uid)) : null;
     store.dispatch({
-      type: "user/fetchUser",
-      userInfo: userSnap.exists()
-        ? {
-            id: user.uid,
-            ...userSnap.data()
-          }
-        : null
+      type: "user/setUser",
+      userInfo:
+        user && userSnap.exists()
+          ? {
+              id: user.uid,
+              ...userSnap.data()
+            }
+          : null
     });
     app = new Vue({
       router,
