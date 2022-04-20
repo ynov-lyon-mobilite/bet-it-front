@@ -204,7 +204,6 @@ export default {
       };
     },
     cart() {
-      console.log("cart watch");
     },
   },
   methods: {
@@ -239,7 +238,6 @@ export default {
     },
 
     deleteChild(event) {
-      console.log(event);
       this.nbBet.splice(event, 1);
     },
     goToStep1() {
@@ -270,9 +268,7 @@ export default {
       this.totalPotentialGainCombine = 0;
     },
     saveBets() {
-      console.log(this.betties);
       if (this.totalAmount <= this.betties) {
-        console.log("Bet Saved");
         this.alertStatus = "success";
         this.pendingBet = [...this.cart, ...this.pendingBet];
         this.resetData();
@@ -282,7 +278,6 @@ export default {
           bet: { ...bet, amount: this.totalAmount },
         });
       } else {
-        console.log("Not enough Betties");
         this.alertStatus = "error";
       }
     },
