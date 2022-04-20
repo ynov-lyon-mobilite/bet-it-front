@@ -27,7 +27,7 @@ export default {
       commit("SET_IS_AUTHENTIFIED", userInfo !== null);
       if (userInfo) {
         commit("SET_USER", {
-          email: userInfo.email
+          ...userInfo
         });
       } else {
         commit("SET_USER", null);

@@ -30,12 +30,9 @@ export default {
   name: "BettiesSold",
   computed: {
     betties() {
-      return this.$store.state.betties;
-    },
-    soldeImage() {
-      //Todo return the good img
-    },
-  },
+      return this.$store.state.user.userInfo.data.betties;
+    }
+  }
 };
 </script>
 

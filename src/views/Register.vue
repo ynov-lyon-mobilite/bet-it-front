@@ -92,8 +92,7 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
+import { doc, setDoc, getDoc, getFirestore } from "firebase/firestore";
 
 import {
   validateBirthdate,
@@ -171,14 +170,8 @@ export default {
         this.user.plainPassword
       )
         .then(async ({ user }) => {
-          this.success = true;
-          this.$store.dispatch({
-            type: "user/fetchUser",
-            userInfo: {
-              id: user.uid,
-              email: user.email
-            }
-          });
+          localStorage.accessToken = user.accessToken;
+          localStorage.refreshToken = user.refreshToken;
           const db = getFirestore();
           await setDoc(doc(db, "users", user.uid), {
             name: this.user.lastName,
@@ -186,13 +179,26 @@ export default {
             mailAddress: this.user.email,
             gender: this.user.gender,
             nickname: this.user.userName,
-            dateOfBirth: this.user.birthday
+            dateOfBirth: this.user.birthday,
+            betties: 500
           });
-          localStorage.accessToken = user.accessToken;
-          localStorage.refreshToken = user.refreshToken;
-          setTimeout(() => {
-            this.$router.push({ name: "Home" });
-          }, 3000);
+
+          const userSnap = await getDoc(doc(db, "users", user.uid));
+          if (userSnap.exists()) {
+            this.success = true;
+
+            this.$store.dispatch({
+              type: "user/fetchUser",
+              userInfo: {
+                id: user.uid,
+                ...userSnap.data()
+              }
+            });
+
+            setTimeout(() => {
+              this.$router.push({ name: "Home" });
+            }, 3000);
+          }
         })
         .catch(error => {
           alert(error.message);

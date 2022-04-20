@@ -85,20 +85,24 @@ export default {
       const auth = getAuth();
       signInWithEmailAndPassword(auth, this.user.email, this.user.password)
         .then(({ user }) => {
-          this.success = true;
-          this.$store.dispatch({
-            type: "user/fetchUser",
-            userInfo: {
-              id: user.uid,
-              email: user.email
-            }
-          });
-          setTimeout(() => {
-            const routeToRedirectTo = this.$route.query.redirect;
-            this.$router.push({
-              path: routeToRedirectTo ? routeToRedirectTo : "/home"
+          const userSnap = await getDoc(doc(db, "users", user.uid));
+          if (userSnap.exists()){
+            this.success = true;
+            this.$store.dispatch({
+              type: "user/fetchUser",
+              userInfo: {
+                id: user.uid,
+                ...userSnap.data(),
+              }
             });
-          }, 3000);
+
+            setTimeout(() => {
+              const routeToRedirectTo = this.$route.query.redirect;
+              this.$router.push({
+                path: routeToRedirectTo ? routeToRedirectTo : "/home"
+              });
+            }, 3000);
+          }
         })
         .catch(error => {
           alert(error.message);
