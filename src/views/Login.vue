@@ -39,6 +39,7 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 import {
   validateEmail,
@@ -84,15 +85,16 @@ export default {
     login() {
       const auth = getAuth();
       signInWithEmailAndPassword(auth, this.user.email, this.user.password)
-        .then(({ user }) => {
+        .then(async ({ user }) => {
+          const db = getFirestore();
           const userSnap = await getDoc(doc(db, "users", user.uid));
-          if (userSnap.exists()){
+          if (userSnap.exists()) {
             this.success = true;
             this.$store.dispatch({
               type: "user/fetchUser",
               userInfo: {
                 id: user.uid,
-                ...userSnap.data(),
+                ...userSnap.data()
               }
             });
 
