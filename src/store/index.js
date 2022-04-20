@@ -11,7 +11,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    betties: 100,
     cart: [],
     betHistory: [],
     room: [],

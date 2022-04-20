@@ -1,7 +1,11 @@
 <template>
   <v-card class="mx-auto panier" id="panier" width="350">
-    <v-alert v-if="alertStatus == 'success'" dismissible type="success">Votre paris à été enregistrer avec succès.</v-alert>
-    <v-alert v-if="alertStatus == 'error'" id="error" dismissible type="error">Vous n'avez pas assez de Beties pour parier</v-alert>
+    <v-alert v-if="alertStatus == 'success'" dismissible type="success"
+      >Votre paris à été enregistrer avec succès.</v-alert
+    >
+    <v-alert v-if="alertStatus == 'error'" dismissible type="error"
+      >Vous n'avez pas assez de Beties pour parier</v-alert
+    >
 
     <div class="card-title">
       <v-card-title class="panier-title"> Panier </v-card-title>
@@ -134,7 +138,7 @@
 <script>
 import BettiesSold from "../components/BettiesSold.vue";
 import OneBet from "@/views/OneBet";
-import { log } from 'console';
+import { log } from "console";
 
 export default {
   data: () => ({
@@ -151,7 +155,7 @@ export default {
     multCote: 0,
     nbBet: [],
     pendingBet: [],
-    alertStatus: ''
+    alertStatus: "",
   }),
   computed: {
     cart() {
@@ -268,17 +272,19 @@ export default {
     saveBets() {
       console.log(this.betties);
       if (this.totalAmount <= this.betties) {
-        console.log('Bet Saved');
+        console.log("Bet Saved");
+        this.alertStatus = "success";
         this.pendingBet = [...this.cart, ...this.pendingBet];
         this.resetData();
         this.removeAllInArray(this.cart);
-        this.alertStatus = 'success'
-      }else{
-        console.log('Not enough Betties');
-        this.alertStatus = 'error'
-        
+        this.$store.dispatch({
+          type: "betAction",
+          bet: { ...bet, amount: this.totalAmount },
+        });
+      } else {
+        console.log("Not enough Betties");
+        this.alertStatus = "error";
       }
-      
     },
   },
   components: { BettiesSold, OneBet },
@@ -286,8 +292,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.v-alert{
+.v-alert {
   position: fixed;
   left: 25px;
   bottom: 25px;
