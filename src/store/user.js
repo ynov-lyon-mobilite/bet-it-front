@@ -8,22 +8,34 @@ export default {
   },
 
   getters: {
-    getUser(state) {
-      return state.userInfo;
+    user(state) {
+      return state.userInfo.data;
+    },
+    isAuthentified(state) {
+      return state.userInfo.isAuthentified;
+    },
+    betties(state) {
+      return state.userInfo.data.betties;
     }
   },
 
   mutations: {
-    SET_IS_AUTHENTIFIED(state, value) {
-      state.userInfo.isAuthentified = value;
+    SET_IS_AUTHENTIFIED(state, isAuthentified) {
+      state.userInfo.isAuthentified = isAuthentified;
     },
     SET_USER(state, data) {
       state.userInfo.data = data;
+    },
+    REMOVE_BETTIES(state, amount) {
+      state.userInfo.data.betties -= amount;
+    },
+    ADD_BETTIES(state, amount) {
+      state.userInfo.data.betties += amount;
     }
   },
 
   actions: {
-    fetchUser({ commit }, { userInfo }) {
+    setUser({ commit }, { userInfo }) {
       commit("SET_IS_AUTHENTIFIED", userInfo !== null);
       if (userInfo) {
         commit("SET_USER", {

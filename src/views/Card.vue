@@ -1,10 +1,10 @@
 <template>
   <v-card class="mx-auto panier" id="panier" width="350">
     <v-alert v-if="alertStatus == 'success'" dismissible type="success"
-      >Votre paris à été enregistrer avec succès.</v-alert
+      >Votre pari a été enregistré avec succès !</v-alert
     >
     <v-alert v-if="alertStatus == 'error'" dismissible type="error"
-      >Vous n'avez pas assez de Beties pour parier</v-alert
+      >Vous n'avez pas assez de betties pour parier</v-alert
     >
 
     <div class="card-title">
@@ -138,7 +138,6 @@
 <script>
 import BettiesSold from "../components/BettiesSold.vue";
 import OneBet from "@/views/OneBet";
-import { log } from "console";
 
 export default {
   data: () => ({
@@ -155,14 +154,14 @@ export default {
     multCote: 0,
     nbBet: [],
     pendingBet: [],
-    alertStatus: "",
+    alertStatus: ""
   }),
   computed: {
     cart() {
       return this.$store.state.cart;
     },
     betties() {
-      return this.$store.state.user.userInfo.data.betties;
+      return this.$store.getters["user/betties"];
     },
     totalAmount() {
       return this.cart.reduce((total, bet) => total + bet.amount, 0);
@@ -181,7 +180,7 @@ export default {
     },
     betCount() {
       return this.cart.length;
-    },
+    }
   },
   watch: {
     betAmountCombine(newAmount) {
@@ -189,7 +188,7 @@ export default {
         this.betAmountCombine = 0;
       }
     },
-    betAmount(betId) {
+    betAmount(newAmount) {
       if (isNaN(newAmount)) {
         this.betAmountCombine = 0;
       }
@@ -200,11 +199,9 @@ export default {
     betCount(newCount) {
       this.nbBet[newCount - 1] = {
         amount: 0,
-        cote: this.cart[newCount - 1].team1.cote,
+        cote: this.cart[newCount - 1].team1.cote
       };
-    },
-    cart() {
-    },
+    }
   },
   methods: {
     betSimple() {
@@ -226,14 +223,14 @@ export default {
     removeToCart(team1, team2) {
       this.$store.dispatch({
         type: "removeToCart",
-        bet: { team1, team2 },
+        bet: { team1, team2 }
       });
     },
     setAmount(data) {
       this.$store.dispatch({
         type: "setAmount",
         amount: parseInt(data.value, 10) || 0,
-        betId: data.id,
+        betId: data.id
       });
     },
 
@@ -275,14 +272,14 @@ export default {
         this.removeAllInArray(this.cart);
         this.$store.dispatch({
           type: "betAction",
-          bet: { ...bet, amount: this.totalAmount },
+          bet: { ...this.pendingBet, amount: this.totalAmount }
         });
       } else {
         this.alertStatus = "error";
       }
-    },
+    }
   },
-  components: { BettiesSold, OneBet },
+  components: { BettiesSold, OneBet }
 };
 </script>
 

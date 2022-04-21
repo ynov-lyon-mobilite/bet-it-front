@@ -91,7 +91,7 @@ export default {
           if (userSnap.exists()) {
             this.success = true;
             this.$store.dispatch({
-              type: "user/fetchUser",
+              type: "user/setUser",
               userInfo: {
                 id: user.uid,
                 ...userSnap.data()

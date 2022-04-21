@@ -332,7 +332,7 @@ export default {
   }),
   computed: {
     betties() {
-      return this.$store.state.betties;
+      return this.$store.getters["user/betties"];
     },
     fantasyTeam() {
       return this.$store.state.fantasy.fantasyTeam;
