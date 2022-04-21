@@ -37,7 +37,14 @@
               </p>
               <v-btn
                 class="cotes"
-                @click.stop="addToCard(match.team_1, match.team_2)"
+                @click.stop="
+                  addToCart(
+                    match.team_1,
+                    match.team_2,
+                    match.odd_team_1,
+                    match.odd_team_2
+                  )
+                "
               >
                 {{ match.odd_team_1 }}
               </v-btn>
@@ -56,7 +63,14 @@
               </p>
               <v-btn
                 class="cotes"
-                @click.stop="addToCard(match.team_2, match.team_1)"
+                @click.stop="
+                  addToCart(
+                    match.team_2,
+                    match.team_1,
+                    match.odd_team_2,
+                    match.odd_team_1
+                  )
+                "
               >
                 {{ match.odd_team_2 }}
               </v-btn>
@@ -177,10 +191,14 @@ export default {
     setImagePlaceholder(event) {
       event.target.src = teamLogoPlaceholder;
     },
-    addToCard(team1, team2) {
+    addToCart(team1, team2, oddTeam1, oddTeam2) {
       this.$store.dispatch({
         type: "addToCart",
-        bet: { team1, team2, amount: 0 }
+        bet: {
+          team1: { ...team1, odd: oddTeam1 },
+          team2: { ...team2, odd: oddTeam2 },
+          amount: 0
+        }
       });
     },
     goToBetDetails(matchId) {

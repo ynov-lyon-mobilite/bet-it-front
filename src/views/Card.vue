@@ -167,11 +167,11 @@ export default {
       return this.cart.reduce((total, bet) => total + bet.amount, 0);
     },
     totalOdds() {
-      return this.cart.reduce((total, bet) => total * bet.team1.cote, 1);
+      return this.cart.reduce((total, bet) => total * bet.team1.odd, 1);
     },
     totalPotentialGain() {
       return this.cart.reduce(
-        (total, bet) => total + bet.amount * bet.team1.cote,
+        (total, bet) => total + bet.amount * bet.team1.odd,
         0
       );
     },
@@ -190,7 +190,7 @@ export default {
     },
     betAmount(newAmount) {
       if (isNaN(newAmount)) {
-        this.betAmountCombine = 0;
+        this.betAmount = 0;
       }
     },
     potentialGainCombine() {
@@ -199,7 +199,7 @@ export default {
     betCount(newCount) {
       this.nbBet[newCount - 1] = {
         amount: 0,
-        cote: this.cart[newCount - 1].team1.cote
+        cote: this.cart[newCount - 1].team1.odd
       };
     }
   },
