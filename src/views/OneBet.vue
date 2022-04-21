@@ -7,7 +7,7 @@
       <div class="bet-header-date">06 January, 12:30</div>
     </div>
     <div class="bet-body">
-      <div class="bet-body-cote"> 2 </div>
+      <div class="bet-body-cote">{{ bet.team1.odd }}</div>
       <div class="bet-body-desc">
         <div class="bet-body-desc-winner">{{ bet.team1.code }}</div>
         <div class="bet-body-desc-type">Win</div>
@@ -22,7 +22,7 @@
             $emit('input', {
               value: $event.target.value,
               id,
-              cote: bet.team1.cote,
+              cote: bet.team1.odd
             })
           "
           placeholder="0"
@@ -31,7 +31,9 @@
           {{ bet.amount }}
         </div>
         <img class="bettie" src="../assets/monney/tas.svg" />
-        <div class="bet-body-delete" @click="removeToCart(id)"><img src="../assets/icons/cross.png" width="20px"></div>
+        <div class="bet-body-delete" @click="removeToCart(id)">
+          <img src="../assets/icons/cross.png" width="20px" />
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +45,7 @@ export default {
     bet: Object,
     id: Number,
     isBetSimple: Boolean,
-    isStep1: Boolean,
+    isStep1: Boolean
   },
   data: () => ({
     betAmount: 0,
@@ -53,14 +55,14 @@ export default {
     gainsTemp: 0,
     gainsToSend: 0,
     show: true,
-    combine: false,
+    combine: false
   }),
   computed: {},
   methods: {
     removeToCart(id) {
       this.$store.dispatch({
         type: "removeToCart",
-        id,
+        id
       });
 
       this.$emit("clicked", id);
@@ -68,10 +70,10 @@ export default {
     addBetValue(bet, value) {
       this.$store.dispatch({
         type: "addToCart",
-        bet: { ...bet, value },
+        bet: { ...bet, value }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

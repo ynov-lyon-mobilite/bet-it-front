@@ -9,22 +9,26 @@
           class="d-flex justify-space-between justify-md-center col-12 col-md-6"
         >
           <div class="text-h6">
-            {{ bet.teamA.name }}
+            {{ bet.teamA.code }}
           </div>
-          <v-btn class="ml-md-3">
+          <v-btn class="ml-md-3" @click="addToCart(bet.teamA, bet.teamB)">
             {{ bet.teamA.odd }}
           </v-btn>
         </div>
         <div
           class="d-flex justify-space-between justify-md-center col-12 col-md-6"
         >
-          <v-btn v-if="isMdUp" class="mr-3">
+          <v-btn
+            v-if="isMdUp"
+            class="mr-3"
+            @click="addToCart(bet.teamB, bet.teamA)"
+          >
             {{ bet.teamB.odd }}
           </v-btn>
           <div class="text-h6">
-            {{ bet.teamB.name }}
+            {{ bet.teamB.code }}
           </div>
-          <v-btn v-if="!isMdUp">
+          <v-btn v-if="!isMdUp" @click="addToCart(teamB, teamA)">
             {{ bet.teamB.odd }}
           </v-btn>
         </div>
@@ -75,6 +79,12 @@ export default {
     }
   },
   methods: {
+    addToCart(team1, team2) {
+      this.$store.dispatch({
+        type: "addToCart",
+        bet: { team1, team2, amount: 0 }
+      });
+    },
     getAmount() {
       const bet = this.betHistory.find(bet => bet.id === this.bet.id);
       if (bet) this.amount = bet.amount;
@@ -106,10 +116,6 @@ export default {
       });
       this.hasBet = false;
       this.$store.state.betties = this.$store.state.betties - this.amount;
-      // this.$store.dispatch("PutBetties", {
-      //   betties: this.user.betties,
-      //   id: this.user.id,
-      // });
     }
   },
   mounted() {

@@ -1,26 +1,26 @@
 <template>
   <v-container fluid class="my-5">
-    <div class="header d-flex align-center justify-center my-4">
+    <div v-if="event" class="header d-flex align-center justify-center my-4">
       <div
-        v-if="event.team1"
+        v-if="event.team_1"
         class="d-flex flex-column flex-md-row align-center justify-center"
       >
         <img
           class="mx-2 team-logo"
-          :src="event.team1.logo"
+          :src="event.team_1.logo"
           @error="setImagePlaceholder"
         />
-        <div class="text-h5">{{ event.team1.name }}</div>
+        <div class="text-h5">{{ event.team_1.team_name }}</div>
       </div>
       <div class="line ma-4"></div>
       <div
-        v-if="event.team2"
+        v-if="event.team_2"
         class="d-flex flex-column-reverse flex-md-row align-center justify-center"
       >
-        <div class="text-h5">{{ event.team2.name }}</div>
+        <div class="text-h5">{{ event.team_2.team_name }}</div>
         <img
           class="mx-2 team-logo"
-          :src="event.team2.logo"
+          :src="event.team_2.logo"
           @error="setImagePlaceholder"
         />
       </div>
@@ -34,6 +34,7 @@
 <script>
 import BetType from "../components/Bet/BetType";
 import { teamLogoPlaceholder } from "../assets/placeholder";
+import axios from "axios";
 
 export default {
   components: {
@@ -41,13 +42,11 @@ export default {
   },
   data: () => ({
     bets: [],
-    teamLogoPlaceholder
+    teamLogoPlaceholder,
+    event: null
   }),
   computed: {
-    event() {
-      return this.$store.state.event;
-    },
-    getuser() {
+    user() {
       return this.$store.state.user;
     }
   },
@@ -58,68 +57,28 @@ export default {
   },
 
   mounted: async function() {
-    this.$store.dispatch("getEventId", this.$route.params.id);
-
-    this.bets = [
-      {
-        id: "0-" + this.event.team1.name + "vs" + this.event.team2.name + "'-W",
-        type: "Vainqueur",
-        odd: 1.1,
-        teamA: {
-          ...this.event.team1,
-          odd: 2.5
-        },
-        teamB: {
-          ...this.event.team2,
-          odd: 1.1
-        },
-        game: {
-          id: this.event.id,
-          team1: this.event.team1,
-          team2: this.event.team2,
-          gameNumber: 1,
-          league: "LEC"
-        }
-      },
-      {
-        id: "0-" + this.event.team1.name + "vs" + this.event.team2.name + "-FB",
-        type: "First Blood",
-        teamA: {
-          ...this.event.team1,
-          odd: 2.5
-        },
-        teamB: {
-          ...this.event.team2,
-          odd: 1.1
-        },
-        game: {
-          id: this.event.id,
-          team1: this.event.team1,
-          team2: this.event.team2,
-          gameNumber: 1,
-          league: "LEC"
-        }
-      },
-      {
-        id: "0-" + this.event.team1.name + "vs" + this.event.team2.name + "-FT",
-        type: "First Turret",
-        teamA: {
-          ...this.event.team1,
-          odd: 2.5
-        },
-        teamB: {
-          ...this.event.team2,
-          odd: 1.1
-        },
-        game: {
-          id: this.event.id,
-          team1: this.event.team1,
-          team2: this.event.team2,
-          gameNumber: 1,
-          league: "LEC"
-        }
-      }
-    ];
+    axios
+      .get(`http://bet-it.net/bet_it/public/api/match/${this.$route.params.id}`)
+      .then(response => {
+        this.event = response.data.match[0];
+        this.bets = [
+          {
+            id: `${this.event.id}-W`,
+            type: "Vainqueur",
+            teamA: {
+              ...this.event.team_1,
+              odd: this.event.odd_team_1
+            },
+            teamB: {
+              ...this.event.team_2,
+              odd: this.event.odd_team_2
+            }
+          }
+        ];
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
   }
 };
 </script>

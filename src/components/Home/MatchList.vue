@@ -8,7 +8,7 @@
     </div>
     <v-row class="matches-container">
       <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
-       <v-card
+        <v-card
           v-for="match in this.upcomingMatches"
           :key="match.id"
           class="ma-3 card-matches"
@@ -37,9 +37,16 @@
               </p>
               <v-btn
                 class="cotes"
-                @click.stop="addToCard(match.team_1, match.team_2)"
+                @click.stop="
+                  addToCart(
+                    match.team_1,
+                    match.team_2,
+                    match.odd_team_1,
+                    match.odd_team_2
+                  )
+                "
               >
-                2
+                {{ match.odd_team_1 }}
               </v-btn>
             </div>
             <div class="line"></div>
@@ -56,9 +63,16 @@
               </p>
               <v-btn
                 class="cotes"
-                @click.stop="addToCard(match.team_2, match.team_1)"
+                @click.stop="
+                  addToCart(
+                    match.team_2,
+                    match.team_1,
+                    match.odd_team_2,
+                    match.odd_team_1
+                  )
+                "
               >
-              2
+                {{ match.odd_team_2 }}
               </v-btn>
             </div>
           </div>
@@ -153,39 +167,43 @@ img {
 <script>
 // import matches from "../../assets/fixtures/matches";
 import { teamLogoPlaceholder } from "@/assets/placeholder";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "MatchList",
   data: () => ({
-    axios,
     teamLogoPlaceholder,
-    upcomingMatches: null,
+    upcomingMatches: null
   }),
   mounted() {
-   axios.get(`http://bet-it.net/bet_it/public/api/upcoming/matches`)
-    .then(response => {
-      // JSON responses are automatically parsed.
-      this.upcomingMatches = response.data.upcoming_matches
-      console.log(this.upcomingMatches);
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+    axios
+      .get(`http://bet-it.net/bet_it/public/api/upcoming/matches`)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.upcomingMatches = response.data.upcoming_matches;
+        console.log(this.upcomingMatches);
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
   },
   methods: {
     setImagePlaceholder(event) {
       event.target.src = teamLogoPlaceholder;
     },
-    addToCard(team1, team2) {
+    addToCart(team1, team2, oddTeam1, oddTeam2) {
       this.$store.dispatch({
         type: "addToCart",
-        bet: { team1, team2, amount: 0 },
+        bet: {
+          team1: { ...team1, odd: oddTeam1 },
+          team2: { ...team2, odd: oddTeam2 },
+          amount: 0
+        }
       });
     },
     goToBetDetails(matchId) {
       this.$router.push({ name: "Bet", params: { id: matchId } });
-    },
-  },
+    }
+  }
 };
 </script>
