@@ -4,13 +4,12 @@
       <source src="../../assets/landingPage/paris.mp4" type="video/mp4" />
     </video>
     <div class="tournament">
-      <h1>LEC 2022</h1>
-      <p>10/01/2022 – 09/08/2022</p>
+      <h1>Match de la journée</h1>
     </div>
     <v-row class="matches-container">
       <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
-        <v-card
-          v-for="match in matches"
+       <v-card
+          v-for="match in this.upcomingMatches"
           :key="match.id"
           class="ma-3 card-matches"
           width="220"
@@ -28,101 +27,39 @@
             <div class="col-6 equipe text-center">
               <v-img
                 contain
-                :src="match.team1.logo"
+                :src="match.team_1.logo"
                 width="55"
                 height="55"
                 class="mx-auto img-team"
               ></v-img>
               <p class="teamname">
-                {{ match.team1.name }}
+                {{ match.team_1.code }}
               </p>
               <v-btn
                 class="cotes"
-                @click.stop="addToCard(match.team1, match.team2)"
+                @click.stop="addToCard(match.team_1, match.team_2)"
               >
-                {{ match.team1.cote }}
+                2
               </v-btn>
             </div>
             <div class="line"></div>
             <div class="col-6 equipe text-center">
               <v-img
                 contain
-                :src="match.team2.logo"
+                :src="match.team_2.logo"
                 width="55"
                 height="55"
                 class="mx-auto image-equipe"
               ></v-img>
               <p class="teamname">
-                {{ match.team2.name }}
+                {{ match.team_2.code }}
               </p>
               <v-btn
                 class="cotes"
-                @click.stop="addToCard(match.team2, match.team1)"
+                @click.stop="addToCard(match.team_2, match.team_1)"
               >
-                {{ match.team2.cote }}
+              2
               </v-btn>
-              <!-- <v-input class="bet-montant"></v-input>  -->
-            </div>
-          </div>
-        </v-card>
-      </div>
-    </v-row>
-
-    <div class="tournament">
-      <h1>Worlds 2022</h1>
-      <p>10/10/2022 – 07/11/2022</p>
-    </div>
-    <v-row class="matches-container">
-      <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
-        <v-card
-          v-for="match in matches"
-          :key="match.id"
-          class="ma-3 card-matches"
-          width="220"
-          @click="goToBetDetails(match.id)"
-        >
-          <div
-            class="
-              d-flex
-              align-center
-              div-text
-              team-match
-              justify-space-between
-            "
-          >
-            <div class="col-6 equipe text-center">
-              <img
-                :src="match.team1.logo"
-                @error="setImagePlaceholder"
-                class="mx-auto"
-              />
-              <p class="teamname">
-                {{ match.team1.name }}
-              </p>
-              <v-btn
-                class="cotes"
-                @click.stop="addToCard(match.team1, match.team2)"
-              >
-                {{ match.team1.cote }}
-              </v-btn>
-            </div>
-            <div class="line"></div>
-            <div class="col-6 equipe text-center">
-              <img
-                :src="match.team2.logo"
-                @error="setImagePlaceholder"
-                class="mx-auto"
-              />
-              <p class="teamname">
-                {{ match.team2.name }}
-              </p>
-              <v-btn
-                class="cotes"
-                @click.stop="addToCard(match.team2, match.team1)"
-              >
-                {{ match.team2.cote }}
-              </v-btn>
-              <!-- <v-input class="bet-montant"></v-input>  -->
             </div>
           </div>
         </v-card>
@@ -214,15 +151,28 @@ img {
 </style>
 
 <script>
-import matches from "../../assets/fixtures/matches";
+// import matches from "../../assets/fixtures/matches";
 import { teamLogoPlaceholder } from "@/assets/placeholder";
+import axios from 'axios';
 
 export default {
   name: "MatchList",
   data: () => ({
-    matches,
+    axios,
     teamLogoPlaceholder,
+    upcomingMatches: null,
   }),
+  mounted() {
+   axios.get(`http://bet-it.net/bet_it/public/api/upcoming/matches`)
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.upcomingMatches = response.data.upcoming_matches
+      console.log(this.upcomingMatches);
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
+  },
   methods: {
     setImagePlaceholder(event) {
       event.target.src = teamLogoPlaceholder;
