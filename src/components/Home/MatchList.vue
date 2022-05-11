@@ -12,10 +12,10 @@
       ></v-progress-circular>
     </div>
     <div v-else>
-      <v-row class="tournament">
+      <v-row class="tournament justify-start">
         <h1>Prochains matchs</h1>
       </v-row>
-      <v-row class="matches-container">
+      <v-row class="matches-container justify-start">
         <div v-for="date in Object.keys(matchesGroupedByDate)" :key="date">
           <h2>{{ new Date(date).toLocaleDateString("fr") }}</h2>
           <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
