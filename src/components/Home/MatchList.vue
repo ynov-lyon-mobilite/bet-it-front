@@ -16,7 +16,10 @@
         <h1>Prochains matchs</h1>
       </v-row>
       <v-row class="matches-container justify-start">
-        <div v-for="date in Object.keys(matchesGroupedByDate)" :key="date">
+        <div
+          v-for="date in Object.keys(matchesGroupedByDate).sort()"
+          :key="date"
+        >
           <h2>{{ new Date(date).toLocaleDateString("fr") }}</h2>
           <div class="d-flex flex-wrap flex-row div-match pa-10">
             <v-card
