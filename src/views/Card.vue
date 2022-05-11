@@ -113,7 +113,7 @@
       </div>
       <div v-if="!isBetSimple" class="card-footer-cote">
         <span>Côte total :</span>
-        <span>{{ totalOdds }}</span>
+        <span>{{ totalOdds.toFixed(2) }}</span>
       </div>
 
       <div class="card-footer-gain">
@@ -267,7 +267,7 @@ export default {
       this.totalPotentialGainCombine = 0;
     },
     saveBets() {
-      if (this.totalAmount && this.totalAmount <= this.betties) {
+      if (this.totalAmount <= this.betties) {
         this.alertStatus = "success";
         this.pendingBet = [...this.cart, ...this.pendingBet];
         this.resetData();
@@ -276,8 +276,8 @@ export default {
           type: "betAction",
           bet: { ...this.pendingBet, amount: this.totalAmount }
         });
-      } else if (!this.totalAmount) {
-        this.alertStatus = "amountIsZero";
+        // } else if (!this.totalAmount) {
+        //   this.alertStatus = "amountIsZero";
       } else {
         this.alertStatus = "error";
       }
