@@ -3,82 +3,95 @@
     <video class="vh-100 video-paris" autoplay loop playsinline muted>
       <source src="../../assets/landingPage/paris.mp4" type="video/mp4" />
     </video>
-    <div class="tournament">
-      <h1>Match de la journée</h1>
+    <div v-if="loading">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="purple"
+        indeterminate
+      ></v-progress-circular>
     </div>
-    <v-row class="matches-container">
-      <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
-        <v-card
-          v-for="match in this.upcomingMatches"
-          :key="match.id"
-          class="ma-3 card-matches"
-          width="220"
-          @click="goToBetDetails(match.id)"
-        >
-          <div
-            class="
+    <div v-else>
+      <v-row class="tournament">
+        <h1>Prochains matchs</h1>
+      </v-row>
+      <v-row class="matches-container">
+        <div v-for="date in Object.keys(matchesGroupedByDate)" :key="date">
+          <h2>{{ new Date(date).toLocaleDateString("fr") }}</h2>
+          <div class="d-flex flex-wrap flex-row justify-center div-match pa-10">
+            <v-card
+              v-for="match in matchesGroupedByDate[date]"
+              :key="match.id"
+              class="ma-3 card-matches"
+              width="220"
+              @click="goToBetDetails(match.id)"
+            >
+              <div
+                class="
               d-flex
               align-center
               div-text
               team-match
               justify-space-between
             "
-          >
-            <div class="col-6 equipe text-center">
-              <v-img
-                contain
-                :src="match.team_1.logo"
-                width="55"
-                height="55"
-                class="mx-auto img-team"
-              ></v-img>
-              <p class="teamname">
-                {{ match.team_1.code }}
-              </p>
-              <v-btn
-                class="cotes"
-                @click.stop="
-                  addToCart(
-                    match.team_1,
-                    match.team_2,
-                    match.odd_team_1,
-                    match.odd_team_2
-                  )
-                "
               >
-                {{ match.odd_team_1 }}
-              </v-btn>
-            </div>
-            <div class="line"></div>
-            <div class="col-6 equipe text-center">
-              <v-img
-                contain
-                :src="match.team_2.logo"
-                width="55"
-                height="55"
-                class="mx-auto image-equipe"
-              ></v-img>
-              <p class="teamname">
-                {{ match.team_2.code }}
-              </p>
-              <v-btn
-                class="cotes"
-                @click.stop="
-                  addToCart(
-                    match.team_2,
-                    match.team_1,
-                    match.odd_team_2,
-                    match.odd_team_1
-                  )
-                "
-              >
-                {{ match.odd_team_2 }}
-              </v-btn>
-            </div>
+                <div class="col-6 equipe text-center">
+                  <v-img
+                    contain
+                    :src="match.team_1.logo"
+                    width="55"
+                    height="55"
+                    class="mx-auto img-team"
+                  ></v-img>
+                  <p class="teamname">
+                    {{ match.team_1.code }}
+                  </p>
+                  <v-btn
+                    class="cotes"
+                    @click.stop="
+                      addToCart(
+                        match.team_1,
+                        match.team_2,
+                        match.odd_team_1,
+                        match.odd_team_2
+                      )
+                    "
+                  >
+                    {{ match.odd_team_1 }}
+                  </v-btn>
+                </div>
+                <div class="line"></div>
+                <div class="col-6 equipe text-center">
+                  <v-img
+                    contain
+                    :src="match.team_2.logo"
+                    width="55"
+                    height="55"
+                    class="mx-auto image-equipe"
+                  ></v-img>
+                  <p class="teamname">
+                    {{ match.team_2.code }}
+                  </p>
+                  <v-btn
+                    class="cotes"
+                    @click.stop="
+                      addToCart(
+                        match.team_2,
+                        match.team_1,
+                        match.odd_team_2,
+                        match.odd_team_1
+                      )
+                    "
+                  >
+                    {{ match.odd_team_2 }}
+                  </v-btn>
+                </div>
+              </div>
+            </v-card>
           </div>
-        </v-card>
-      </div>
-    </v-row>
+        </div>
+      </v-row>
+    </div>
   </span>
 </template>
 
@@ -173,19 +186,43 @@ export default {
   name: "MatchList",
   data: () => ({
     teamLogoPlaceholder,
-    upcomingMatches: null
+    upcomingMatches: null,
+    loading: false
   }),
   mounted() {
+    this.loading = true;
     axios
       .get(`http://bet-it.net/bet_it/public/api/upcoming/matches`)
       .then(response => {
         // JSON responses are automatically parsed.
         this.upcomingMatches = response.data.upcoming_matches;
         console.log(this.upcomingMatches);
+        const matchedGroupesByDate = response.data.upcoming_matches.reduce(
+          (acc, match) => {
+            const matchDate = match.match_date.date.split(" ")[0];
+            return acc[matchDate]
+              ? { ...acc, [matchDate]: [...acc[matchDate], match] }
+              : { ...acc, [matchDate]: [match] };
+          },
+          {}
+        );
+        console.log("matchedGroupesByDate", matchedGroupesByDate);
+        this.loading = false;
       })
       .catch(e => {
         this.errors.push(e);
+        this.loading = false;
       });
+  },
+  computed: {
+    matchesGroupedByDate() {
+      return this.upcomingMatches.reduce((acc, match) => {
+        const matchDate = match.match_date.date.split(" ")[0];
+        return acc[matchDate]
+          ? { ...acc, [matchDate]: [...acc[matchDate], match] }
+          : { ...acc, [matchDate]: [match] };
+      }, {});
+    }
   },
   methods: {
     setImagePlaceholder(event) {

@@ -4,7 +4,7 @@
       <div v-if="!isLanding">
         <Navbar></Navbar>
         <div class="pa-10 my-16">
-          <div class="view d-flex">
+          <div class="view d-flex justify-center">
             <router-view />
             <div class="card" v-if="showCard">
               <Card></Card>

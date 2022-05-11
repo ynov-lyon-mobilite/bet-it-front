@@ -4,7 +4,10 @@
       >Votre pari a été enregistré avec succès !</v-alert
     >
     <v-alert v-if="alertStatus == 'error'" dismissible type="error"
-      >Vous n'avez pas assez de betties pour parier</v-alert
+      >Vous n'avez pas assez de betties pour parier.</v-alert
+    >
+    <v-alert v-if="alertStatus == 'amountIsZero'" dismissible type="error"
+      >Veuillez entrer un montant pour parier.</v-alert
     >
 
     <div class="card-title">
@@ -170,13 +173,12 @@ export default {
       return this.cart.reduce((total, bet) => total * bet.team1.odd, 1);
     },
     totalPotentialGain() {
-      return this.cart.reduce(
-        (total, bet) => total + bet.amount * bet.team1.odd,
-        0
-      );
+      return this.cart
+        .reduce((total, bet) => total + bet.amount * bet.team1.odd, 0)
+        .toFixed(2);
     },
     totalPotentialGainCombine() {
-      return this.totalOdds * this.betAmountCombine;
+      return (this.totalOdds * this.betAmountCombine).toFixed(2);
     },
     betCount() {
       return this.cart.length;
@@ -265,7 +267,7 @@ export default {
       this.totalPotentialGainCombine = 0;
     },
     saveBets() {
-      if (this.totalAmount <= this.betties) {
+      if (this.totalAmount && this.totalAmount <= this.betties) {
         this.alertStatus = "success";
         this.pendingBet = [...this.cart, ...this.pendingBet];
         this.resetData();
@@ -274,6 +276,8 @@ export default {
           type: "betAction",
           bet: { ...this.pendingBet, amount: this.totalAmount }
         });
+      } else if (!this.totalAmount) {
+        this.alertStatus = "amountIsZero";
       } else {
         this.alertStatus = "error";
       }
